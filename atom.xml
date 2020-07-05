@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-07-05T08:04:45.986Z</updated>
+  <updated>2020-07-05T14:03:31.908Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git Note</title>
+    <link href="http://blog.lovexmtx.icu/2020/07/05/Git-Note/"/>
+    <id>http://blog.lovexmtx.icu/2020/07/05/Git-Note/</id>
+    <published>2020-07-05T13:59:59.000Z</published>
+    <updated>2020-07-05T14:03:31.908Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-添加SSH-KEY&quot;&gt;&lt;a href=&quot;#1-添加SSH-KEY&quot; class=&quot;headerlink&quot; title=&quot;1.添加SSH KEY&quot;&gt;&lt;/a&gt;1.添加SSH KEY&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;按如下命令来生成
+        
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Git" scheme="http://blog.lovexmtx.icu/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello MyBlog</title>
