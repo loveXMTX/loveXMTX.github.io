@@ -36,23 +36,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello MyBlog</title>
-    <url>/2020/07/04/hello-MyBlog/</url>
-    <content><![CDATA[<p>这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。</p>
-<h3 id="1-插入本地图片的方式"><a href="#1-插入本地图片的方式" class="headerlink" title="1.插入本地图片的方式"></a>1.插入本地图片的方式</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#载入本地图片的方式，这里是官网的Demo，与一般的MarkDown格式不一致，我试过插件hexo-asset-image，在我的上面好像行不通，以后有空了再研究。</span><br><span class="line">&#123;% img [class names] &#x2F;path&#x2F;to&#x2F;image [width] [height] [title text [alt text]] %&#125;</span><br><span class="line"># 这个path是绝对路径，在hexo的根目录下的public下。</span><br><span class="line"></span><br><span class="line">#以下是我的测试Demo</span><br><span class="line">&#123;% img [test] &#x2F;photos&#x2F;1.jpg  %&#125;</span><br></pre></td></tr></table></figure>
-
-<img src="/photos/1.jpg" class="[test]">
-
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>blog</tag>
-        <tag>杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git Note</title>
     <url>/2020/07/05/Git-Note/</url>
     <content><![CDATA[<h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
@@ -145,8 +128,64 @@
         <category>IT</category>
       </categories>
       <tags>
-        <tag>Git</tag>
         <tag>Linux</tag>
+        <tag>Git</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello MyBlog</title>
+    <url>/2020/07/04/hello-MyBlog/</url>
+    <content><![CDATA[<p>这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。</p>
+<h3 id="1-插入本地图片的方式"><a href="#1-插入本地图片的方式" class="headerlink" title="1.插入本地图片的方式"></a>1.插入本地图片的方式</h3><ul>
+<li>使用官网建议的方式</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#载入本地图片的方式，这里是官网的Demo，与一般的MarkDown格式不一致，我试过插件hexo-asset-image，在我的上面好像行不通，以后有空了再研究。</span><br><span class="line">&#123;% img [class names] &#x2F;path&#x2F;to&#x2F;image [width] [height] [title text [alt text]] %&#125;</span><br><span class="line"># 这个path是绝对路径，在hexo的根目录下的public下。</span><br><span class="line"></span><br><span class="line">#以下是我的测试Demo</span><br><span class="line">&#123;% img [test] &#x2F;photos&#x2F;1.jpg  %&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/photos/1.jpg" class="[test]">
+
+<ul>
+<li><p>搭配Typora使用</p>
+<p><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a>是一款很简洁的markdown文档编辑器，实现了实时预览。</p>
+<ol>
+<li><p>在typora的偏好设置–图像中，插入图片时选择“复制到指定路径”，这里推荐相对路径，比如我的是</p>
+<p><img src="/../../../../../../../../images/image-20200706211722327.png" alt="image-20200706211722327"></p>
+</li>
+<li><p>将截图复制到Typora中，此时图片保存在了本地，如图所示</p>
+<p><img src="/../../../../../../../../images/image-20200706203250687.png" alt="image-20200706203250687"></p>
+</li>
+<li><p>设置typora-root-url</p>
+<p>可以通过<code>./scaffolds/post.md</code>设置，</p>
+<p><img src="/../../../../../../../../images/image-20200706212358599.png" alt="image-20200706212358599"></p>
+<p>typora-root-url的意思是：声明一个在你的本地电脑中预览图片的URL前缀, 你可以在<a href="https://support.typora.io/Images/" target="_blank" rel="noopener">这里</a>找到更多细节。</p>
+<p>比如，在YAML Front Matters中输入<code>typora-root-url: /Users/byp/Documents/gitDir/hexoBlog/source/</code>，那么<code>![alt](/blog/images/test.png)</code>在Typora中就会被识别为<code>![alt](file://typora-root-url: /Users/byp/Documents/gitDir/hexoBlog/source/images/test.png)</code></p>
+<p>​    </p>
+</li>
+</ol>
+<p>因此，如此设置后，直接drag或者粘贴到Typora中，会被存储于<code>/Users/byp/Documents/gitDir/hexoBlog/source/images/</code>中，而由于我们设置了<code>typora-root-url: /Users/byp/Documents/gitDir/hexoBlog/source/</code>，所以他可以被解析为<code>/images/test.jpg</code>，且Hexo会将<code>./source/images/</code>发布到<code>./public/images/</code>，因此在网页上加载也没有任何问题。</p>
+</li>
+</ul>
+<h3 id="2-模版文件"><a href="#2-模版文件" class="headerlink" title="2.模版文件"></a>2.模版文件</h3><ul>
+<li><p>文件夹<code>./scaffolds/</code></p>
+<p><img src="/../../../../../../../../images/image-20200706202112458.png" alt="image-20200706202112458"></p>
+</li>
+</ul>
+<p>包含三份模版文件，当你使用<code>hexo new “blog_document”</code>，会以他们为模版</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">draft.md</span><br><span class="line"></span><br><span class="line">page.md</span><br><span class="line"></span><br><span class="line">post.md</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>blog</tag>
+        <tag>杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--资料分析</title>
+    <url>/2020/07/06/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[]]></content>
   </entry>
 </search>
