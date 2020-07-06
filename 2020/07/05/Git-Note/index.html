@@ -69,13 +69,17 @@
     <div class="article-meta">
       <a href="/2020/07/05/Git-Note/" class="article-date">
   <time datetime="2020-07-05T13:59:59.000Z" itemprop="datePublished">2020-07-05</time>
-</a>   
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IT/">IT</a>
+  </div>
+  
 <div class="word_count">
     <span class="post-time">
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">515</span>
+            <span class="post-count">897</span>
         </span>
     </span>
 
@@ -84,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -100,31 +104,88 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
-<li><p>按如下命令来生成 sshkey:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-<p>按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
-<p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
-</li>
-<li><p>在Github或者Gitee上添加公钥</p>
-</li>
+<li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
+按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</li>
 </ul>
-<p>Gitee：复制生成后的 ssh key，点击头像-》设置-》SSH公钥（如图所示）添加生成的 public key</p>
-<p>Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</p>
 <ul>
+<li><p>在Github或者Gitee上添加公钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>添加后，在终端（Terminal）中输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@gitee.com</span><br><span class="line"></span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>首次使用需要确认并添加主机到本机SSH可信列表。若返回 Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access. 内容，则证明添加成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>首次使用需要确认并添加主机到本机SSH可信列表。若返回</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi XXX! You&#39;ve successfully authenticated, but Gitee.com does not provide shell access.</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<p>则证明添加成功。</p>
 <h3 id="2-git-clone"><a href="#2-git-clone" class="headerlink" title="2.git clone"></a>2.git clone</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法：git clone [url]</span><br><span class="line"></span><br><span class="line">该命令可用于通过指定的URL获取一个代码库。</span><br></pre></td></tr></table></figure>
-<h3 id="3-git-add"><a href="#3-git-add" class="headerlink" title="3.git add"></a>3.git add</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用法：git add [file]</span><br><span class="line"></span><br><span class="line">该命令可以将一个文件添加至stage(暂存区)。</span><br><span class="line"></span><br><span class="line">用法：git add *</span><br><span class="line"></span><br><span class="line">该命令可以将多个文件添加至stage(暂存区)。</span><br></pre></td></tr></table></figure>
-<h3 id="4-git-remote"><a href="#4-git-remote" class="headerlink" title="4.git remote"></a>4.git remote</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote add [variable name] [Remote Server Link]</span><br><span class="line">&#x2F;&#x2F;你可以通过该命令将本地的代码库连接到远程服务器</span><br><span class="line"></span><br><span class="line">git remote -v  &#x2F;&#x2F;列出详细信息，在每一个名字后面列出其远程url</span><br><span class="line">&#x2F;&#x2F;-v 选项(译注:此为 –verbose 的简写,取首字母),显示对应的克隆地址。</span><br></pre></td></tr></table></figure>
-<h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法：git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">该命令可以在版本历史记录中永久记录文件。</span><br></pre></td></tr></table></figure>
-<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br><span class="line"></span><br><span class="line">该命令可以将主分支上提交的变更发送到远程代码库。</span><br><span class="line"></span><br><span class="line">用法：git push –all [variable name]</span><br><span class="line"></span><br><span class="line">该命令可以将所有分支发送到远程代码库。</span><br><span class="line"></span><br><span class="line">用法：git pull [Repository Link]</span><br><span class="line"></span><br><span class="line">该命令将获取远程服务器上的变更，并合并到你的工作目录。</span><br></pre></td></tr></table></figure>
 
+
+<h3 id="3-git-add"><a href="#3-git-add" class="headerlink" title="3.git add"></a>3.git add</h3><p>该命令可以将一个文件或者文件夹添加至stage(暂存区)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git add [file] or [floder]</span><br></pre></td></tr></table></figure>
+<p>一下命令可以将多个文件添加至stage(暂存区)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add *</span><br><span class="line"></span><br><span class="line">git add all</span><br><span class="line"></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-git-remote"><a href="#4-git-remote" class="headerlink" title="4.git remote"></a>4.git remote</h3><p>你可以通过该命令将本地的代码库连接到远程服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [variable name] [Remote Server Link]</span><br></pre></td></tr></table></figure>
+<p>值得注意的是：同一个本地repo，可以关联到多个远程repo，只需要多次添加就可以了。</p>
+<p>eg：有一个本地仓库，我希望同时同步到github和gitee上去，此时我们可以按如下三步</p>
+<ul>
+<li><p>先删除已关联的名为origin的远程库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm origin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先后关联GitHub的远程库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add github git@github.com:loveXMTX&#x2F;demo.git</span><br><span class="line">git remote add gitee git@gitee.com:loveXMTX&#x2F;demo.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列出详细信息，在每一个名字后面列出其远程url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><p>该命令可以在版本历史记录中永久记录文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">#怎么说呢，目前我还没有理解到这个commit的精髓</span><br></pre></td></tr></table></figure>
+<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>该命令可以将主分支上提交的变更发送到远程代码库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br></pre></td></tr></table></figure>
+
+<p>该命令可以将所有分支发送到远程代码库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push –all [variable name]</span><br></pre></td></tr></table></figure>
+
+<p>该命令将获取远程服务器上的变更，并合并到你的工作目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git pull [Repository Link]</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-git-config"><a href="#7-git-config" class="headerlink" title="7. git config"></a>7. git config</h3><p>在git中，我们使用git config 命令用来配置git的配置文件，git配置级别主要有以下3类：</p>
+<ul>
+<li><ol>
+<li>仓库级别 local 【优先级最高】</li>
+</ol>
+<p>git 仓库级别对应的配置文件是当前仓库下的<code>.git/config</code> </p>
+<blockquote>
+<p>在当前目录下.git目录默认是隐藏的，所以在文件管理器中我们要打开显示以藏文件）</p>
+</blockquote>
+</li>
+<li><p>2.用户级别 global【优先级次之】</p>
+<p>git 用户级别对应的配置文件是用户宿主目录下的<code>~/.gitconfig</code> </p>
+</li>
+<li><p>3.系统级别 system【优先级最低】</p>
+<p>git系统级别对应的配置文件是git安装目录下的 <code>/etc/gitconfig</code></p>
+</li>
+</ul>
+<p>那么config配置文件中具体有什么东西呢？</p>
+<p>你可以通过<code>git config -l</code>来查看</p>
+<p>常用的命令</p>
+<ul>
+<li><p>git config -e 编辑配置文件 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># git config --local -e 编辑仓库级别配置文件</span><br><span class="line"># git config --global -e 编辑用户级别配置文件</span><br><span class="line"># git config --system -e 编辑系统级别配置文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git config 添加配置项目 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># git config --global user.email “you@example.com”</span><br><span class="line"># git config --global user.name “Your Name”</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 <hr>
 <p>太晚了，改天再加。。。。</p>
  
@@ -198,7 +259,7 @@
 </div>
 
 <div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
     </footer>
   </div>

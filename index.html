@@ -127,37 +127,98 @@
     <div class="article-meta">
       <a href="/2020/07/05/Git-Note/" class="article-date">
   <time datetime="2020-07-05T13:59:59.000Z" itemprop="datePublished">2020-07-05</time>
-</a>    
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/IT/">IT</a>
+  </div>
+   
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
   <h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
-<li><p>按如下命令来生成 sshkey:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-<p>按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
-<p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
-</li>
-<li><p>在Github或者Gitee上添加公钥</p>
-</li>
+<li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
+按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</li>
 </ul>
-<p>Gitee：复制生成后的 ssh key，点击头像-》设置-》SSH公钥（如图所示）添加生成的 public key</p>
-<p>Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</p>
 <ul>
+<li><p>在Github或者Gitee上添加公钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>添加后，在终端（Terminal）中输入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@gitee.com</span><br><span class="line"></span><br><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-<p>首次使用需要确认并添加主机到本机SSH可信列表。若返回 Hi XXX! You’ve successfully authenticated, but Gitee.com does not provide shell access. 内容，则证明添加成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>首次使用需要确认并添加主机到本机SSH可信列表。若返回</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi XXX! You&#39;ve successfully authenticated, but Gitee.com does not provide shell access.</span><br></pre></td></tr></table></figure>
 
 </li>
 </ul>
+<p>则证明添加成功。</p>
 <h3 id="2-git-clone"><a href="#2-git-clone" class="headerlink" title="2.git clone"></a>2.git clone</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法：git clone [url]</span><br><span class="line"></span><br><span class="line">该命令可用于通过指定的URL获取一个代码库。</span><br></pre></td></tr></table></figure>
-<h3 id="3-git-add"><a href="#3-git-add" class="headerlink" title="3.git add"></a>3.git add</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">用法：git add [file]</span><br><span class="line"></span><br><span class="line">该命令可以将一个文件添加至stage(暂存区)。</span><br><span class="line"></span><br><span class="line">用法：git add *</span><br><span class="line"></span><br><span class="line">该命令可以将多个文件添加至stage(暂存区)。</span><br></pre></td></tr></table></figure>
-<h3 id="4-git-remote"><a href="#4-git-remote" class="headerlink" title="4.git remote"></a>4.git remote</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git remote add [variable name] [Remote Server Link]</span><br><span class="line">&#x2F;&#x2F;你可以通过该命令将本地的代码库连接到远程服务器</span><br><span class="line"></span><br><span class="line">git remote -v  &#x2F;&#x2F;列出详细信息，在每一个名字后面列出其远程url</span><br><span class="line">&#x2F;&#x2F;-v 选项(译注:此为 –verbose 的简写,取首字母),显示对应的克隆地址。</span><br></pre></td></tr></table></figure>
-<h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">用法：git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">该命令可以在版本历史记录中永久记录文件。</span><br></pre></td></tr></table></figure>
-<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br><span class="line"></span><br><span class="line">该命令可以将主分支上提交的变更发送到远程代码库。</span><br><span class="line"></span><br><span class="line">用法：git push –all [variable name]</span><br><span class="line"></span><br><span class="line">该命令可以将所有分支发送到远程代码库。</span><br><span class="line"></span><br><span class="line">用法：git pull [Repository Link]</span><br><span class="line"></span><br><span class="line">该命令将获取远程服务器上的变更，并合并到你的工作目录。</span><br></pre></td></tr></table></figure>
 
+
+<h3 id="3-git-add"><a href="#3-git-add" class="headerlink" title="3.git add"></a>3.git add</h3><p>该命令可以将一个文件或者文件夹添加至stage(暂存区)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git add [file] or [floder]</span><br></pre></td></tr></table></figure>
+<p>一下命令可以将多个文件添加至stage(暂存区)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add *</span><br><span class="line"></span><br><span class="line">git add all</span><br><span class="line"></span><br><span class="line">git add .</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-git-remote"><a href="#4-git-remote" class="headerlink" title="4.git remote"></a>4.git remote</h3><p>你可以通过该命令将本地的代码库连接到远程服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add [variable name] [Remote Server Link]</span><br></pre></td></tr></table></figure>
+<p>值得注意的是：同一个本地repo，可以关联到多个远程repo，只需要多次添加就可以了。</p>
+<p>eg：有一个本地仓库，我希望同时同步到github和gitee上去，此时我们可以按如下三步</p>
+<ul>
+<li><p>先删除已关联的名为origin的远程库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote rm origin</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先后关联GitHub的远程库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add github git@github.com:loveXMTX&#x2F;demo.git</span><br><span class="line">git remote add gitee git@gitee.com:loveXMTX&#x2F;demo.git</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>列出详细信息，在每一个名字后面列出其远程url</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><p>该命令可以在版本历史记录中永久记录文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">#怎么说呢，目前我还没有理解到这个commit的精髓</span><br></pre></td></tr></table></figure>
+<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>该命令可以将主分支上提交的变更发送到远程代码库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br></pre></td></tr></table></figure>
+
+<p>该命令可以将所有分支发送到远程代码库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push –all [variable name]</span><br></pre></td></tr></table></figure>
+
+<p>该命令将获取远程服务器上的变更，并合并到你的工作目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git pull [Repository Link]</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-git-config"><a href="#7-git-config" class="headerlink" title="7. git config"></a>7. git config</h3><p>在git中，我们使用git config 命令用来配置git的配置文件，git配置级别主要有以下3类：</p>
+<ul>
+<li><ol>
+<li>仓库级别 local 【优先级最高】</li>
+</ol>
+<p>git 仓库级别对应的配置文件是当前仓库下的<code>.git/config</code> </p>
+<blockquote>
+<p>在当前目录下.git目录默认是隐藏的，所以在文件管理器中我们要打开显示以藏文件）</p>
+</blockquote>
+</li>
+<li><p>2.用户级别 global【优先级次之】</p>
+<p>git 用户级别对应的配置文件是用户宿主目录下的<code>~/.gitconfig</code> </p>
+</li>
+<li><p>3.系统级别 system【优先级最低】</p>
+<p>git系统级别对应的配置文件是git安装目录下的 <code>/etc/gitconfig</code></p>
+</li>
+</ul>
+<p>那么config配置文件中具体有什么东西呢？</p>
+<p>你可以通过<code>git config -l</code>来查看</p>
+<p>常用的命令</p>
+<ul>
+<li><p>git config -e 编辑配置文件 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># git config --local -e 编辑仓库级别配置文件</span><br><span class="line"># git config --global -e 编辑用户级别配置文件</span><br><span class="line"># git config --system -e 编辑系统级别配置文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>git config 添加配置项目 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># git config --global user.email “you@example.com”</span><br><span class="line"># git config --global user.name “Your Name”</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 <hr>
 <p>太晚了，改天再加。。。。</p>
  
@@ -170,7 +231,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
     </footer>
   </div>
@@ -203,7 +264,11 @@
     <div class="article-meta">
       <a href="/2020/07/04/hello-MyBlog/" class="article-date">
   <time datetime="2020-07-04T14:40:52.770Z" itemprop="datePublished">2020-07-04</time>
-</a>    
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
+  </div>
+   
     </div>
       
     <div class="article-entry" itemprop="articleBody">
@@ -223,6 +288,8 @@
     
     <footer class="article-footer">
        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/" rel="tag">blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E8%B0%88/" rel="tag">杂谈</a></li></ul>
+
     </footer>
   </div>
 
@@ -260,26 +327,22 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
-<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>他们的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
-<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><ul>
-<li>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译</li>
-</ul>
-<p>No.1首先在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，wget它，解压。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
-<hr>
+<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
+<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
+<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
 <ul>
-<li>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</li>
+<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
+<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
 <h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
 
-
 <hr>
-<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><ul>
-<li>但是，我发现了几个问题：</li>
+<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
+<ul>
 <li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
 <li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
-<li></li>
 </ul>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
 <p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
@@ -298,7 +361,7 @@
     
     <footer class="article-footer">
        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux-%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD-%E6%8A%98%E8%85%BE/" rel="tag">Linux 离线下载 折腾</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/" rel="tag">离线下载</a></li></ul>
 
     </footer>
   </div>
