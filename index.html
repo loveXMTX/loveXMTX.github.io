@@ -106,6 +106,112 @@
     
     
     <article
+  id="post-Mac原生挂载ntfs的方法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/"
+    >Mac原生挂载ntfs的方法</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/" class="article-date">
+  <time datetime="2020-07-07T02:53:36.000Z" itemprop="datePublished">2020-07-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Mac/">Mac</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信很多小伙伴会遇到这样一个问题：在Mac下如何挂载NTFS硬盘？</p>
+<p>一般你可以通过第三方软件 NTFS For Mac 或者 Mounty来完成，但每次弹窗点来点去会有些麻烦，而且有些时候由于硬盘非正常退出，你需要在Windows下进行安全退出才能挂载。</p>
+<p>由于以上种种，我选择了使用Mac原生挂载的方式，一劳永逸！</p>
+<h3 id="流程摘要"><a href="#流程摘要" class="headerlink" title="流程摘要"></a>流程摘要</h3><blockquote>
+<ol>
+<li>挂载上NTFS硬盘，查看硬盘名称</li>
+<li>编辑/etc/fstab文件，使其支持NTFS写入</li>
+<li>将/Volumes中的NTFS磁盘快捷方式到Finder</li>
+</ol>
+</blockquote>
+<h3 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h3><ul>
+<li><p>插上硬盘后，查看硬盘名称</p>
+<ol>
+<li><p>一般我们可以通过打开应用程序里的终端, 或者直接spotlight输入terminal打开。</p>
+</li>
+<li><p>输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#列出所有磁盘分区，其中&#x2F;dev&#x2F;disk_n就是你的硬盘，通常0是自己的本地Mac安装盘</span><br><span class="line"></span><br><span class="line">byp@Byps-Mac-mini hexoBlog % diskutil list </span><br><span class="line">&#x2F;dev&#x2F;disk0 (internal, physical):</span><br><span class="line">   #:                       TYPE NAME                    SIZE       IDENTIFIER</span><br><span class="line">   0:      GUID_partition_scheme                        *1.0 TB     disk0</span><br><span class="line">                  256.1 GB   disk1s1</span><br><span class="line"></span><br><span class="line">.........此处省略</span><br><span class="line"></span><br><span class="line">&#x2F;dev&#x2F;disk3 (external, physical):</span><br><span class="line">   #:                       TYPE NAME                    SIZE       IDENTIFIER</span><br><span class="line">   0:     FDisk_partition_scheme                        *500.1 GB   disk3</span><br><span class="line">   1:               Windows_NTFS XMTX                    500.1 GB   disk3s1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#查看硬盘，通常情况下硬盘会被挂载在&#x2F;Volumes&#x2F;目录下</span><br><span class="line">byp@Byps-Mac-mini hexoBlog % ls &#x2F;Volumes&#x2F;</span><br><span class="line">MAC 1		Mac		Untitled	XMTX</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>记住我们要挂载硬盘的名字，比如我的是XMTX。</p>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>编辑/etc/fstab文件，使其支持NTFS写入</p>
+<p>你可以通过终端或者文本编辑器完成</p>
+<ol>
+<li>通过终端命令编辑</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano &#x2F;etc&#x2F;fstab</span><br></pre></td></tr></table></figure>
+
+<p>你将会看到了一个编辑界面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 输入以下内容</span><br><span class="line">LABEL&#x3D;XMTX none ntfs rw,auto,nobrowse</span><br><span class="line"></span><br><span class="line"># 之后敲击回车，再Ctrl+X，再敲击Y，再敲击回车</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过文本编辑器编辑<img src="/../../../../../../../../images/image-20200707113429637.png" alt="image-20200707113429637"></li>
+</ol>
+</li>
+<li><p>将/Volumes中的NTFS磁盘快捷方式到Finder</p>
+<p>此时，退出你的移动硬盘，再重新插入，你会发现磁盘没有显示再桌面或是Finder之前出现的地方，别慌</p>
+<ol>
+<li><p>打开Finder，Command+Shift+G，输入框中输入<code>/Volumes</code>，回车，你就可以看到你的磁盘啦！是可以读写的哟～</p>
+</li>
+<li><p>方便起见，你可以直接把磁盘拖到Finder侧边栏中，这样下次使用就不用进入到/Volumes目录打开了</p>
+<p><img src="/../../../../../../../../images/image-20200707114324737.png" alt="image-20200707114324737"></p>
+</li>
+<li><p>或者你也可以设置软链接</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 创建软链接，可以理解为快捷方式，这里我们设置到桌面上</span><br><span class="line">ln -s &#x2F;Volumes&#x2F;XMTX&#x2F; ~&#x2F;Desktop&#x2F;XMTX</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../../../../../../../../images/image-20200707112614637.png" alt="Demo图"></p>
+</li>
+</ol>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-行测-资料分析"
   class="article article-type-post"
   itemscope
