@@ -79,7 +79,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">897</span>
+            <span class="post-count">1.3k</span>
         </span>
     </span>
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">5 min</span>
         </span>
     </span>
 </div>
@@ -105,9 +105,12 @@
        
   <h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
 <li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
-值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</li>
+按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</li>
 </ul>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+<p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
 <ul>
 <li><p>在Github或者Gitee上添加公钥</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
@@ -148,11 +151,14 @@
 </ul>
 <h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><p>该命令可以在版本历史记录中永久记录文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">#怎么说呢，目前我还没有理解到这个commit的精髓</span><br></pre></td></tr></table></figure>
-<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>该命令可以将主分支上提交的变更发送到远程代码库</p>
+<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>将主分支上提交的变更发送到远程代码库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br></pre></td></tr></table></figure>
 
-<p>该命令可以将所有分支发送到远程代码库</p>
+<p>将所有分支发送到远程代码库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git push –all [variable name]</span><br></pre></td></tr></table></figure>
+
+<p>设置远程分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#origin&#x2F;remote_branch是你本地分支对应的远程分支；your_branch是你当前的本地分支。</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;remote_branch  your_branch</span><br></pre></td></tr></table></figure>
 
 <p>该命令将获取远程服务器上的变更，并合并到你的工作目录</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用法：git pull [Repository Link]</span><br></pre></td></tr></table></figure>
@@ -186,8 +192,56 @@
 
 </li>
 </ul>
-<hr>
-<p>太晚了，改天再加。。。。</p>
+<h3 id="8-git-branch"><a href="#8-git-branch" class="headerlink" title="8.git branch"></a>8.git branch</h3><ul>
+<li><p>创建分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch test #test为分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将新分支推送到github</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin [branch name]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#查看本地分支</span><br><span class="line">git branch</span><br><span class="line"></span><br><span class="line">#查看远程分支</span><br><span class="line">git branch -r</span><br><span class="line"></span><br><span class="line">#查看所有分支</span><br><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#删除本地分支</span><br><span class="line">git branch -d [branch name]</span><br><span class="line"></span><br><span class="line">#删除github远程分支,分支名前的冒号代表删除。</span><br><span class="line">git push origin :[branch name]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="回退到某个版本"><a href="#回退到某个版本" class="headerlink" title="回退到某个版本"></a>回退到某个版本</h3><ul>
+<li><p>查看之前提交的记录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br><span class="line"></span><br><span class="line">commit 7efbc0bb4f42bc837027fe929f05d4148aff354e (HEAD -&gt; master, origin&#x2F;hexo)</span><br><span class="line">Merge: 8a3b11a 9113919</span><br><span class="line">Author: XXX</span><br><span class="line">Date:   XXX</span><br><span class="line">		commit信息（你自己注释的）</span><br><span class="line"></span><br><span class="line">commit 8a3b11a41b4c0c19fe6cf0a8a7443c86a43e8e5e</span><br><span class="line">Author: XXX</span><br><span class="line">Date:   XXX</span><br><span class="line"></span><br><span class="line">    Add YuanMa</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回到指定版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard [你需要选择的版本信息]比如：7efbc0bb4f42bc837027fe929f05d4148aff354e</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin master</span><br><span class="line"></span><br><span class="line">#如果提交不了，你可能需要先merge一下远程的分支 </span><br><span class="line">git pull [repo的别名] [远程的branch名称]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="将本地的分支推送到远程的非master分支"><a href="#将本地的分支推送到远程的非master分支" class="headerlink" title="将本地的分支推送到远程的非master分支"></a>将本地的分支推送到远程的非master分支</h3><ul>
+<li><p>在本地repo根目录下初始化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加远程repo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remoote add [repo别名--你自己取] [远程repo url]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加到工作区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add . #或者选择你需要添加的文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;你自己的注视，方便你自己记忆提交版本，以便你以后可能回退&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>推送</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#推送到master分支</span><br><span class="line">git push [repo别名] master</span><br><span class="line"></span><br><span class="line">#推送到非master分支</span><br><span class="line">git push [repo别名] master:[远程分支名]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
  
       <!-- reward -->
       
@@ -267,11 +321,11 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/07/06/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/" class="article-nav-link">
+      <a href="/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            行测--资料分析
+            Mac原生挂载ntfs的方法
           
         </div>
       </a>

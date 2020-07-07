@@ -5,6 +5,8 @@
     <url>/2020/06/24/Aria2-Note/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
 <p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
+<a id="more"></a>
+
 <h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
 <p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
 <ul>
@@ -40,9 +42,12 @@
     <url>/2020/07/05/Git-Note/</url>
     <content><![CDATA[<h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
 <li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
-值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</li>
+按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</li>
 </ul>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+<p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
 <ul>
 <li><p>在Github或者Gitee上添加公钥</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
@@ -83,11 +88,14 @@
 </ul>
 <h3 id="5-git-commit"><a href="#5-git-commit" class="headerlink" title="5.git commit"></a>5.git commit</h3><p>该命令可以在版本历史记录中永久记录文件</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit -m “[ Type in the commit message]”</span><br><span class="line"></span><br><span class="line">#怎么说呢，目前我还没有理解到这个commit的精髓</span><br></pre></td></tr></table></figure>
-<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>该命令可以将主分支上提交的变更发送到远程代码库</p>
+<h3 id="6-git-push-amp-git-pull"><a href="#6-git-push-amp-git-pull" class="headerlink" title="6.git push&amp; git pull"></a>6.git push&amp; git pull</h3><p>将主分支上提交的变更发送到远程代码库</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用法：git push [variable name] master</span><br></pre></td></tr></table></figure>
 
-<p>该命令可以将所有分支发送到远程代码库</p>
+<p>将所有分支发送到远程代码库</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用法：git push –all [variable name]</span><br></pre></td></tr></table></figure>
+
+<p>设置远程分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#origin&#x2F;remote_branch是你本地分支对应的远程分支；your_branch是你当前的本地分支。</span><br><span class="line">git branch --set-upstream-to&#x3D;origin&#x2F;remote_branch  your_branch</span><br></pre></td></tr></table></figure>
 
 <p>该命令将获取远程服务器上的变更，并合并到你的工作目录</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">用法：git pull [Repository Link]</span><br></pre></td></tr></table></figure>
@@ -121,8 +129,56 @@
 
 </li>
 </ul>
-<hr>
-<p>太晚了，改天再加。。。。</p>
+<h3 id="8-git-branch"><a href="#8-git-branch" class="headerlink" title="8.git branch"></a>8.git branch</h3><ul>
+<li><p>创建分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git branch test #test为分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>切换分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git checkout test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将新分支推送到github</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push origin [branch name]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#查看本地分支</span><br><span class="line">git branch</span><br><span class="line"></span><br><span class="line">#查看远程分支</span><br><span class="line">git branch -r</span><br><span class="line"></span><br><span class="line">#查看所有分支</span><br><span class="line">git branch -a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除分支</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#删除本地分支</span><br><span class="line">git branch -d [branch name]</span><br><span class="line"></span><br><span class="line">#删除github远程分支,分支名前的冒号代表删除。</span><br><span class="line">git push origin :[branch name]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="回退到某个版本"><a href="#回退到某个版本" class="headerlink" title="回退到某个版本"></a>回退到某个版本</h3><ul>
+<li><p>查看之前提交的记录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git log</span><br><span class="line"></span><br><span class="line">commit 7efbc0bb4f42bc837027fe929f05d4148aff354e (HEAD -&gt; master, origin&#x2F;hexo)</span><br><span class="line">Merge: 8a3b11a 9113919</span><br><span class="line">Author: XXX</span><br><span class="line">Date:   XXX</span><br><span class="line">		commit信息（你自己注释的）</span><br><span class="line"></span><br><span class="line">commit 8a3b11a41b4c0c19fe6cf0a8a7443c86a43e8e5e</span><br><span class="line">Author: XXX</span><br><span class="line">Date:   XXX</span><br><span class="line"></span><br><span class="line">    Add YuanMa</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>回到指定版本：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git reset --hard [你需要选择的版本信息]比如：7efbc0bb4f42bc837027fe929f05d4148aff354e</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push -f origin master</span><br><span class="line"></span><br><span class="line">#如果提交不了，你可能需要先merge一下远程的分支 </span><br><span class="line">git pull [repo的别名] [远程的branch名称]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="将本地的分支推送到远程的非master分支"><a href="#将本地的分支推送到远程的非master分支" class="headerlink" title="将本地的分支推送到远程的非master分支"></a>将本地的分支推送到远程的非master分支</h3><ul>
+<li><p>在本地repo根目录下初始化</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加远程repo</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git remoote add [repo别名--你自己取] [远程repo url]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加到工作区</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git add . #或者选择你需要添加的文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git commit -m &quot;你自己的注视，方便你自己记忆提交版本，以便你以后可能回退&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>推送</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#推送到master分支</span><br><span class="line">git push [repo别名] master</span><br><span class="line"></span><br><span class="line">#推送到非master分支</span><br><span class="line">git push [repo别名] master:[远程分支名]</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>IT</category>
@@ -136,6 +192,8 @@
     <title>Hello MyBlog</title>
     <url>/2020/07/04/hello-MyBlog/</url>
     <content><![CDATA[<p>这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。</p>
+<a id="more"></a>
+
 <h3 id="1-插入本地图片的方式"><a href="#1-插入本地图片的方式" class="headerlink" title="1.插入本地图片的方式"></a>1.插入本地图片的方式</h3><ul>
 <li>使用官网建议的方式</li>
 </ul>
@@ -185,8 +243,163 @@
   </entry>
   <entry>
     <title>行测--资料分析</title>
-    <url>/2020/07/06/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[]]></content>
+    <url>/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>资料分析一直是行测考试中较为重要的一个模块，个人认为是 <strong>得分稳</strong>、<strong>分值高</strong>、<strong>性价比高</strong>的模块。</p>
+<p>最近，由于复习进入<strong>“深水区”</strong>，特地重新梳理一下资料分析的知识点。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
+<ol>
+<li>如何快速查找数据？</li>
+<li>速算技巧</li>
+<li>考点整理</li>
+<li>易错知识点</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-如何快速查找数据？"><a href="#1-如何快速查找数据？" class="headerlink" title="1.如何快速查找数据？"></a>1.如何快速查找数据？</h3><p>资料分析分数取决于速度、正确率，你需要在单位时间内获得最高的分值。因此，数据查找至关重要。</p>
+<ul>
+<li><p>剖析题干</p>
+<p>你需要把握题干中的三个基本点：<strong>时间、主体、考点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【2019 联考】2016年山东、广东和河南三省出生人口之和占当年全国出生人口的比重约为：</span><br><span class="line"></span><br><span class="line">A 21%</span><br><span class="line">B 25%</span><br><span class="line">C 28%</span><br><span class="line">D 31%</span><br></pre></td></tr></table></figure>
+
+<p>你可以圈出 <strong><em>2016年</em></strong>、 <strong><em>广东和河南三省出生人口之和</em></strong>、<strong><em>占（比重问题）</em></strong></p>
+</li>
+<li><p>在题目中查找</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>文字材料</strong>：预留10s-20s来略读一下全文，了解每段在讲些什么东西，比如第一段讲去年往年、第二段将省份之类的。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>图形材料</strong>：需特别注意标题、单位、图例、注释，（扇形图，一般是从0度向360度方向顺时针排列）</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>表格材料</strong>：需特别注意标题、时间、单位、横纵目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="速算技巧"><a href="#速算技巧" class="headerlink" title="速算技巧"></a>速算技巧</h3><ul>
+<li><p>截位直除</p>
+</li>
+<li><p>分子分母比较法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;(1+r)&#x3D;A*(1+r) # 当r&lt;5%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>A * a%  </p>
+<p>将a% 拆分称常用的1/2 ,1/4之类的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">945 * 44.2% &#x3D; 945 * 40% + 945 * 4% + 945 * 0.2%</span><br><span class="line"></span><br><span class="line">或者 &#x3D;945 * 4&#x2F;9</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>多位数求和</p>
+<ul>
+<li>四舍五入（取前两位）</li>
+<li>基准法（找一个基准数）适用于数据波动较小</li>
+<li>尾数法（适用于精确计算）</li>
+</ul>
+</li>
+<li><p>比重计算（特殊）</p>
+<p>比重靠近100%时，用1-a来计算</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3927&#x2F;4041 &#x3D; 1 -110&#x2F;4041 &#x3D; 1 - 2.x% &#x3D; 97.x% 选A</span><br><span class="line"></span><br><span class="line">A 97%</span><br><span class="line">B 99%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>特殊题型 <code>A * a% - B * b%</code>当A与B非常大的时候</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">134735 * 9.1% - 134091 * 8.9%</span><br><span class="line"></span><br><span class="line">A 124</span><br><span class="line">B 249</span><br><span class="line">C 327</span><br><span class="line">D 467</span><br><span class="line"></span><br><span class="line">&#x3D; 134735 * (9.1% - 8.9%) - (134091 - 134735) * 8.9%</span><br><span class="line">&#x3D; 134735 * 0.2% + 644 * 8.9%</span><br><span class="line">&#x3D; 269.x + 57.x &#x3D; 326.x  选C</span><br></pre></td></tr></table></figure>
+
+<p>不能直接化成分数计算，不然结果误差很大</p>
+</li>
+</ul>
+<h3 id="知识点汇总"><a href="#知识点汇总" class="headerlink" title="知识点汇总"></a>知识点汇总</h3><ul>
+<li><p>隔年增长率</p>
+<ul>
+<li>隔年倍数</li>
+<li>隔年基期量</li>
+<li>逆向运用</li>
+</ul>
+</li>
+<li><p>合成增长率</p>
+<p>十字交叉法：值得注意的是，十字交叉法本来得到的是基期，只不过我们经常用近似值，现期量来替代。</p>
+</li>
+<li><p>年均增长率</p>
+<ul>
+<li><p>编数法</p>
+<blockquote>
+<p>编造每一年的值，尽量分布得均匀一些、方便自己计算，然后计算每一年的增长率，最后再求平均值</p>
+<p>—–公考齐麟</p>
+</blockquote>
+<p>例如：已知2010的基期产量为1000亿，2015年的现期产量为2000亿，求这五年的年均增长率。</p>
+<p>此时假设2011-2014每年的产量如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+<th>2015</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1000</td>
+<td>1200</td>
+<td>1400</td>
+<td>1600</td>
+<td>1800</td>
+<td>2000</td>
+</tr>
+</tbody></table>
+<p>计算每一年的增长率，以A表示</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A2011&#x3D;(1200-1000)&#x2F;1000&#x3D;0.2</span><br><span class="line">A2012&#x3D;(1400-1200)&#x2F;1200&#x3D;0.167</span><br><span class="line">A2013&#x3D;0.143</span><br><span class="line">A2014&#x3D;0.125</span><br><span class="line">A2015&#x3D;0.111</span><br></pre></td></tr></table></figure>
+
+<p>那么年均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x3D;(0.2+0.167+0.143+0.125+0.111)&#x2F;5&#x3D;15.6%</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>平均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(a-b)&#x2F;(1-b)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>比重增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;B * (a-b)&#x2F;(1+a)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>a&gt;b ，比重比上年⬆️</p>
+</li>
+<li><p>a&lt;b，比重比上年⬇️</p>
+</li>
+<li><p>逆向运用</p>
+</li>
+<li><p>通常比重的变化量&lt;&lt; (a-b)</p>
+</li>
+<li><p>注意与基期公式结合<code>A/B * (1+b)/(1+a)</code></p>
+</li>
+</ul>
+</li>
+<li><p>综合分析错略</p>
+<ul>
+<li>倒序验证</li>
+<li>某个选项太难直接跳过（其实可以优先考虑题干短的、现期的）</li>
+<li>确定某个选项对了直接跳过</li>
+</ul>
+</li>
+</ul>
+<h3 id="易错知识点"><a href="#易错知识点" class="headerlink" title="易错知识点"></a>易错知识点</h3><ul>
+<li>增幅、降幅、变化幅度</li>
+<li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
+<li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
+<li>不到、约、近、超过、XX多（XX余）</li>
+<li>量级 （特别是综合分析中）</li>
+</ul>
+<hr>
+<p>先写这么多吧，以后错题有补充的再添加！</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mac原生挂载ntfs的方法</title>
@@ -194,6 +407,8 @@
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信很多小伙伴会遇到这样一个问题：在Mac下如何挂载NTFS硬盘？</p>
 <p>一般你可以通过第三方软件 NTFS For Mac 或者 Mounty来完成，但每次弹窗点来点去会有些麻烦，而且有些时候由于硬盘非正常退出，你需要在Windows下进行安全退出才能挂载。</p>
 <p>由于以上种种，我选择了使用Mac原生挂载的方式，一劳永逸！</p>
+<a id="more"></a>
+
 <h3 id="流程摘要"><a href="#流程摘要" class="headerlink" title="流程摘要"></a>流程摘要</h3><blockquote>
 <ol>
 <li>挂载上NTFS硬盘，查看硬盘名称</li>

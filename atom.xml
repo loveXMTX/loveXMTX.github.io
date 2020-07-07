@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-07-07T03:46:56.566Z</updated>
+  <updated>2020-07-07T15:06:16.331Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -17,22 +17,47 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>行测--资料分析</title>
+    <link href="http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/"/>
+    <id>http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</id>
+    <published>2020-07-07T08:44:50.000Z</published>
+    <updated>2020-07-07T15:06:16.331Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;资料分析一直是行测考试中较为重要的一个模块，个人认为是 &lt;strong&gt;得分稳&lt;/strong&gt;、&lt;strong&gt;分值高&lt;/strong&gt;、&lt;strong&gt;性价比高&lt;/strong&gt;的模块。&lt;/p&gt;
+&lt;p&gt;最近，由于复习进入&lt;strong&gt;“深水区”&lt;/strong&gt;，特地重新梳理一下资料分析的知识点。&lt;/p&gt;
+&lt;h3 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h3&gt;&lt;blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;如何快速查找数据？&lt;/li&gt;
+&lt;li&gt;速算技巧&lt;/li&gt;
+&lt;li&gt;考点整理&lt;/li&gt;
+&lt;li&gt;易错知识点&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
+    
+    
+      <category term="行测" scheme="http://blog.lovexmtx.icu/tags/%E8%A1%8C%E6%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mac原生挂载ntfs的方法</title>
     <link href="http://blog.lovexmtx.icu/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <id>http://blog.lovexmtx.icu/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/</id>
     <published>2020-07-07T02:53:36.000Z</published>
-    <updated>2020-07-07T03:46:56.566Z</updated>
+    <updated>2020-07-07T15:05:56.513Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;相信很多小伙伴会遇到这样一个问题：在Mac下如何挂载NTFS硬盘？&lt;/p&gt;
-&lt;p&gt;一般你可以通过第三方软件 NTFS For Mac 或者
-        
-      
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;相信很多小伙伴会遇到这样一个问题：在Mac下如何挂载NTFS硬盘？&lt;/p&gt;
+&lt;p&gt;一般你可以通过第三方软件 NTFS For Mac 或者 Mounty来完成，但每次弹窗点来点去会有些麻烦，而且有些时候由于硬盘非正常退出，你需要在Windows下进行安全退出才能挂载。&lt;/p&gt;
+&lt;p&gt;由于以上种种，我选择了使用Mac原生挂载的方式，一劳永逸！&lt;/p&gt;
     
     </summary>
     
@@ -45,37 +70,18 @@
   </entry>
   
   <entry>
-    <title>行测--资料分析</title>
-    <link href="http://blog.lovexmtx.icu/2020/07/06/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.lovexmtx.icu/2020/07/06/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</id>
-    <published>2020-07-06T11:42:43.000Z</published>
-    <updated>2020-07-06T11:42:43.160Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Git Note</title>
     <link href="http://blog.lovexmtx.icu/2020/07/05/Git-Note/"/>
     <id>http://blog.lovexmtx.icu/2020/07/05/Git-Note/</id>
     <published>2020-07-05T13:59:59.000Z</published>
-    <updated>2020-07-06T11:41:27.366Z</updated>
+    <updated>2020-07-07T15:05:17.978Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;1-添加SSH-KEY&quot;&gt;&lt;a href=&quot;#1-添加SSH-KEY&quot; class=&quot;headerlink&quot; title=&quot;1.添加SSH KEY&quot;&gt;&lt;/a&gt;1.添加SSH KEY&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;按如下命令来生成 sshkey:&lt;figure
-        
-      
+      &lt;h3 id=&quot;1-添加SSH-KEY&quot;&gt;&lt;a href=&quot;#1-添加SSH-KEY&quot; class=&quot;headerlink&quot; title=&quot;1.添加SSH KEY&quot;&gt;&lt;/a&gt;1.添加SSH KEY&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;按如下命令来生成 sshkey:&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ssh-keygen -t rsa -C &amp;quot;xxxxx@xxxxx.com&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
@@ -94,18 +100,11 @@
     <link href="http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/"/>
     <id>http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/</id>
     <published>2020-07-04T14:40:52.770Z</published>
-    <updated>2020-07-06T13:35:51.668Z</updated>
+    <updated>2020-07-07T15:06:03.275Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。&lt;/p&gt;
-&lt;h3 id=&quot;1-插入本地图片的方式&quot;&gt;&lt;a href=&quot;#1-插入本地图片的方式&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;p&gt;这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。&lt;/p&gt;
     
     </summary>
     
@@ -124,17 +123,12 @@
     <link href="http://blog.lovexmtx.icu/2020/06/24/Aria2-Note/"/>
     <id>http://blog.lovexmtx.icu/2020/06/24/Aria2-Note/</id>
     <published>2020-06-24T06:27:02.000Z</published>
-    <updated>2020-07-06T09:41:59.090Z</updated>
+    <updated>2020-07-07T15:06:09.124Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。&lt;/p&gt;
+&lt;p&gt;而且我发现&lt;a href=&quot;https://www.natfrp.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;sakurafrp&lt;/a&gt;的映射服务有4-8mbps的上行带宽（实测1mb/s），&lt;a href=&quot;https://moe.do/archives/sakurafrp_help.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;映射教程&lt;/a&gt;，如此机会怎能不行动呢？&lt;/p&gt;
     
     </summary>
     
