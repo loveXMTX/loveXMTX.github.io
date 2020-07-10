@@ -1,53 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Aria2 Note</title>
-    <url>/2020/06/24/Aria2-Note/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
-<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
-<a id="more"></a>
-
-<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
-<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
-<ul>
-<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
-<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
-<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
-<ul>
-<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
-<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
-<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
-<hr>
-<p>以下为aria2 常用命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
-<p>另外有时候需要后台运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-        <tag>离线下载</tag>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git Note</title>
     <url>/2020/07/05/Git-Note/</url>
     <content><![CDATA[<h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
-<li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</li>
+<li><p>按如下命令来生成 sshkey:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
+<p>​    按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</p>
 <a id="more"></a>
 
+<ul>
+<li><p>查看</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+
 <p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
+</li>
+</ul>
 <ul>
 <li><p>在Github或者Gitee上添加公钥</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
@@ -184,8 +155,45 @@
         <category>IT</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Git</tag>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Aria2 Note</title>
+    <url>/2020/06/24/Aria2-Note/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
+<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
+<a id="more"></a>
+
+<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
+<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
+<ul>
+<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
+<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
+<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
+<ul>
+<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
+<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
+<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
+<hr>
+<p>以下为aria2 常用命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
+<p>另外有时候需要后台运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+        <tag>离线下载</tag>
+        <tag>折腾</tag>
       </tags>
   </entry>
   <entry>
@@ -230,8 +238,46 @@
 <p>包含三份模版文件，当你使用<code>hexo new “blog_document”</code>，会以他们为模版</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">draft.md</span><br><span class="line"></span><br><span class="line">page.md</span><br><span class="line"></span><br><span class="line">post.md</span><br></pre></td></tr></table></figure>
 
+<h3 id="3-添加文章更新时间"><a href="#3-添加文章更新时间" class="headerlink" title="3.添加文章更新时间"></a>3.添加文章更新时间</h3><p>由于本人使用的主题没有显示更新时间，所以需要手动配置。</p>
+<ul>
+<li><p><strong>查看主题相关文件</strong></p>
+<ul>
+<li><p>首先查看目标主题文件夹下的<code>themes/[你要修改的目标主题]/layout/post.ejs</code>，发现里面引入的是 <code>_partial/article</code>的内容。</p>
+</li>
+<li><p>查看<code>./layout/_partial/article.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat .&#x2F;layout&#x2F;_partial&#x2F;article.ejs</span><br><span class="line"></span><br><span class="line"># 找到date相关的内容，可以看到这部分是关于date、category之类的，也就是每篇文章的Head</span><br><span class="line">&lt;div class&#x3D;&quot;article-meta&quot;&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;date&#39;, &#123;class_name: &#39;article-date&#39;, date_format: null&#125;) %&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;category&#39;) %&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;busuanzi-analytics&#39;,&#123;index: index, class_name: &#39;article-views&#39;&#125;) %&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">#从中还可以发现，引用了post&#x2F;date</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看<code>./layout/_partial/post/date.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (!is_current(&quot;about&quot;, false))&#123; %&gt;</span><br><span class="line">	&lt;a href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot; class&#x3D;&quot;&lt;%&#x3D; class_name %&gt;&quot;&gt;</span><br><span class="line">	  &lt;time datetime&#x3D;&quot;&lt;%&#x3D; date_xml(post.date) %&gt;&quot; itemprop&#x3D;&quot;datePublished&quot;&gt;&lt;%&#x3D; date(post.date, date_format) %&gt;&lt;&#x2F;time&gt;</span><br><span class="line">	&lt;&#x2F;a&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因此，我们主要修改的是 <code>./layout/_partial/post/date.ejs</code>、<code>./layout/_partial/article.ejs</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>新建updated.ejs 文件</strong></p>
+<p>在<code>./layout/_partial/post/</code>下新建<code>updated.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (!is_current(&quot;about&quot;, false))&#123; %&gt;</span><br><span class="line">	&lt;a href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot; class&#x3D;&quot;&lt;%&#x3D; class_name %&gt;&quot;&gt;</span><br><span class="line">	  &lt;%&#x3D; __(&#39;updated&#39;) %&gt; &lt;time datetime&#x3D;&quot;&lt;%&#x3D; date_xml(post.updated) %&gt;&quot; itemprop&#x3D;&quot;dateUpdated&quot;&gt;&lt;%&#x3D; date(post.updated, date_format) %&gt;&lt;&#x2F;time&gt;</span><br><span class="line">	&lt;&#x2F;a&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 
+<p>基本与date.ejs相同，post.date 改成了 post.updated，细心的读者还会发现，多了一个 <code>&lt;%= __(&#39;updated&#39;) %&gt;</code>，这是因为原来的格式只显示时间，那么当我们全部修改好之后，就会发现文章下面确实有两个时间，但不知道哪个是哪个，看的人很乱（这里不接受修改时间当然比发布时间迟的一看就知道了这样的吐槽），为了用户体验，还是加上提示比较好。</p>
+</li>
+<li><p><strong>修改article.ejs文件&amp;&amp;增加字段</strong></p>
+<p> 新增了一个 update.ejs 文件，我们需要将它引用进去。打开 article.ejs 文件，找到post/date栏，在它下方插入post/updated</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;%- partial(&#39;post&#x2F;updated&#39;, &#123;class_name: &#39;article-date&#39;, date_format: null&#125;) %&gt;</span><br></pre></td></tr></table></figure>
 
+<p><img src="/../../../../../../../../images/image-20200710212905771.png" alt="image-20200710212905771"></p>
+<p>由于 date.ejs 和 updated.ejs 中分别引入了 published 和 updated 字段，因此我们需要去在语言文件中新增对应的字段，语言文件在 <code>hiker/languages</code>中，你博客设置成什么语言，就修改对应的语言文件，没指定就修改 default.yml 文件。我的是zh-CN.yml</p>
+<p><img src="/../../../../../../../../images/image-20200710213120013.png" alt="image-20200710213120013"></p>
+</li>
+<li><p><strong>使文章以更新时间排序</strong></p>
+<p>然后找到主配置文件 <code>_config.yml</code>（<strong>根目录下的_config.yml</strong>），修改 <code>index_generator</code> 的 <code>order_by</code>为<code>-updated</code>即可开启更新时间排序，你最后修改过的文章就会显示到最前面了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Home page setting</span><br><span class="line"># path: Root path for your blogs index page. (default &#x3D; &#39;&#39;)</span><br><span class="line"># per_page: Posts displayed per page. (0 &#x3D; disable pagination)</span><br><span class="line"># order_by: Posts order. (Order by date descending by default)</span><br><span class="line">index_generator:</span><br><span class="line">  path: &#39;&#39;</span><br><span class="line">  per_page: 10</span><br><span class="line">  # order_by: -date</span><br><span class="line">  order_by: -updated #修改为以文章更新时间排序</span><br></pre></td></tr></table></figure>
+
+<p>如果需要显示到具体时间，可修改 date_format 部分，改成如下的 <code>YYYY-MM-DD HH:mm:ss</code>格式，再重新生成一下网页就能看到具体的时间了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Date &#x2F; Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http:&#x2F;&#x2F;momentjs.com&#x2F;docs&#x2F;#&#x2F;displaying&#x2F;format&#x2F;</span><br><span class="line">date_format: YYYY-MM-DD HH:mm:ss</span><br><span class="line">time_format: HH:mm:ss</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Over</p>
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>杂谈</category>
@@ -272,7 +318,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="速算技巧"><a href="#速算技巧" class="headerlink" title="速算技巧"></a>速算技巧</h3><ul>
+<h3 id="2-速算技巧"><a href="#2-速算技巧" class="headerlink" title="2.速算技巧"></a>2.速算技巧</h3><ul>
 <li><p>截位直除</p>
 </li>
 <li><p>分子分母比较法</p>
@@ -304,7 +350,7 @@
 <p>不能直接化成分数计算，不然结果误差很大</p>
 </li>
 </ul>
-<h3 id="知识点汇总"><a href="#知识点汇总" class="headerlink" title="知识点汇总"></a>知识点汇总</h3><ul>
+<h3 id="3-知识点汇总"><a href="#3-知识点汇总" class="headerlink" title="3.知识点汇总"></a>3.知识点汇总</h3><ul>
 <li><p>隔年增长率</p>
 <ul>
 <li>隔年倍数</li>
@@ -384,7 +430,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="易错知识点"><a href="#易错知识点" class="headerlink" title="易错知识点"></a>易错知识点</h3><ul>
+<h3 id="4-易错知识点"><a href="#4-易错知识点" class="headerlink" title="4.易错知识点"></a>4.易错知识点</h3><ul>
 <li>增幅、降幅、变化幅度</li>
 <li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
 <li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
@@ -466,6 +512,263 @@
       </categories>
       <tags>
         <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一种特别的百度云离线下载工具--bypy</title>
+    <url>/2020/07/08/%E4%B8%80%E7%A7%8D%E7%89%B9%E5%88%AB%E7%9A%84%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7-bypy/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信大家经常会苦恼于百度云的下载速度，且随着PanDowmload、BaiduExporter等工具的被封，除非开通SVIP，否则就只能忍受万恶的100Kb/s的龟速。</p>
+<p>于是我想到了之前所使用的bypy的这个工具，仅需要一台linux主机就可以开启属于你个人的离线下载。</p>
+<ul>
+<li>Tips：bypy并没有破解百度云，不过搭配Aria2的<strong>下载速度</strong>也能达到<strong>300kb/s+</strong>了。</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="1-Bypy简介"><a href="#1-Bypy简介" class="headerlink" title="1.Bypy简介"></a>1.Bypy简介</h3><blockquote>
+<p><strong>bypy</strong>是一个调用百度网盘API的第三方应用，是一个百度云/百度网盘的Python客户端。主要的目的就是在Linux环境下（Windows下应该也可用，但没有仔细测试过）通过命令行来使用百度云盘的2TB的巨大空间。</p>
+</blockquote>
+<p><a href="https://github.com/houtianze/bypy" target="_blank" rel="noopener">这里是bypy Github地址</a></p>
+<p>值得一提的是，<strong>由于百度PCS API权限限制，程序只能存取百度云端</strong><code>我的应用数据/bypy</code><strong>目录下</strong>，我们在使用的时候需要将要下载的文件导入到该目录下就可以了。</p>
+<h3 id="2-安装与使用"><a href="#2-安装与使用" class="headerlink" title="2.安装与使用"></a>2.安装与使用</h3><ul>
+<li><p>通过<code>pip</code>来安装：<code>pip install bypy</code> （支持Python 2.7+, 3.3+)</p>
+</li>
+<li><p>运行</p>
+<ul>
+<li><p>作为独立程序: 运行 <code>bypy</code> (或者<code>python -m bypy</code>，或者<code>python3 -m bypy</code>）</p>
+<p>可以看到命令行支持的全部命令和参数。</p>
+</li>
+<li><p>作为一个包，在代码中使用: <code>import bypy</code></p>
+</li>
+</ul>
+<p>简单的图形界面： 运行 <code>bypygui</code></p>
+</li>
+<li><p>使用</p>
+<p>显示使用帮助和所有命令（英文）:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy</span><br></pre></td></tr></table></figure>
+
+<p>第一次运行时需要授权，只需跑任何一个命令（比如 <code>bypy info</code>）然后跟着说明（登陆等）来授权即可。授权只需一次，一旦成功，以后不会再出现授权提示.</p>
+<p>更详细的了解某一个命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy help &lt;command&gt;</span><br></pre></td></tr></table></figure>
+
+<p>显示在云盘（程序的）根目录下文件列表：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy list</span><br></pre></td></tr></table></figure>
+
+<p>把当前目录同步到云盘：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy syncup</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy upload</span><br></pre></td></tr></table></figure>
+
+<p>把云盘内容同步到本地来：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy syncdown</span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy downdir &#x2F;</span><br></pre></td></tr></table></figure>
+
+<p><strong>比较本地当前目录和云盘（程序的）根目录（个人认为非常有用）：</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bypy compare</span><br></pre></td></tr></table></figure>
+
+<p>更多命令和详细解释请见运行<code>bypy</code>的输出。</p>
+</li>
+<li><p>调试</p>
+<ul>
+<li>运行时添加<code>-v</code>参数，会显示进度详情。</li>
+<li>运行时添加<code>-d</code>，会显示一些调试信息。</li>
+<li>运行时添加<code>-ddd</code>，还会会显示HTTP通讯信息（<strong>警告：非常多</strong>）</li>
+</ul>
+</li>
+<li><p>直接在Python程序中调用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from bypy import ByPy</span><br><span class="line">bp&#x3D;ByPy()</span><br><span class="line">bp.list() # or whatever instance methods of ByPy class</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="3-结合Aria2实现离线下载"><a href="#3-结合Aria2实现离线下载" class="headerlink" title="3.结合Aria2实现离线下载"></a>3.结合Aria2实现离线下载</h3><p>aria2是一个非常好用的命令行下载工具，<a href="https://blog.lovexmtx.icu/2020/06/24/Aria2-Note/">可参考我的另一篇博客</a></p>
+<p>你需要用参数<code>--downloader aria2</code>来让bypy调用aria2下载，还可以用<code>--downloader-arguments</code>来设置aria2的参数。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 使用如下命令下载dmg映像到当前文件夹</span><br><span class="line">bypy --downloader aria2 downfile macOS10_15.dmg</span><br></pre></td></tr></table></figure>
+
+
+
+<p>之后你需要将离线下载服务器中的数据拖下来，这里有很多种方式，回头我再来补充，反正都比100k/s强太多了～</p>
+<hr>
+<p>补充：由于bypy一段时间不用之后会丢失token，你可以使用crontab定时刷新一下。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crontab -e </span><br><span class="line"></span><br><span class="line"># 添加如下信息，执行时间为每周三的凌晨6点30分</span><br><span class="line">6 30 * * 3 python -m bypy info</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>离线下载</tag>
+        <tag>折腾</tag>
+        <tag>百度云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测-易错成语积累</title>
+    <url>/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这篇博客用以加深行测的词汇积累!</p>
+<a id="more"></a>
+
+<h3 id="高频成语"><a href="#高频成语" class="headerlink" title="高频成语"></a>高频成语</h3><ul>
+<li><p><strong>缘木求鱼/饮鸠止渴/抱薪救火/杀鸡取卵/竭泽而渔</strong></p>
+<ul>
+<li><p><strong>缘木求鱼(贬义)</strong></p>
+<p>字面解读为爬到树上去找鱼。比喻方向或办法不对，不可能达到目的。并不强调使后果更严重。</p>
+<blockquote>
+<p>“以若所为，求若所欲，犹缘木而求鱼也。”——《孟子·梁惠王章句上》</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>饮鸠止渴</strong></p>
+<p>比喻用错误的办法来解决<strong>眼前的</strong>困难而<strong>不顾严重后果</strong>。</p>
+<blockquote>
+<p>《后汉书·霍谞传》：“譬犹疗饥于附子，止渴于鸩毒，未入肠胃，已绝咽喉。”</p>
+</blockquote>
+</li>
+<li><p><strong>抱薪救火</strong></p>
+<p>抱着柴草去救火。比喻用错误的方法去消除灾祸，结果反而<strong>使灾祸扩大</strong>。</p>
+<blockquote>
+<p>西汉·司马迁《史记·魏世家》：且夫以地事秦，譬犹抱薪救火，薪不尽，火不灭</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>杀鸡取卵</strong></p>
+<p>为了要得到鸡蛋，不惜把鸡杀了。比喻贪图眼前利益而不顾长远利益。</p>
+<blockquote>
+<p>希腊《伊索寓言·生金蛋的鸡》</p>
+</blockquote>
+</li>
+<li><p><strong>竭泽而渔</strong></p>
+<p>排尽湖中或池中的水来捕鱼。比喻目光短浅，只顾眼前利益，不顾长远打算。</p>
+<blockquote>
+<p>竭泽而渔，岂不获得？而来年无鱼；焚薮(sǒu)而田，岂不获得？而来年无兽。诈伪之道，虽今偷可，后将无复，非长术也。——《吕氏春秋·义赏》</p>
+</blockquote>
+<ul>
+<li>成语辨析：饮鸩止渴和“杀鸡取卵”；都指只顾眼前需要。但“杀鸡取卵”偏重利的取舍，指为了眼前利益，而放弃长远利益；而饮鸩止渴则在于害的轻重，指为了弥补或减少当前的损害，而不计严重后果。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>泥沙俱下/鱼龙混杂/鱼目混珠（3 Times）</strong></p>
+<ul>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>指在江河的急流中泥土和沙子随着水一起冲下。比喻好坏性质不同的人或者事物混杂在一起。</p>
+<blockquote>
+<p>“人称才大者，如万里黄河，与泥沙俱下。余以为，此粗才，非大才也。”</p>
+<p>——《随园诗话》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>是形容好人和坏人混在一起，现也可形容事物好的坏的混在一起</p>
+<blockquote>
+<p>“风搅长空浪搅风，鱼龙混杂一川中。”</p>
+<p>——唐·张志和《和渔夫词》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼目混珠</strong></p>
+<p>指拿鱼眼睛冒充珍珠，比喻用假的冒充真的。</p>
+<blockquote>
+<p>“鱼目岂为珠？蓬蒿不成槚。”</p>
+<p>——汉·魏伯阳《参同契》</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>背道而驰/分道扬镳</strong></p>
+<ul>
+<li><p><strong>背道而驰</strong></p>
+<p>比喻方向和目的完全相反，<strong>背离正确的道路</strong>，通常用在<strong>消极</strong>的对象身上</p>
+<blockquote>
+<p>唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《〈杨评事文集〉后序》：“其余各探一隅，相与背驰于道者，其去弥远。”</p>
+</blockquote>
+</li>
+<li><p><strong>分道扬镳</strong></p>
+<p>比喻目标不同，各走各的路或各干各的事。</p>
+<blockquote>
+<p>《魏书·河间公齐传》：“洛阳我之丰沛，自应分路扬镳。自今以后，可分路而行。”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>汗牛充栋(4 Times)</strong> </p>
+<p>指用牛运书，牛要累得出汗；用屋子放书，要放满整个屋子。<strong>形容藏书很多</strong>。</p>
+<blockquote>
+<p>“其为书，处则充<a href="https://baike.baidu.com/item/栋宇" target="_blank" rel="noopener">栋宇</a>，出则汗牛马。”</p>
+<p>——唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《文通先生陆给事墓表》</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
+<li><p><strong>呵护/爱护（3 Times）</strong></p>
+<p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
+<p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
+<blockquote>
+<p>家风是具有鲜明特征的家庭文化，良好家风是一个家庭最宝贵的精神财富，也是每个家庭成员形成正确世界观、人生观、价值观的(    )。家庭是人生的第一所学校，良好家风是人生幸福生活的“第一组密码”。“积善之家，必有余庆；积不善之家，必有余殃。”只有守住和(    )好温暖的家庭，才能有人生的成功。</p>
+<p>依次填入划横线部分最恰当的一项是：</p>
+<ul>
+<li>A 基点 庇护</li>
+<li>B 基准 保护</li>
+<li>C 基础 爱护</li>
+<li>D 基石 呵护</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
+<li><p><strong>吉光片羽</strong></p>
+<p>比喻残存的珍贵文物。吉光：古代神话中的神兽名；片羽：一片毛。</p>
+<blockquote>
+<p>“武帝时西域献吉光裘，入水不濡。</p>
+<p>汉·刘歆《西京杂记》卷一</p>
+</blockquote>
+</li>
+<li><p><strong>闻过则喜</strong></p>
+<p>听到别人批评自己的缺点或错误，表示欢迎和高兴；指虚心接受意见。</p>
+<blockquote>
+<p>《<a href="https://baike.baidu.com/item/孟子/126" target="_blank" rel="noopener">孟子</a>·公孙丑上》：“子路人告之以有过则喜。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="词语积累"><a href="#词语积累" class="headerlink" title="词语积累"></a>词语积累</h3><ul>
+<li><p><strong>保持、维持</strong></p>
+<p>“保持”指维持某种状态使不消失或减弱</p>
+<p>“维持”指维系使继续存在，通常<strong>搭配</strong>生命、关系等，且倾向于较为<strong>被动</strong>勉强的维持</p>
+</li>
+</ul>
+<blockquote>
+<p>【2018 湖南 14】总的来讲，“社会”在处理与国家的关系过程中强调其自主性的成长与释放，并  <strong><strong><strong>____</strong></strong></strong>  了各种形式的自我保护运动。而且，“社会”也在改变其生存与发展策略，它不仅仅满足在国家为其 <strong><strong><strong>__</strong></strong></strong>   的范围内行动，而且还通过与国家的主动接触与互动，<strong><strong><strong><strong>__</strong></strong></strong></strong> 与政府的相关性，并以协作或合作的方式参与社会问题的解决。</p>
+<ul>
+<li>A 展开 规定 保持</li>
+<li>B 拓展 制定 保护</li>
+<li>C 开展 划定 维持</li>
+<li>D 发展 制订 保障</li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>观照</strong></p>
+<p>指仔细观察，审视</p>
+<ol>
+<li><p>佛家哲学。指静观世界以智慧而照见事理。</p>
+</li>
+<li><p>显示；反映。</p>
+</li>
+<li><p>原为美学术语，现也指仔细观察，审视的思考比较。</p>
+</li>
+<li><p>用心光向心中看，向心中照，是道家一种修道的方法。</p>
+</li>
+<li><p>关心照顾关怀之意，是客气的委婉语气</p>
+</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>行测</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+        <tag>成语</tag>
+        <tag>词语</tag>
       </tags>
   </entry>
 </search>

@@ -67,9 +67,18 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/04/hello-MyBlog/" class="article-date">
-  <time datetime="2020-07-04T14:40:52.770Z" itemprop="datePublished">2020-07-04</time>
-</a> 
+      
+  <a href="/2020/07/04/hello-MyBlog/" class="article-date">
+    创建于 <time datetime="2020-07-04T14:40:02.000Z" itemprop="datePublished">2020-07-04 22:40:02</time>
+  </a>
+ 
+      
+	<a href="/2020/07/04/hello-MyBlog/" class="article-date">
+	  更新于 <time datetime="2020-07-10T15:07:28.782Z" itemprop="dateUpdated">2020-07-10 23:07:28</time>
+	</a>
+
+
+      
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E6%9D%82%E8%B0%88/">杂谈</a>
   </div>
@@ -79,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">484</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -88,7 +97,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">6 min</span>
         </span>
     </span>
 </div>
@@ -142,8 +151,46 @@
 <p>包含三份模版文件，当你使用<code>hexo new “blog_document”</code>，会以他们为模版</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">draft.md</span><br><span class="line"></span><br><span class="line">page.md</span><br><span class="line"></span><br><span class="line">post.md</span><br></pre></td></tr></table></figure>
 
+<h3 id="3-添加文章更新时间"><a href="#3-添加文章更新时间" class="headerlink" title="3.添加文章更新时间"></a>3.添加文章更新时间</h3><p>由于本人使用的主题没有显示更新时间，所以需要手动配置。</p>
+<ul>
+<li><p><strong>查看主题相关文件</strong></p>
+<ul>
+<li><p>首先查看目标主题文件夹下的<code>themes/[你要修改的目标主题]/layout/post.ejs</code>，发现里面引入的是 <code>_partial/article</code>的内容。</p>
+</li>
+<li><p>查看<code>./layout/_partial/article.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cat .&#x2F;layout&#x2F;_partial&#x2F;article.ejs</span><br><span class="line"></span><br><span class="line"># 找到date相关的内容，可以看到这部分是关于date、category之类的，也就是每篇文章的Head</span><br><span class="line">&lt;div class&#x3D;&quot;article-meta&quot;&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;date&#39;, &#123;class_name: &#39;article-date&#39;, date_format: null&#125;) %&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;category&#39;) %&gt;</span><br><span class="line">  &lt;%- partial(&#39;post&#x2F;busuanzi-analytics&#39;,&#123;index: index, class_name: &#39;article-views&#39;&#125;) %&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">#从中还可以发现，引用了post&#x2F;date</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看<code>./layout/_partial/post/date.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (!is_current(&quot;about&quot;, false))&#123; %&gt;</span><br><span class="line">	&lt;a href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot; class&#x3D;&quot;&lt;%&#x3D; class_name %&gt;&quot;&gt;</span><br><span class="line">	  &lt;time datetime&#x3D;&quot;&lt;%&#x3D; date_xml(post.date) %&gt;&quot; itemprop&#x3D;&quot;datePublished&quot;&gt;&lt;%&#x3D; date(post.date, date_format) %&gt;&lt;&#x2F;time&gt;</span><br><span class="line">	&lt;&#x2F;a&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因此，我们主要修改的是 <code>./layout/_partial/post/date.ejs</code>、<code>./layout/_partial/article.ejs</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>新建updated.ejs 文件</strong></p>
+<p>在<code>./layout/_partial/post/</code>下新建<code>updated.ejs</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;% if (!is_current(&quot;about&quot;, false))&#123; %&gt;</span><br><span class="line">	&lt;a href&#x3D;&quot;&lt;%- url_for(post.path) %&gt;&quot; class&#x3D;&quot;&lt;%&#x3D; class_name %&gt;&quot;&gt;</span><br><span class="line">	  &lt;%&#x3D; __(&#39;updated&#39;) %&gt; &lt;time datetime&#x3D;&quot;&lt;%&#x3D; date_xml(post.updated) %&gt;&quot; itemprop&#x3D;&quot;dateUpdated&quot;&gt;&lt;%&#x3D; date(post.updated, date_format) %&gt;&lt;&#x2F;time&gt;</span><br><span class="line">	&lt;&#x2F;a&gt;</span><br><span class="line">&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
 
+<p>基本与date.ejs相同，post.date 改成了 post.updated，细心的读者还会发现，多了一个 <code>&lt;%= __(&#39;updated&#39;) %&gt;</code>，这是因为原来的格式只显示时间，那么当我们全部修改好之后，就会发现文章下面确实有两个时间，但不知道哪个是哪个，看的人很乱（这里不接受修改时间当然比发布时间迟的一看就知道了这样的吐槽），为了用户体验，还是加上提示比较好。</p>
+</li>
+<li><p><strong>修改article.ejs文件&amp;&amp;增加字段</strong></p>
+<p> 新增了一个 update.ejs 文件，我们需要将它引用进去。打开 article.ejs 文件，找到post/date栏，在它下方插入post/updated</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(&#39;post&#x2F;updated&#39;, &#123;class_name: &#39;article-date&#39;, date_format: null&#125;) %&gt;</span><br></pre></td></tr></table></figure>
 
+<p><img src="/../../../../../../../../images/image-20200710212905771.png" alt="image-20200710212905771"></p>
+<p>由于 date.ejs 和 updated.ejs 中分别引入了 published 和 updated 字段，因此我们需要去在语言文件中新增对应的字段，语言文件在 <code>hiker/languages</code>中，你博客设置成什么语言，就修改对应的语言文件，没指定就修改 default.yml 文件。我的是zh-CN.yml</p>
+<p><img src="/../../../../../../../../images/image-20200710213120013.png" alt="image-20200710213120013"></p>
+</li>
+<li><p><strong>使文章以更新时间排序</strong></p>
+<p>然后找到主配置文件 <code>_config.yml</code>（<strong>根目录下的_config.yml</strong>），修改 <code>index_generator</code> 的 <code>order_by</code>为<code>-updated</code>即可开启更新时间排序，你最后修改过的文章就会显示到最前面了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># Home page setting</span><br><span class="line"># path: Root path for your blogs index page. (default &#x3D; &#39;&#39;)</span><br><span class="line"># per_page: Posts displayed per page. (0 &#x3D; disable pagination)</span><br><span class="line"># order_by: Posts order. (Order by date descending by default)</span><br><span class="line">index_generator:</span><br><span class="line">  path: &#39;&#39;</span><br><span class="line">  per_page: 10</span><br><span class="line">  # order_by: -date</span><br><span class="line">  order_by: -updated #修改为以文章更新时间排序</span><br></pre></td></tr></table></figure>
+
+<p>如果需要显示到具体时间，可修改 date_format 部分，改成如下的 <code>YYYY-MM-DD HH:mm:ss</code>格式，再重新生成一下网页就能看到具体的时间了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Date &#x2F; Time format</span><br><span class="line">## Hexo uses Moment.js to parse and display date</span><br><span class="line">## You can customize the date format as defined in</span><br><span class="line">## http:&#x2F;&#x2F;momentjs.com&#x2F;docs&#x2F;#&#x2F;displaying&#x2F;format&#x2F;</span><br><span class="line">date_format: YYYY-MM-DD HH:mm:ss</span><br><span class="line">time_format: HH:mm:ss</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Over</p>
+</li>
+</ul>
  
       <!-- reward -->
       

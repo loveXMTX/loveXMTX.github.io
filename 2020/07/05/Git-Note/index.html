@@ -67,9 +67,18 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2020/07/05/Git-Note/" class="article-date">
-  <time datetime="2020-07-05T13:59:59.000Z" itemprop="datePublished">2020-07-05</time>
-</a> 
+      
+  <a href="/2020/07/05/Git-Note/" class="article-date">
+    创建于 <time datetime="2020-07-05T13:59:59.000Z" itemprop="datePublished">2020-07-05 21:59:59</time>
+  </a>
+ 
+      
+	<a href="/2020/07/05/Git-Note/" class="article-date">
+	  更新于 <time datetime="2020-07-10T14:47:55.706Z" itemprop="dateUpdated">2020-07-10 22:47:55</time>
+	</a>
+
+
+      
   <div class="article-category">
     <a class="article-category-link" href="/categories/IT/">IT</a>
   </div>
@@ -104,13 +113,21 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
-<li>按如下命令来生成 sshkey:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
-按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</li>
+<li><p>按如下命令来生成 sshkey:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxxxx@xxxxx.com&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
+<p>​    按照提示完成三次回车，即可生成 ssh key。通过查看 ~/.ssh/id_rsa.pub 文件内容，获取到你的 public key</p>
 <a id="more"></a>
 
+<ul>
+<li><p>查看</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat ~&#x2F;.ssh&#x2F;id_rsa.pub</span><br><span class="line"># ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6eNtGpNGwstc....</span><br></pre></td></tr></table></figure>
+
 <p>值得一提的是，一个公钥可以同时添加到Github或者gitee上面，不需要多个key</p>
+</li>
+</ul>
 <ul>
 <li><p>在Github或者Gitee上添加公钥</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Gitee：复制生成后的 ssh key，点击头像--设置--SSH公钥（如图所示）添加生成的 public key</span><br><span class="line"></span><br><span class="line">Github：登录到GitHub，选择settings ，选择Add SSH key，把.pub的内容复制到里面即可。</span><br></pre></td></tr></table></figure>
