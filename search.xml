@@ -190,6 +190,9 @@
 <p>另外有时候需要后台运行</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
 ]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
       <tags>
         <tag>Linux</tag>
         <tag>离线下载</tag>
