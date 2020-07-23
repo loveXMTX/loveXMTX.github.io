@@ -74,7 +74,7 @@
  
       
 	<a href="/2020/06/24/Aria2-Note/" class="article-date">
-	  更新于 <time datetime="2020-07-11T01:05:46.042Z" itemprop="dateUpdated">2020-07-11 09:05:46</time>
+	  更新于 <time datetime="2020-07-17T06:02:45.065Z" itemprop="dateUpdated">2020-07-17 14:02:45</time>
 	</a>
 
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">2.1k</span>
+            <span class="post-count">2.2k</span>
         </span>
     </span>
 
@@ -97,7 +97,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">8 min</span>
+            <span class="post-count">9 min</span>
         </span>
     </span>
 </div>
@@ -139,6 +139,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
 <p>另外有时候需要后台运行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
+<ul>
+<li>当使用gcc编译时，找不到库文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>configure时，要求使用pkg来包含库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
  
       <!-- reward -->
       

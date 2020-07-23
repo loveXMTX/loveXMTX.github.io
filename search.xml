@@ -189,6 +189,19 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
 <p>另外有时候需要后台运行</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
+<ul>
+<li>当使用gcc编译时，找不到库文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>configure时，要求使用pkg来包含库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 ]]></content>
       <categories>
         <category>实用工具</category>
@@ -761,6 +774,11 @@
 </li>
 </ul>
 <h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
+<li><p><strong>产生/唤醒/触发</strong></p>
+<p>“产生”指由<strong>已有的事物</strong>中生出新的事物</p>
+<p>“唤醒”表示使之觉醒，也是指<strong>原来有</strong>，现在重新使之苏醒</p>
+<p>“触发”指触动引发</p>
+</li>
 <li><p><strong>呵护/爱护（3 Times）</strong></p>
 <p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
 <p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
@@ -777,8 +795,17 @@
 </li>
 </ul>
 <h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
+<li><p><strong>推波助澜</strong>（<strong>==无贬义==</strong>）</p>
+<p>比喻从旁鼓动、助长事物（多指坏的事物）的声势和发展，扩大影响。</p>
+</li>
+<li><p><strong>买椟还珠</strong></p>
+<p>指买来装珍珠的木匣退还了珍珠；比喻<strong>取舍不当</strong>，<strong>次要</strong>的东西<strong>比主要</strong>的还要<strong>好</strong></p>
+</li>
 <li><p><strong>以讹传讹</strong></p>
 <p>指把本来就不正确或不符合实际情况的话又不正确地传出去，越传越错。</p>
+</li>
+<li><p><strong>却之不恭</strong>（近义词：<strong>盛情难却</strong>）</p>
+<p>指对别人的邀请、赠与等，如果拒绝接受，就显得不恭敬。</p>
 </li>
 <li><p><strong>三人成虎</strong></p>
 <p>比喻说的人多了，就能使人们把谣言当作事实；含贬义，一般做分句。</p>
@@ -1117,6 +1144,7 @@
       </categories>
       <tags>
         <tag>申论</tag>
+        <tag>作文</tag>
       </tags>
   </entry>
   <entry>
@@ -2892,16 +2920,206 @@
     <title>行测-言语理解</title>
     <url>/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<ul>
-<li><p>表转折</p>
-<p><strong>“实际上”</strong></p>
+<li>略读<ul>
+<li>背景：近年来</li>
+<li>原因：由于</li>
+<li>例子：例如</li>
+</ul>
+</li>
+<li>错误选项<ul>
+<li>转折之前</li>
+<li>原因</li>
+<li>例子</li>
+<li>无中生有</li>
+<li>与文意相悖</li>
+</ul>
 </li>
 </ul>
-]]></content>
+<h3 id="1-关键词"><a href="#1-关键词" class="headerlink" title="1.关键词"></a>1.关键词</h3><h4 id="1-1转折"><a href="#1-1转折" class="headerlink" title="1.1转折"></a>1.1转折</h4><ul>
+<li>典型：….</li>
+<li>非典型：殊不知、截然相反、全新的研究、一种误读、相对而言</li>
+</ul>
+<h4 id="1-2-主题词"><a href="#1-2-主题词" class="headerlink" title="1.2 主题词"></a>1.2 主题词</h4><p>多为名词、高频、前后有引入说明</p>
+<h4 id="1-3-因果"><a href="#1-3-因果" class="headerlink" title="1.3 因果"></a>1.3 因果</h4><h4 id="1-4-必要条件"><a href="#1-4-必要条件" class="headerlink" title="1.4 必要条件"></a>1.4 必要条件</h4><h4 id="1-5-并列"><a href="#1-5-并列" class="headerlink" title="1.5 并列"></a>1.5 并列</h4>]]></content>
       <categories>
         <category>公考</category>
       </categories>
       <tags>
         <tag>行测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>申论作文怎么写</title>
+    <url>/2020/07/21/%E7%94%B3%E8%AE%BA%E4%BD%9C%E6%96%87%E6%80%8E%E4%B9%88%E5%86%99/</url>
+    <content><![CDATA[<h2 id="大作文怎么写？"><a href="#大作文怎么写？" class="headerlink" title="大作文怎么写？"></a>大作文怎么写？</h2><a id="more"></a>
+
+<h3 id="1-论点立意"><a href="#1-论点立意" class="headerlink" title="1.论点立意"></a>1.论点立意</h3><h3 id="2-形式包装"><a href="#2-形式包装" class="headerlink" title="2.形式包装"></a>2.形式包装</h3><h4 id="2-1-标题（有就可以了，没必要思考太长时间，20s）"><a href="#2-1-标题（有就可以了，没必要思考太长时间，20s）" class="headerlink" title="2.1 标题（有就可以了，没必要思考太长时间，20s）"></a>2.1 标题（有就可以了，没必要思考太长时间，20s）</h4><ul>
+<li><p><strong>常规</strong></p>
+<ul>
+<li><p>引申（常用，我一般时间紧急就用这个）</p>
+<p><strong>由XXX说开去</strong>、XXX的启示、<strong>对XXX的思考</strong></p>
+<p>例子：从“礼”说开去</p>
+</li>
+<li><p>点睛（直接写文章的主题（对策、意义））</p>
+<p>…关键在于…、是XX之基/源、应以XXX为中心、应着眼于XXX</p>
+<p>例子：治理网络污染要制度建设和文化建设并重</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>比喻</strong></p>
+<p>常用：呵护、捍卫、托起、唤醒；见真功、挑大梁、打好样、聚能量</p>
+<p>例子：用文化铸造新农村“脊梁”、以创新奏出“最强音”</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>警醒</strong></p>
+<p>勿、莫让、不</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>对称</strong></p>
+<p>动词+主题词</p>
+<p>改善、涵养、弘扬、树立、践行、兜底、共话、筑牢</p>
+<p>例子：盘活老品牌，焕发新生命</p>
+</li>
+</ul>
+<h4 id="2-2-文章结构"><a href="#2-2-文章结构" class="headerlink" title="2.2 文章结构"></a>2.2 文章结构</h4><p><strong>开头—–&gt;意义/问题——-&gt;原因——–&gt;对策—–&gt;结尾</strong></p>
+<h4 id="2-3-开头"><a href="#2-3-开头" class="headerlink" title="2.3 开头"></a>2.3 开头</h4><ul>
+<li><p>列举事件+总论点</p>
+<p>总论点万能句：</p>
+<ul>
+<li><p>这提醒我们；</p>
+</li>
+<li><p>如何处理某某问题，成为亟待破解（制约高质量发展、影响人民幸福感）的难题。</p>
+</li>
+</ul>
+</li>
+<li><p>列数字+总论点</p>
+</li>
+<li><p>引言+事件+总论点</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>*12岁小学生打赏网络主播，花掉环卫工母亲4万元积蓄</strong>；<strong>一青少年沉迷互联网赌博，走上盗窃之路</strong>；<strong>13岁少年沉迷某款网络游戏，疑似模仿游戏中翻墙跳楼动作而身亡</strong>……近段时间来出现的一些相关案件，背后都有网络沉迷的因素，<strong>这提醒人们</strong>：预防青少年沉迷网络，刻不容缓。*</p>
+<p><em>《预防青少年网络沉迷刻不容缓》</em></p>
+</blockquote>
+<h4 id="2-4-意义-问题、危害"><a href="#2-4-意义-问题、危害" class="headerlink" title="2.4 意义/问题、危害"></a>2.4 意义/问题、危害</h4><p>这一段主要是说理，不管是它好就说意义，它不好就说危害。</p>
+<p>议论文常见的论证方法有5种：举例论证、道理论证、对比论证、比喻论证和引用论证。</p>
+<p>举例论证方面，巧妙使用<strong>“从…到…”句式，“当…”句式</strong>来举例，可以让成绩、历史背景更加的有冲击力，这些例子都可以从给定材料里面找。</p>
+<ul>
+<li><p><strong>通用过渡句</strong>（适用于承上启下，欲抑先扬）</p>
+<ul>
+<li><strong>然而也要看到</strong>，旅游业转型升级过程中，旧的问题虽然得到有效克服，但一些新问题、新苗头值得警惕。</li>
+<li><strong>当然，也要看到</strong>，全民健身的管理问题和认识误区依然存在。</li>
+<li>然而，实习过程中出现的一些新情况、新问题，也值得警惕。</li>
+<li>如今文化事业蓬勃发展，然而文化遗产能否得到科学合理的保障，<strong>依然要画个问号。</strong></li>
+<li><strong>行百里者半九十</strong>。今天，我国扶贫事业取得了历史性的成就，但也要看到，越往后遇到的越是难啃的硬骨头，任务十分艰巨。</li>
+<li><strong>但也应看到</strong>，目前我国自然灾害防治能力总体还比较弱。</li>
+<li>但是，当前的“互联网+政务”，还处于“摸着石头过河”的探索阶段，<strong>存在许多不成熟、不规范之处。</strong></li>
+<li>但由于底子薄、欠账多，目前学前教育仍是整个教育体系的短板，发展不平衡不充分问题十分突出。</li>
+<li><strong>然而，一枚硬币有两面</strong>。老年人一旦过度依赖甚至上网成瘾，则有诸多弊端。</li>
+</ul>
+</li>
+<li><p><strong>举例论证</strong></p>
+<ul>
+<li><p><strong>从</strong>…<strong>到</strong>…;</p>
+</li>
+<li><p><strong>曾几何时</strong>…<strong>现如今</strong>…</p>
+</li>
+<li><p><strong>有的.</strong>…有的…;</p>
+</li>
+<li><p><strong>一些</strong>…一些…还有些…;</p>
+</li>
+</ul>
+</li>
+<li><p><strong>概括，总结</strong></p>
+<ul>
+<li><strong>凡此种种</strong>…..</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>但在</strong>以往雷霆万钧的治污行动中，<strong>也存在一些问题</strong>。一个突出表现就是在执法过程中出现过激和偏差，在特定时段把企业简单地一关了之。比如说，<strong>一些地方</strong>平时不作为、临时乱作为，平时对一些排污企业睁一只眼闭一只眼，监管紧一阵松一阵、有一搭没一搭，等到环保督察来了，又慌不择路地搞突击，用一律关停来应付检查。这种不分青红皂白、没有轻重缓解的运动式执法，不仅扭曲了环境治理的本义，损害了环保督察的公信力，更误伤了那些积极配合治污的企业，给经济发展和群众生活带来了负面影响。</p>
+<p>—-《人民日报人民时评：“雷霆手段”要经得起法治推敲》</p>
+</blockquote>
+<h4 id="2-5-原因分析"><a href="#2-5-原因分析" class="headerlink" title="2.5 原因分析"></a>2.5 原因分析</h4><p>本段其实可以和上一段合并，特别是些策论文的时候。</p>
+<ul>
+<li><p><strong>过渡句</strong></p>
+<ul>
+<li><p>设问式</p>
+<ul>
+<li>药品是用来治病的，为何存在无效却广泛使用的药品？</li>
+<li>一部主旋律记录电影，赢得市场和口碑“双丰收”，形成了不一般的传播声势，秘诀何在？</li>
+<li>类似谣言文章存在不少破绽，为何却能得到“银发族”的青睐？仔细推究……</li>
+</ul>
+</li>
+<li><p>总分式（先概括原因，再具体分析）</p>
+<ul>
+<li>“套路贷”之所以能让受害者越陷越深，终至不可自拔，症结就在于其处心积虑设计的一整套“法律陷阱”。</li>
+<li>造成客服乱象的一个重要原因，在于许多企业将客服中心视为“成本部门”。</li>
+</ul>
+</li>
+<li><p>万能式</p>
+<p><strong>XXX有着复杂的原因，XXX是一方面，更为根本的原因在于……</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>具体分析</strong></p>
+<p>分析原因最好<strong>有主次</strong>，<strong>层次分明</strong>，且要结合对策来写，对策好写的就当主要原因，多分析一些。</p>
+<blockquote>
+<p>客观来说，青少年沉迷网络有着复杂的原因。好奇心强、自制力弱、渴望得到认同等心理特点是一方面，规范管理、合理引导、预防治疗不够也是重要原因。其中，一些企业诱导青少年网络成瘾的做法难辞其咎。就拿网络游戏来说，一些游戏开发商为了赚孩子的钱，专门研发门槛低、互动性强、奖励诱惑多的网游；为了把少年儿童培养成“忠实玩家”，新角色、新道具、新玩法层出不穷；更有甚者在游戏中添加淫秽、赌博的成分，引诱腐蚀自制力不强的青少年。再比如一些网络视频平台，不仅缺乏针对青少年的内容分级，更是通过“算法推荐”“奖赏反馈”等成瘾机制的设计，让一些青少年“根本停不下来”。这些诱导成瘾的企业行为，需要得到有效的治理。</p>
+<p>—-《人民日报人民时评：预防青少年网络沉迷刻不容缓》</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-6-对策"><a href="#2-6-对策" class="headerlink" title="2.6 对策"></a>2.6 对策</h4><p>一般而言，这部分就是重点，根据材料，一般写2-3段。</p>
+<ul>
+<li><strong>常见结构</strong><ul>
+<li><strong>主旨句+分析论证</strong>，我一般喜欢用这种，因为观点鲜明，阅卷老师一眼就能看到。</li>
+<li>设问式。与2.5相似</li>
+</ul>
+</li>
+<li>论证方式<ul>
+<li>讲道理（正/反面论证）</li>
+<li>举例子</li>
+<li>对比</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>解决互联网时代的新问题，需要运用互联网思维和现代治理手段。</strong>面对互联网违法虚假广告，传统的突击整治、消费者投诉、相关单位自纠自查等方式难有长效，需将立法、行政和执法三条途径有机结合，综合施治。一方面，完善立法，在广告法和行政许可法的基础上，建立更为严格的互联网广告许可制度；另一方面，充分运用行政和执法手段，加强监管，严厉查处社会影响恶劣、公众反映强烈、危害人民群众财产安全的虚假违法互联网广告。与此同时，有必要建立黑名单制度，完善公安、网信等部门间的协同机制，形成“组合拳”。今年6月，国家市场监管总局等8部门联合发布《2018网络市场监管专项行动（网剑行动）方案》，重点打击网络虚假违法广告等违法行为，正体现了综合施治的治理思路。</p>
+<p><strong>清除互联网违法虚假广告，既要击碎欺骗者发财的迷梦，遏制愈演愈烈的趋势；又要净化互联网，营造良好的广告市场环境。</strong>其中的关键之一，就是引导广大互联网平台主动承担社会责任，重点监督覆盖面广、影响力大的门户网站、搜索引擎、微博、微信公众号、客户端等，充分将人工审核与技术审核相结合，及时清除对公众具有误导性的广告。同时，支持鼓励互联网企业开发辨认违法虚假广告人工智能系统，在技术上取得新突破，用以对抗虚假产品评论、评分，打击水军、刷单等行为。</p>
+<p>—-《人民日报人民时评：综合施治，清除互联网虚假广告》</p>
+</blockquote>
+<h4 id="2-7-结尾"><a href="#2-7-结尾" class="headerlink" title="2.7 结尾"></a>2.7 结尾</h4><ul>
+<li><p><strong>名人名言（引出）</strong></p>
+<p>万能：</p>
+<blockquote>
+<p>路漫漫其修远兮，吾将上下而求索。</p>
+</blockquote>
+</li>
+<li><p><strong>复述措施+展望未来</strong></p>
+<ul>
+<li>随着…..</li>
+<li>必将…..</li>
+</ul>
+<blockquote>
+<p>内容产业勃兴的源泉，在于群众日益增长的精神文化需求。走出“唯流量”的误区，努力供给更多更优质的内容产品，方能满足人们日益分众化、多元化的需要，也才能真正赢得市场。<strong>随着</strong>治理力度的加大、行业规范的明确、平台监管的强化，我国内容产业<strong>必将</strong>迎来进一步发展，以更多精品力作标注时代。</p>
+<p>—-《人民日报人民时评：破除“唯流量”的行业顽疾》</p>
+</blockquote>
+</li>
+</ul>
+<p>总结：</p>
+<p>路漫漫其修远兮，吾将上下而求索。随着XXX，我们必将XXXX。</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>申论</tag>
+        <tag>作文</tag>
       </tags>
   </entry>
 </search>
