@@ -74,7 +74,7 @@
  
       
 	<a href="/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/" class="article-date">
-	  更新于 <time datetime="2020-07-31T13:37:11.288Z" itemprop="dateUpdated">2020-07-31 21:37:11</time>
+	  更新于 <time datetime="2020-08-03T09:15:39.334Z" itemprop="dateUpdated">2020-08-03 17:15:39</time>
 	</a>
 
 
@@ -88,7 +88,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.4k</span>
+            <span class="post-count">2.7k</span>
         </span>
     </span>
 
@@ -97,7 +97,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">7 min</span>
+            <span class="post-count">13 min</span>
         </span>
     </span>
 </div>
@@ -173,7 +173,128 @@
 <p>​        不得不说，我的内心是崩溃，这台机器估计就是专门拿来跑深度学习的，基本上除了linux自带的什么都没有，关键是我并联系不上管理员，所以这就开启了我的悲催之路，我的所有依赖都是手动编译安装的=^=，我多么希望我是个Geeker，把root的密码给黑了，哎。。。</p>
 <hr>
 <p>先写到这里，回头再补充！</p>
-<h3 id="2-安装Aria2"><a href="#2-安装Aria2" class="headerlink" title="2.安装Aria2"></a>2.安装Aria2</h3><h3 id="3-安装Nginx-PHP"><a href="#3-安装Nginx-PHP" class="headerlink" title="3.安装Nginx+PHP"></a>3.安装Nginx+PHP</h3><h3 id="4-私人云盘"><a href="#4-私人云盘" class="headerlink" title="4.私人云盘"></a>4.私人云盘</h3><h3 id="5-Sqlite-wordpress"><a href="#5-Sqlite-wordpress" class="headerlink" title="5.Sqlite+wordpress"></a>5.Sqlite+wordpress</h3> 
+<h3 id="2-安装Aria2"><a href="#2-安装Aria2" class="headerlink" title="2.安装Aria2"></a>2.安装Aria2</h3><h3 id="3-安装Nginx-PHP"><a href="#3-安装Nginx-PHP" class="headerlink" title="3.安装Nginx+PHP"></a>3.安装Nginx+PHP</h3><h4 id="3-1-Nginx"><a href="#3-1-Nginx" class="headerlink" title="3.1 Nginx"></a>3.1 Nginx</h4><h5 id="3-1-1-编译"><a href="#3-1-1-编译" class="headerlink" title="3.1.1 编译"></a>3.1.1 编译</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --with-http_ssl_module --prefix&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;app&#x2F;nginx_new --with-pcre&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;download&#x2F;pcre&#x2F;pcre-8.00 --with-openssl&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;openssl --with-zlib&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;download&#x2F;zlib-1.12.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-2-防坑指南"><a href="#3-1-2-防坑指南" class="headerlink" title="3.1.2 防坑指南"></a>3.1.2 防坑指南</h5><ul>
+<li><p>编译nginx需要pcre（正则表达式支持）、zlib、openssl三个库支持，你需要提前安装opensssl</p>
+</li>
+<li><p>最好提前把ssl模块编译上去</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- **nginx配置openssl路径**</span><br><span class="line"></span><br><span class="line">  在这个过程中你可能会遇到</span><br></pre></td></tr></table></figure>
+<p>  [$prefix /.openssl/include/openssl/ssl.h] Error 127</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这是由于我们的openssl安装目录之后下并没有.&#x2F;openssl</span><br><span class="line"></span><br><span class="line">所以你需要：</span><br><span class="line"></span><br><span class="line">- 在nginx源码目录中，找到&#96;&#96;&#96;.&#x2F;auto&#x2F;lib&#x2F;openssl&#x2F;conf</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>找到这么一段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CORE_INCS&#x3D;&quot;$CORE_INCS $OPENSSL&#x2F;.openssl&#x2F;include&quot;</span><br><span class="line">CORE_DEPS&#x3D;&quot;$CORE_DEPS $OPENSSL&#x2F;.openssl&#x2F;include&#x2F;openssl&#x2F;ssl.h&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $OPENSSL&#x2F;.openssl&#x2F;lib&#x2F;libssl.a&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $OPENSSL&#x2F;.openssl&#x2F;lib&#x2F;libcrypto.a&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $NGX_LIBDL&quot;</span><br></pre></td></tr></table></figure>
+
+<p>替换为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CORE_INCS&#x3D;&quot;$CORE_INCS $OPENSSL&#x2F;include&quot;</span><br><span class="line">CORE_DEPS&#x3D;&quot;$CORE_DEPS $OPENSSL&#x2F;include&#x2F;openssl&#x2F;ssl.h&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $OPENSSL&#x2F;lib&#x2F;libssl.a&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $OPENSSL&#x2F;lib&#x2F;libcrypto.a&quot;</span><br><span class="line">CORE_LIBS&#x3D;&quot;$CORE_LIBS $NGX_LIBDL&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>–with-pcre         –with-zlib</strong></p>
+<ul>
+<li><p>这个后面接的是<strong>源码的位置</strong>，而不是你编译后安装的位置！</p>
+<p>如果你使用了安装后的位置，你会出现<code>./configure is not found</code>，因为nginx会去寻找源码，而你编译安装后的目录是没有configure的</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--with-pcre&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;download&#x2F;pcre-8.00</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>源码的位置需<strong>重新下载</strong>，不能使用编译过的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget XXXXXXXX</span><br></pre></td></tr></table></figure>
+
+<p>否则你会出现make一半，会列出configure list summary，然后无故结束。</p>
+<p><strong>这个地方坑了我一晚上！</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-1-3-配置文件"><a href="#3-1-3-配置文件" class="headerlink" title="3.1.3 配置文件"></a>3.1.3 配置文件</h5><ul>
+<li><p>配置https</p>
+<p><a href="">请参考</a></p>
+</li>
+</ul>
+<h4 id="3-2-PHP"><a href="#3-2-PHP" class="headerlink" title="3.2 PHP"></a>3.2 PHP</h4><h5 id="3-2-1编译安装"><a href="#3-2-1编译安装" class="headerlink" title="3.2.1编译安装"></a>3.2.1编译安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;configure --prefix&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;app&#x2F;php-7.4.8 --enable-fpm --enable-mysqlnd --with-mysqli&#x3D;mysqlnd --with-pdo-mysql&#x3D;mysqlnd --with-zlib --enable-xml --enable-mbstring --enable-curl --with-libxml-dir --with-pdo-sqlite --with-png-dir --with-jpeg-dir --enable-gd --enable-libxml --enable-sqlite3 --enable-opcache --enable-zip --enable-json --enable-pcre --enable-mhash --enable-fileinfo --with-gettext --enable-postix --enable-ctype --enable-filter --enable-date --enable-dom --enable-Reflection --enable-standard --enable-SimpleXML --enable-Phar --enable-session --enable-SPL --enable-tokenizer --enable-PDO --enable-Core --with-openssl --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --enable-ftp --enable-opcache</span><br></pre></td></tr></table></figure>
+
+<p>以上是我总结之后的安装，静态库编译。</p>
+<h5 id="3-2-2注意事项"><a href="#3-2-2注意事项" class="headerlink" title="3.2.2注意事项"></a>3.2.2注意事项</h5><ul>
+<li><p>通过pkg-config配置编译环境</p>
+<p>e.g.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+
+<p>请通过以上格式写入环境变量中。</p>
+</li>
+<li><p>enable 与 with的区别</p>
+</li>
+<li><p>重要的扩展库</p>
+<table>
+<thead>
+<tr>
+<th align="center">扩展</th>
+<th align="center">释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–enable-fpm</td>
+<td align="center">这个是php-fpm的由来，请你务必勾选此选项</td>
+</tr>
+<tr>
+<td align="center">-enable-mysqlnd –with-mysqli=mysqlnd –with-pdo-mysql=mysqlnd</td>
+<td align="center">此为mysql的扩展，如果你的php以后需要连接mysql，请务必勾选此项，<strong>因为php7的版本无法之后通过phpize编译扩展</strong></td>
+</tr>
+<tr>
+<td align="center">–enable-curl</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">–with-zlib</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h5 id="3-2-3-编译动态扩展"><a href="#3-2-3-编译动态扩展" class="headerlink" title="3.2.3 编译动态扩展"></a>3.2.3 编译动态扩展</h5><p>如果你已经编译安装完成了，之后需要使用到某扩展，请通过以下形式安装动态扩展</p>
+<ul>
+<li><p>进入php资源目录下（源码目录）</p>
+</li>
+<li><p>进入<code>./ext/$你想要安装的扩展</code></p>
+</li>
+<li><p>使用phpize命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#如果你没有添加环境变量，请使用绝对路径，例如</span><br><span class="line">&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;app&#x2F;php-7.4.8&#x2F;bin&#x2F;phpize</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>configure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#请使用绝对路径指定php-config目录</span><br><span class="line">.&#x2F;configure --with-php-config&#x3D;&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;app&#x2F;php-7.4.8&#x2F;bin&#x2F;php-config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>make &amp;&amp; make install</p>
+</li>
+<li><p>编辑php.ini</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Add extension,e.g.</span><br><span class="line">extension &#x3D; zlib.so</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启php</p>
+</li>
+</ul>
+<h3 id="4-私人云盘"><a href="#4-私人云盘" class="headerlink" title="4.私人云盘"></a>4.私人云盘</h3><h3 id="5-Sqlite-wordpress"><a href="#5-Sqlite-wordpress" class="headerlink" title="5.Sqlite+wordpress"></a>5.Sqlite+wordpress</h3><ul>
+<li><p>安装wordpress</p>
+</li>
+<li><p>安装sqlite-integration</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;downloads.wordpress.org&#x2F;plugin&#x2F;sqlite-integration.1.8.1.zip</span><br><span class="line"></span><br><span class="line">unzip sqlite-integration.1.8.1.zip</span><br><span class="line"></span><br><span class="line">mv sqlite-integration .&#x2F;wp-content&#x2F;plugins&#x2F;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改wp-config.php</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mv wp-config-sample.php wp-config.php</span><br><span class="line"></span><br><span class="line">vim wp-config.php</span><br></pre></td></tr></table></figure>
+
+<p>原文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ** MySQL 设置 - 具体信息来自您正在使用的主机 ** &#x2F;&#x2F;</span><br><span class="line">&#x2F;** WordPress数据库的名称 *&#x2F;</span><br><span class="line">define(&#39;DB_NAME&#39;, &#39;database_name_here&#39;);</span><br><span class="line">&#x2F;** MySQL数据库用户名 *&#x2F;</span><br><span class="line">define(&#39;DB_USER&#39;, &#39;username_here&#39;);</span><br><span class="line">&#x2F;** MySQL数据库密码 *&#x2F;</span><br><span class="line">define(&#39;DB_PASSWORD&#39;, &#39;password_here&#39;);</span><br><span class="line">&#x2F;** MySQL主机 *&#x2F;</span><br><span class="line">define(&#39;DB_HOST&#39;, &#39;localhost&#39;);</span><br><span class="line">&#x2F;** 创建数据表时默认的文字编码 *&#x2F;</span><br><span class="line">define(&#39;DB_CHARSET&#39;, &#39;utf8&#39;);</span><br><span class="line">&#x2F;** 数据库整理类型。如不确定请勿更改 *&#x2F;</span><br><span class="line">define(&#39;DB_COLLATE&#39;, &#39;&#39;);</span><br></pre></td></tr></table></figure>
+
+<p>修改后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; ** MySQL 设置 - 具体信息来自您正在使用的主机 ** &#x2F;&#x2F;</span><br><span class="line">&#x2F;** WordPress数据库的名称 *&#x2F;</span><br><span class="line">define(&#39;DB_NAME&#39;, &#39;MyBlog&#39;);&#x2F;&#x2F;MyBlog&lt;&#x3D;&#x3D;&#x3D;&#x3D;这是数据库名,可以自定义</span><br><span class="line">&#x2F;** MySQL数据库用户名 *&#x2F;</span><br><span class="line">define(&#39;DB_USER&#39;, &#39;&#39;);</span><br><span class="line">&#x2F;** MySQL数据库密码 *&#x2F;</span><br><span class="line">define(&#39;DB_PASSWORD&#39;, &#39;&#39;);</span><br><span class="line">&#x2F;** MySQL主机 *&#x2F;</span><br><span class="line">define(&#39;DB_HOST&#39;, &#39;localhost&#39;);</span><br><span class="line">&#x2F;** 创建数据表时默认的文字编码 *&#x2F;</span><br><span class="line">define(&#39;DB_CHARSET&#39;, &#39;utf8&#39;);</span><br><span class="line">&#x2F;** 数据库整理类型。如不确定请勿更改 *&#x2F;</span><br><span class="line">define(&#39;DB_COLLATE&#39;, &#39;&#39;);</span><br><span class="line">&#x2F;&#x2F;define(&#39;WP_ALLOW_REPAIR&#39;, true);&#x2F;&#x2F;数据库修复时使用</span><br><span class="line">define(&#39;DB_TYPE&#39;, &#39;sqlite&#39;);    &#x2F;&#x2F;mysql or sqlite&#96;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>移动<strong>db.php</strong>至根目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv .&#x2F;wp-content&#x2F;plugins&#x2F;sqlite-integration&#x2F;db.php .&#x2F;wp-content&#x2F;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+ 
       <!-- reward -->
       
       <div id="reward-btn">

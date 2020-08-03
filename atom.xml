@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-08-01T03:18:04.122Z</updated>
+  <updated>2020-08-03T04:33:12.508Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vim Note</title>
+    <link href="http://blog.lovexmtx.icu/2020/08/03/Vim-Note/"/>
+    <id>http://blog.lovexmtx.icu/2020/08/03/Vim-Note/</id>
+    <published>2020-08-03T02:40:55.000Z</published>
+    <updated>2020-08-03T04:33:12.508Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;常用命令&quot;&gt;&lt;a href=&quot;#常用命令&quot; class=&quot;headerlink&quot; title=&quot;常用命令&quot;&gt;&lt;/a&gt;常用命令&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;复制&lt;/p&gt;
+&lt;p&gt;n yy&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;查找/替换&lt;/p&gt;
+&lt;p&gt;查找 
+        
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>错题集-逻辑推理</title>
@@ -48,7 +76,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/"/>
     <id>http://blog.lovexmtx.icu/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/</id>
     <published>2020-07-30T12:23:16.000Z</published>
-    <updated>2020-07-31T13:37:11.288Z</updated>
+    <updated>2020-08-03T09:15:39.334Z</updated>
     
     <summary type="html">
     
@@ -252,7 +280,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/"/>
     <id>http://blog.lovexmtx.icu/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</id>
     <published>2020-07-12T06:57:18.000Z</published>
-    <updated>2020-08-01T04:13:14.802Z</updated>
+    <updated>2020-08-02T03:37:07.402Z</updated>
     
     <summary type="html">
     
@@ -361,7 +389,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/"/>
     <id>http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</id>
     <published>2020-07-07T08:44:50.000Z</published>
-    <updated>2020-07-12T07:29:54.240Z</updated>
+    <updated>2020-08-02T02:59:58.485Z</updated>
     
     <summary type="html">
     
