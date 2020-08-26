@@ -3860,7 +3860,11 @@
   <entry>
     <title>非root的艰难之旅</title>
     <url>/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        写之前，谈一谈本人的心路历程吧。最近这段时间，由于备考压力略大，我在闲暇之余总是想偷偷做点什么东西玩玩。而在之前的博客也提到，我弄到了一台服务器的普通账号，这台服务器呢带宽够足、GPU性能强劲、内存也算不错，总之比云主机强一万倍。因此呢，我走上了一条不归路，把我的休息时间大部分折腾在了这台服务器上。但是呢，这段时间也算是摸索出了很多Linux的知识吧，马克思诚不我欺也，实践是检验整理的唯一标准。</p>
+    <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/abstract/image-20200826194947271.png" alt="Cloud"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        写之前，谈一谈本人的心路历程吧。最近这段时间，由于备考压力略大，我在闲暇之余总是想偷偷做点什么东西玩玩。而在之前的博客也提到，我弄到了一台服务器的普通账号，这台服务器呢带宽够足、GPU性能强劲、</p>
+<a id="more"></a>
+
+<p>内存也算不错，总之比云主机强一万倍。因此呢，我走上了一条不归路，把我的休息时间大部分折腾在了这台服务器上。但是呢，这段时间也算是摸索出了很多Linux的知识吧，马克思诚不我欺也，实践是检验整理的唯一标准。</p>
 <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>​        在最初折腾之前呢，主要目的是视频服务器+离线下载，但后来衍生出了一些新需求，在折腾的路上停不下来，主要目的有以下几点：</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> 私人云盘s</li>
@@ -4022,7 +4026,9 @@
 <li><p>重启php</p>
 </li>
 </ul>
-<h3 id="4-私人云盘"><a href="#4-私人云盘" class="headerlink" title="4.私人云盘"></a>4.私人云盘</h3><h3 id="5-Sqlite-wordpress"><a href="#5-Sqlite-wordpress" class="headerlink" title="5.Sqlite+wordpress"></a>5.Sqlite+wordpress</h3><ul>
+<h3 id="4-私人云盘"><a href="#4-私人云盘" class="headerlink" title="4.私人云盘"></a>4.私人云盘</h3><p>​        私人云盘致力于打造专属于你自己的云上空间，是一种很实用的工具，它可以让你独享你自己的资源，再也不用担心被限速、被和谐等等情况。目前呢，较为常用的有NextCloud、OwnCloud、Seafile、可道云等。由于我没有root权限、也没有docker，所以很多依赖库都得源码安装，因此选择了可道云来部署。</p>
+<p>（等上岸了再来补充吧。。。。）</p>
+<h3 id="5-Sqlite-wordpress"><a href="#5-Sqlite-wordpress" class="headerlink" title="5.Sqlite+wordpress"></a>5.Sqlite+wordpress</h3><ul>
 <li><p>安装wordpress</p>
 </li>
 <li><p>安装sqlite-integration</p>
