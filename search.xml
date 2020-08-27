@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Aria2 Note</title>
+    <url>/2020/06/24/Aria2-Note/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
+<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
+<a id="more"></a>
+
+<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
+<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
+<ul>
+<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
+<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
+<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
+<ul>
+<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
+<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
+<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
+<hr>
+<p>以下为aria2 常用命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
+<p>另外有时候需要后台运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
+<ul>
+<li>当使用gcc编译时，找不到库文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>configure时，要求使用pkg来包含库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>离线下载</tag>
+        <tag>折腾</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Git Note</title>
     <url>/2020/07/05/Git-Note/</url>
     <content><![CDATA[<h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
@@ -155,61 +208,8 @@
         <category>IT</category>
       </categories>
       <tags>
+        <tag>Linux</tag>
         <tag>Git</tag>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Aria2 Note</title>
-    <url>/2020/06/24/Aria2-Note/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
-<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
-<a id="more"></a>
-
-<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
-<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
-<ul>
-<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
-<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
-<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
-<ul>
-<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
-<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
-<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
-<hr>
-<p>以下为aria2 常用命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
-<p>另外有时候需要后台运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
-<ul>
-<li>当使用gcc编译时，找不到库文件</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>configure时，要求使用pkg来包含库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>实用工具</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>离线下载</tag>
-        <tag>折腾</tag>
       </tags>
   </entry>
   <entry>
@@ -304,176 +304,6 @@
       </tags>
   </entry>
   <entry>
-    <title>行测--资料分析</title>
-    <url>/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>资料分析一直是行测考试中较为重要的一个模块，个人认为是 <strong>得分稳</strong>、<strong>分值高</strong>、<strong>性价比高</strong>的模块。</p>
-<p>最近，由于复习进入<strong>“深水区”</strong>，特地重新梳理一下资料分析的知识点。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
-<ol>
-<li>如何快速查找数据？</li>
-<li>速算技巧</li>
-<li>考点整理</li>
-<li>易错知识点</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="1-如何快速查找数据？"><a href="#1-如何快速查找数据？" class="headerlink" title="1.如何快速查找数据？"></a>1.如何快速查找数据？</h3><p>资料分析分数取决于速度、正确率，你需要在单位时间内获得最高的分值。因此，数据查找至关重要。</p>
-<ul>
-<li><p>剖析题干</p>
-<p>你需要把握题干中的三个基本点：<strong>时间、主体、考点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【2019 联考】2016年山东、广东和河南三省出生人口之和占当年全国出生人口的比重约为：</span><br><span class="line"></span><br><span class="line">A 21%</span><br><span class="line">B 25%</span><br><span class="line">C 28%</span><br><span class="line">D 31%</span><br></pre></td></tr></table></figure>
-
-<p>你可以圈出 <strong><em>2016年</em></strong>、 <strong><em>广东和河南三省出生人口之和</em></strong>、<strong><em>占（比重问题）</em></strong></p>
-</li>
-<li><p>在题目中查找</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>文字材料</strong>：预留10s-20s来略读一下全文，了解每段在讲些什么东西，比如第一段讲去年往年、第二段将省份之类的。</li>
-<li><input checked="" disabled="" type="checkbox"> <strong>图形材料</strong>：需特别注意标题、单位、图例、注释，（扇形图，一般是从0度向360度方向顺时针排列）</li>
-<li><input checked="" disabled="" type="checkbox"> <strong>表格材料</strong>：需特别注意标题、时间、单位、横纵目录</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-速算技巧"><a href="#2-速算技巧" class="headerlink" title="2.速算技巧"></a>2.速算技巧</h3><ul>
-<li><p>截位直除</p>
-</li>
-<li><p>分子分母比较法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;(1+r)&#x3D;A*(1+r) # 当r&lt;5%</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>A * a%  </p>
-<p>将a% 拆分称常用的1/2 ,1/4之类的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">945 * 44.2% &#x3D; 945 * 40% + 945 * 4% + 945 * 0.2%</span><br><span class="line"></span><br><span class="line">或者 &#x3D;945 * 4&#x2F;9</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>多位数求和</p>
-<ul>
-<li>四舍五入（取前两位）</li>
-<li>基准法（找一个基准数）适用于数据波动较小</li>
-<li>尾数法（适用于精确计算）</li>
-</ul>
-</li>
-<li><p>比重计算（特殊）</p>
-<p>比重靠近100%时，用1-a来计算</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3927&#x2F;4041 &#x3D; 1 -110&#x2F;4041 &#x3D; 1 - 2.x% &#x3D; 97.x% 选A</span><br><span class="line"></span><br><span class="line">A 97%</span><br><span class="line">B 99%</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>特殊题型 <code>A * a% - B * b%</code>当A与B非常大的时候</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">134735 * 9.1% - 134091 * 8.9%</span><br><span class="line"></span><br><span class="line">A 124</span><br><span class="line">B 249</span><br><span class="line">C 327</span><br><span class="line">D 467</span><br><span class="line"></span><br><span class="line">&#x3D; 134735 * (9.1% - 8.9%) - (134091 - 134735) * 8.9%</span><br><span class="line">&#x3D; 134735 * 0.2% + 644 * 8.9%</span><br><span class="line">&#x3D; 269.x + 57.x &#x3D; 326.x  选C</span><br></pre></td></tr></table></figure>
-
-<p>不能直接化成分数计算，不然结果误差很大</p>
-</li>
-</ul>
-<h3 id="3-知识点汇总"><a href="#3-知识点汇总" class="headerlink" title="3.知识点汇总"></a>3.知识点汇总</h3><ul>
-<li><p>隔年增长率</p>
-<ul>
-<li>隔年倍数</li>
-<li>隔年基期量</li>
-<li>逆向运用</li>
-</ul>
-</li>
-<li><p>合成增长率</p>
-<p>十字交叉法：值得注意的是，十字交叉法本来得到的是基期，只不过我们经常用近似值，现期量来替代。</p>
-</li>
-<li><p>年均增长率</p>
-<ul>
-<li><p>编数法</p>
-<blockquote>
-<p>编造每一年的值，尽量分布得均匀一些、方便自己计算，然后计算每一年的增长率，最后再求平均值</p>
-<p>—–公考齐麟</p>
-</blockquote>
-<p>例如：已知2010的基期产量为1000亿，2015年的现期产量为2000亿，求这五年的年均增长率。</p>
-<p>此时假设2011-2014每年的产量如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>2010</th>
-<th>2011</th>
-<th>2012</th>
-<th>2013</th>
-<th>2014</th>
-<th>2015</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1000</td>
-<td>1200</td>
-<td>1400</td>
-<td>1600</td>
-<td>1800</td>
-<td>2000</td>
-</tr>
-</tbody></table>
-<p>计算每一年的增长率，以A表示</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A2011&#x3D;(1200-1000)&#x2F;1000&#x3D;0.2</span><br><span class="line">A2012&#x3D;(1400-1200)&#x2F;1200&#x3D;0.167</span><br><span class="line">A2013&#x3D;0.143</span><br><span class="line">A2014&#x3D;0.125</span><br><span class="line">A2015&#x3D;0.111</span><br></pre></td></tr></table></figure>
-
-<p>那么年均增长率</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x3D;(0.2+0.167+0.143+0.125+0.111)&#x2F;5&#x3D;15.6%</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>平均增长率</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(a-b)&#x2F;(1-b)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>比重增长率</p>
-<p>常用公式：<strong>现期比重-基期比重</strong><br>$$<br>=\frac{A}{B} * \frac{a-b}{1+a}<br>$$<br>⚠️：上述公式是：<strong>现期比重-基期比重</strong>的值</p>
-<p>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体倍数</strong>？<br>$$<br>\frac{A}{B} / \frac{A}{B} * \frac{1+b}{1+a}=\frac{1+a}{1+b}<br>$$<br>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体增长率</strong>？其实也就是平均增长率。<br>$$<br>\frac{1+a}{1+b}-1=\frac{a-b}{1+b}<br>$$<br>⚠️<strong>要清楚的知道公式是怎么来的，而不能随意套用！</strong></p>
-<p><strong>只要能推清楚这几个公式，比重、平均增长率的本质就搞清楚了</strong></p>
-</li>
-</ul>
-<ul>
-<li><p>a&gt;b ，比重比上年⬆️</p>
-</li>
-<li><p>a&lt;b，比重比上年⬇️</p>
-</li>
-<li><p>逆向运用</p>
-</li>
-<li><p>通常比重的变化量&lt;&lt; (a-b)</p>
-</li>
-<li><p>注意与基期公式结合<code>A/B * (1+b)/(1+a)</code></p>
-</li>
-</ul>
-<ul>
-<li><p>综合分析错略</p>
-<ul>
-<li>倒序验证</li>
-<li>某个选项太难直接跳过（其实可以优先考虑题干短的、现期的）</li>
-<li>确定某个选项对了直接跳过</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-易错知识点"><a href="#4-易错知识点" class="headerlink" title="4.易错知识点"></a>4.易错知识点</h3><ul>
-<li>增幅、降幅、变化幅度</li>
-<li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
-<li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
-<li>不到、约、近、超过、XX多（XX余）</li>
-<li>量级 （特别是综合分析中）</li>
-</ul>
-<h3 id="5-特殊题型"><a href="#5-特殊题型" class="headerlink" title="5.特殊题型"></a>5.特殊题型</h3><ul>
-<li><p>某月和月均比大小</p>
-<p><strong>e.g.</strong>      已知7月的量，1-6月的量或1-7月的量，求7月与上半年的平均值之类的题型<br>$$<br>V_7&gt;? \frac{V_{1-6}}{6}=====&gt;V_7<em>6&gt;?(\frac{V_{1-6}}{6}</em>6=V_{1-6})=====&gt;<br>$$</p>
-<p>$$<br>V_7<em>6+V_7&gt;?V_{1-6}+V_7=====&gt;V_7</em>7&gt;?V_{1-7}<br>$$</p>
-<p>一般我们比较7月的单期量和1-7或1-6月的总量即可</p>
-</li>
-</ul>
-<hr>
-<p>先写这么多吧，以后错题有补充的再添加！</p>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mac原生挂载ntfs的方法</title>
     <url>/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>相信很多小伙伴会遇到这样一个问题：在Mac下如何挂载NTFS硬盘？</p>
@@ -539,6 +369,22 @@
       <tags>
         <tag>Mac</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Vim Note</title>
+    <url>/2020/08/03/Vim-Note/</url>
+    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>复制</p>
+<p>n yy</p>
+</li>
+<li><p>查找/替换</p>
+<p>查找  <code>:/</code></p>
+<p>替换  <code>:s/</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s:表示替换操作,其为substitute的缩写</span><br><span class="line"></span><br><span class="line">[option] : 表示操作类型,如:</span><br><span class="line"></span><br><span class="line">g:globe,表示全局替换</span><br><span class="line"></span><br><span class="line">c:confirm,表示进行确认</span><br><span class="line"></span><br><span class="line">p:表示替代结果逐行显示(Ctrl + L恢复屏幕)</span><br><span class="line"></span><br><span class="line">i:ignore,不区分大小写</span><br><span class="line"></span><br><span class="line">[option]省略时仅对每行第一个匹配串进行替换</span><br><span class="line">如果在源字符串和目的字符串中出现特殊字符,如&#39;&#x2F;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;,&#39;等需要前面加反斜杠\进行转义</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">常用命令示例:</span><br><span class="line">#将当前行第一个a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将当前行的所有a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将每行第一个a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b</span><br><span class="line"></span><br><span class="line">#将整个文件的所有a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将1至3行的第一个a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将1至3行的所有a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;g</span><br></pre></td></tr></table></figure>
+
+]]></content>
   </entry>
   <entry>
     <title>一种特别的百度云离线下载工具--bypy</title>
@@ -625,605 +471,6 @@
         <tag>离线下载</tag>
         <tag>折腾</tag>
         <tag>百度云</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测-易错成语积累</title>
-    <url>/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</url>
-    <content><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这篇博客用以加深行测的词汇积累!</p>
-<a id="more"></a>
-
-<h3 id="高频成语"><a href="#高频成语" class="headerlink" title="高频成语"></a>高频成语</h3><ul>
-<li><p><strong>等量齐观/相提并论</strong></p>
-<ul>
-<li><p><strong>相提并论</strong>：指把不同的人或不同的事放在一起谈论或看待，多用否定句式<strong>侧重强调差距大</strong></p>
-</li>
-<li><p><strong>等量齐观</strong>：指对有差别的事物同等看待，置于否定句中表达两者不一样</p>
-</li>
-</ul>
-</li>
-<li><p><strong>责无旁贷/义不容辞</strong></p>
-<ul>
-<li><p><strong>责无旁贷</strong>：自己应尽的责任，不能推卸给别人，通常<strong>不做定语</strong>，经常<strong>放在句子结尾</strong></p>
-<blockquote>
-<p>e.g 实现祖国的繁荣和富强我们每个人都<strong>责无旁贷</strong></p>
-</blockquote>
-</li>
-<li><p><strong>义不容辞</strong>：指道义上不允许推辞。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>千头万绪</strong></p>
-<p>比喻事情的<strong>开端</strong>，头绪非常多，也形容<strong>事情复杂纷乱</strong></p>
-</li>
-<li><p><strong>浮光掠影/浅尝辄止/走马观花</strong></p>
-<ul>
-<li><p><strong>浮光掠影</strong>：意思是水面上的反光和一闪而过的影子。</p>
-<p>比喻<strong>观察不细致</strong>,没有深的印象;又指<strong>文章言论的肤浅</strong>,无真知实学。</p>
-</li>
-<li><p><strong>浅尝辄止</strong>：意思是略微尝试一下就停下来。</p>
-<p>强调不深入研究，<strong>通常</strong>用于<strong>做学问</strong>、搞研究。</p>
-</li>
-<li><p><strong>走马观花</strong>：意思是指骑在奔跑的马上看花。</p>
-<p>原形容事情如意，心情愉快。后多指粗略地观察一下，<strong>强调观察这个动作</strong>。</p>
-</li>
-</ul>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E6%9B%B2%E7%AA%81%E5%BE%99%E8%96%AA](https://baike.baidu.com/item/曲突徙薪)">曲突徙薪</a></strong></p>
-<p>意思是把烟囱改建成弯的，把灶旁的柴草搬走。</p>
-<p>比喻<strong>事先采取措施，才能防止灾祸。</strong></p>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E6%89%AC%E6%B1%A4%E6%AD%A2%E6%B2%B8](https://baike.baidu.com/item/扬汤止沸)">洋洋止沸</a></strong></p>
-<p>意思是把锅里开着的水舀起来再倒回去，使它凉下来不沸腾。</p>
-<p>比喻<strong>办法不彻底</strong>，<strong>不能从根本上解决问题。</strong></p>
-<blockquote>
-<p>汉·枚乘《上书谏吴王》：“欲汤之沧，一人炊之，百人扬之，无益也；不如绝薪止火而已。”《三国志·魏书·刘廙传》：“扬汤止沸，使不焦烂。”</p>
-</blockquote>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E5%A4%A7%E4%B9%89%E5%87%9B%E7%84%B6](https://baike.baidu.com/item/大义凛然)">大义凛然</a></strong></p>
-<p>意思是由于胸怀正义而神态庄严，令人敬畏。</p>
-<p>常形容<strong>英勇无畏</strong>，而<strong>不是壮烈</strong>！</p>
-<blockquote>
-<p>宋·曹辅《唐颜文忠公新庙记》：“大义凛然，奋裙首倡。”</p>
-</blockquote>
-</li>
-<li><p><strong>一成不变</strong>（偏<strong>贬义</strong>）</p>
-<p>指一经形成，不再改变。亦泛指墨守成规，不知变通。</p>
-<blockquote>
-<p>《礼记·王制》：“一成而不可变，故君子尽心焉。”</p>
-</blockquote>
-</li>
-<li><p><strong>潜移默化/耳濡目染</strong></p>
-<ul>
-<li><p><strong>潜移默化</strong></p>
-<p>对象可以是 <strong>人/物</strong></p>
-<p><strong>定语、状语</strong></p>
-</li>
-<li><p><strong>耳濡目染</strong></p>
-<p>对象只能是<strong>人</strong></p>
-<p><strong>谓语、定语</strong></p>
-<p>强调<strong>看、听</strong></p>
-</li>
-<li><p>大多数情况下选 <strong>潜移默化</strong></p>
-</li>
-</ul>
-</li>
-<li><p><strong>缘木求鱼/饮鸠止渴/抱薪救火/杀鸡取卵/竭泽而渔</strong></p>
-<ul>
-<li><p><strong>缘木求鱼(贬义)</strong></p>
-<p>字面解读为爬到树上去找鱼。比喻方向或办法不对，不可能达到目的。<strong>并不强调使后果更严重</strong>。</p>
-<blockquote>
-<p>“以若所为，求若所欲，犹缘木而求鱼也。”——《孟子·梁惠王章句上》</p>
-</blockquote>
-<hr>
-</li>
-<li><p><strong>饮鸠止渴</strong></p>
-<p>比喻用错误的办法来解决<strong>眼前的</strong>困难而<strong>不顾严重后果</strong>。</p>
-<blockquote>
-<p>《后汉书·霍谞传》：“譬犹疗饥于附子，止渴于鸩毒，未入肠胃，已绝咽喉。”</p>
-</blockquote>
-</li>
-<li><p><strong>抱薪救火</strong></p>
-<p>抱着柴草去救火。比喻用错误的方法去消除灾祸，结果反而<strong>使灾祸扩大</strong>。</p>
-<blockquote>
-<p>西汉·司马迁《史记·魏世家》：且夫以地事秦，譬犹抱薪救火，薪不尽，火不灭</p>
-</blockquote>
-<hr>
-</li>
-<li><p><strong>杀鸡取卵</strong></p>
-<p>为了要得到鸡蛋，不惜把鸡杀了。比喻贪图眼前利益而不顾长远利益。</p>
-<blockquote>
-<p>希腊《伊索寓言·生金蛋的鸡》</p>
-</blockquote>
-</li>
-<li><p><strong>竭泽而渔</strong></p>
-<p>排尽湖中或池中的水来捕鱼。比喻目光短浅，只顾眼前利益，不顾长远打算。</p>
-<blockquote>
-<p>竭泽而渔，岂不获得？而来年无鱼；焚薮(sǒu)而田，岂不获得？而来年无兽。诈伪之道，虽今偷可，后将无复，非长术也。——《吕氏春秋·义赏》</p>
-</blockquote>
-<ul>
-<li>成语辨析：饮鸩止渴和“杀鸡取卵”；都指只顾眼前需要。但“杀鸡取卵”偏重利的取舍，指为了眼前利益，而放弃长远利益；而饮鸩止渴则在于害的轻重，指为了弥补或减少当前的损害，而不计严重后果。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><strong>泥沙俱下/鱼龙混杂/鱼目混珠（3 Times）</strong></p>
-<ul>
-<li><p><strong>鱼龙混杂</strong></p>
-<p>指在江河的急流中泥土和沙子随着水一起冲下。比喻好坏性质不同的人或者事物混杂在一起。</p>
-<blockquote>
-<p>“人称才大者，如万里黄河，与泥沙俱下。余以为，此粗才，非大才也。”</p>
-<p>——《随园诗话》</p>
-</blockquote>
-</li>
-<li><p><strong>鱼龙混杂</strong></p>
-<p>是形容好人和坏人混在一起，现也可形容事物好的坏的混在一起</p>
-<blockquote>
-<p>“风搅长空浪搅风，鱼龙混杂一川中。”</p>
-<p>——唐·张志和《和渔夫词》</p>
-</blockquote>
-</li>
-<li><p><strong>鱼目混珠</strong></p>
-<p>指拿鱼眼睛冒充珍珠，比喻用假的冒充真的。</p>
-<blockquote>
-<p>“鱼目岂为珠？蓬蒿不成槚。”</p>
-<p>——汉·魏伯阳《参同契》</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>背道而驰/分道扬镳</strong></p>
-<ul>
-<li><p><strong>背道而驰</strong></p>
-<p>比喻方向和目的完全相反，<strong>背离正确的道路</strong>，通常用在<strong>消极</strong>的对象身上</p>
-<blockquote>
-<p>唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《〈杨评事文集〉后序》：“其余各探一隅，相与背驰于道者，其去弥远。”</p>
-</blockquote>
-</li>
-<li><p><strong>分道扬镳</strong></p>
-<p>比喻目标不同，各走各的路或各干各的事。</p>
-<blockquote>
-<p>《魏书·河间公齐传》：“洛阳我之丰沛，自应分路扬镳。自今以后，可分路而行。”</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>汗牛充栋(5 Times)</strong> </p>
-<p>指用牛运书，牛要累得出汗；用屋子放书，要放满整个屋子。<strong>形容藏书很多</strong>。</p>
-<blockquote>
-<p>“其为书，处则充<a href="https://baike.baidu.com/item/栋宇" target="_blank" rel="noopener">栋宇</a>，出则汗牛马。”</p>
-<p>——唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《文通先生陆给事墓表》</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
-<li><p><strong>产生/唤醒/触发</strong></p>
-<p>“产生”指由<strong>已有的事物</strong>中生出新的事物</p>
-<p>“唤醒”表示使之觉醒，也是指<strong>原来有</strong>，现在重新使之苏醒</p>
-<p>“触发”指触动引发</p>
-</li>
-<li><p><strong>呵护/爱护（3 Times）</strong></p>
-<p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
-<p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
-<blockquote>
-<p>家风是具有鲜明特征的家庭文化，良好家风是一个家庭最宝贵的精神财富，也是每个家庭成员形成正确世界观、人生观、价值观的(    )。家庭是人生的第一所学校，良好家风是人生幸福生活的“第一组密码”。“积善之家，必有余庆；积不善之家，必有余殃。”只有守住和(    )好温暖的家庭，才能有人生的成功。</p>
-<p>依次填入划横线部分最恰当的一项是：</p>
-<ul>
-<li>A 基点 庇护</li>
-<li>B 基准 保护</li>
-<li>C 基础 爱护</li>
-<li>D 基石 呵护</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
-<li><p><strong>过犹不及</strong></p>
-<p>指事情做得过头，就跟做得不够一样，都是不合适的；</p>
-</li>
-<li><p><strong>穷经皓首</strong></p>
-<p>指直到年老头白还在钻研经书和古籍，形容勤勉好学，至老不倦；</p>
-</li>
-<li><p><strong>老调重弹</strong></p>
-<p>比喻把说过多次的理论、主张重新搬出来</p>
-</li>
-<li><p><strong>推波助澜</strong>（<strong>==无贬义==</strong>）</p>
-<p>比喻从旁鼓动、助长事物（多指坏的事物）的声势和发展，扩大影响。</p>
-</li>
-<li><p><strong>买椟还珠</strong></p>
-<p>指买来装珍珠的木匣退还了珍珠；比喻<strong>取舍不当</strong>，<strong>次要</strong>的东西<strong>比主要</strong>的还要<strong>好</strong></p>
-</li>
-<li><p><strong>以讹传讹</strong></p>
-<p>指把本来就不正确或不符合实际情况的话又不正确地传出去，越传越错。</p>
-</li>
-<li><p><strong>却之不恭</strong>（近义词：<strong>盛情难却</strong>）</p>
-<p>指对别人的邀请、赠与等，如果拒绝接受，就显得不恭敬。</p>
-</li>
-<li><p><strong>三人成虎</strong></p>
-<p>比喻说的人多了，就能使人们把谣言当作事实；含贬义，一般做分句。</p>
-</li>
-<li><p><strong>言不由衷/口是心非</strong></p>
-<p><strong>[释义]</strong>  由：从；<strong>衷：内心</strong>。</p>
-<p>话不是从内心发出来的；即说的话不是出于真心实意；指心口不一。</p>
-<p><strong>衷</strong>不是苦衷，多含<strong>贬义</strong></p>
-</li>
-<li><p><strong>邯郸学步/鹦鹉学舌/<a href="https://baike.baidu.com/item/东施效颦/232075" target="_blank" rel="noopener">东施效颦</a>/数典忘祖</strong></p>
-<p>比喻一味地模仿别人，不仅没学到本事，反而把原来的本事也丢了。</p>
-<blockquote>
-<p>《<a href="https://baike.baidu.com/item/庄子·秋水" target="_blank" rel="noopener">庄子·秋水</a>》：“子往呼！且子独不闻夫寿陵余子之学行于<a href="https://baike.baidu.com/item/邯郸/334665" target="_blank" rel="noopener">邯郸</a>与？未得国能，又失其故行矣，直匍匐而归耳。今子不去，将忘子之故，失子之业。”</p>
-</blockquote>
-</li>
-<li><p><strong>细枝末节</strong></p>
-<p><strong>==不等于细节！！！==</strong>比喻事情或问题的<strong>细小</strong>而<strong>无关紧要的部分</strong></p>
-<blockquote>
-<p>《礼记·乐记》：“铺筵席，陈尊俎，列笾豆，以升降为礼者，礼之末节也。”</p>
-</blockquote>
-</li>
-<li><p><strong>雪泥鸿爪</strong></p>
-<p>意思是大雁在雪泥上踏过留下的爪印。比喻<strong>往事遗留的痕迹</strong>。</p>
-<blockquote>
-<p>宋·苏轼《和子由渑池怀旧》诗：“人生到处知何似，应似飞鸿踏雪泥。泥上偶然留指爪，鸿飞那复计东西。”</p>
-</blockquote>
-</li>
-<li><p><strong>吉光片羽</strong></p>
-<p>比喻残存的珍贵文物。吉光：古代神话中的神兽名；片羽：一片毛。</p>
-<blockquote>
-<p>“武帝时西域献吉光裘，入水不濡。</p>
-<p>汉·刘歆《西京杂记》卷一</p>
-</blockquote>
-</li>
-<li><p><strong>闻过则喜</strong></p>
-<p>听到别人批评自己的缺点或错误，表示欢迎和高兴；指虚心接受意见。</p>
-<blockquote>
-<p>《<a href="https://baike.baidu.com/item/孟子/126" target="_blank" rel="noopener">孟子</a>·公孙丑上》：“子路人告之以有过则喜。</p>
-</blockquote>
-</li>
-<li><p><strong><a href="https://baike.baidu.com/item/杳如黄鹤" target="_blank" rel="noopener">杳如黄鹤</a></strong></p>
-<p>原指传说中仙人骑着黄鹤飞去，从此不再回来；现比喻<strong>无影无踪</strong>或<strong>下落不明</strong>。</p>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E7%A6%8F%E6%97%A0%E5%8F%8C%E8%87%B3](https://baike.baidu.com/item/福无双至)">福无双至</a></strong></p>
-<p>指幸运的事不会接连到来，常与“<a href="https://baike.baidu.com/item/祸不单行" target="_blank" rel="noopener">祸不单行</a>”连用。</p>
-<blockquote>
-<p>汉·刘向《说苑·权谋》：“此所谓<a href="https://baike.baidu.com/item/福不重至，祸必重来" target="_blank" rel="noopener">福不重至，祸必重来</a>者也。”</p>
-</blockquote>
-</li>
-<li><p><strong><a href="https://baike.baidu.com/item/厝火积薪" target="_blank" rel="noopener">厝火积薪</a></strong></p>
-<p>拼音cuò huǒ jī xīn，把火放到柴堆下面，<strong>比喻潜伏着很大危险。</strong></p>
-</li>
-</ul>
-<h3 id="词语积累"><a href="#词语积累" class="headerlink" title="词语积累"></a>词语积累</h3><ul>
-<li><p><strong>昭示</strong></p>
-<p>明白地表示或宣布</p>
-<p>跟<strong>昭然若揭</strong>没有关系，<strong>不是贬义词</strong>！</p>
-</li>
-<li><p><strong>保持、维持</strong></p>
-<p>“保持”指维持某种状态使不消失或减弱</p>
-<p>“维持”指维系使继续存在，通常<strong>搭配</strong>生命、关系等，且倾向于较为<strong>被动</strong>勉强的维持</p>
-</li>
-</ul>
-<blockquote>
-<p>【2018 湖南 14】总的来讲，“社会”在处理与国家的关系过程中强调其自主性的成长与释放，并  <strong><strong><strong>____</strong></strong></strong>  了各种形式的自我保护运动。而且，“社会”也在改变其生存与发展策略，它不仅仅满足在国家为其 <strong><strong><strong>__</strong></strong></strong>   的范围内行动，而且还通过与国家的主动接触与互动，<strong><strong><strong><strong>__</strong></strong></strong></strong> 与政府的相关性，并以协作或合作的方式参与社会问题的解决。</p>
-<ul>
-<li>A 展开 规定 保持</li>
-<li>B 拓展 制定 保护</li>
-<li>C 开展 划定 维持</li>
-<li>D 发展 制订 保障</li>
-</ul>
-</blockquote>
-<ul>
-<li><p><strong>观照</strong></p>
-<p>指仔细观察，审视</p>
-<ol>
-<li>佛家哲学。指静观世界以智慧而照见事理。</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
-<li>显示；反映。<ol start="3">
-<li>原为美学术语，现也指仔细观察，审视的思考比较。</li>
-</ol>
-</li>
-<li>用心光向心中看，向心中照，是道家一种修道的方法。<ol start="5">
-<li>关心照顾关怀之意，是客气的委婉语气</li>
-</ol>
-</li>
-</ol>
-<ul>
-<li><p><strong>感叹/感慨</strong></p>
-<ul>
-<li><p>感叹：侧重强调因内心感触而<strong>发出的声音或语言</strong></p>
-</li>
-<li><p>感慨：侧重强调内心的感触</p>
-</li>
-</ul>
-</li>
-<li><p><strong>蚕食/鲸吞</strong></p>
-<ul>
-<li>蚕食：强调逐步侵占，有不断的意思</li>
-<li>鲸吞：强调食量特别大</li>
-</ul>
-<blockquote>
-<p>(2019 武汉 C类)洞庭湖国家级自然保护区违规采砂问题突出，采砂作业不断(   )侵占湿地洲滩。洞庭湖水已不能作为饮用水源，“静影沉璧”更是远矣。如果说，游人尚能因(   )名篇而(   )洞庭，没有“文心”的虾蟹却不会买账，娇弱的江豚更会因此退却。这正是至柔之水至刚的一面。思接千载，范仲淹的忧乐精神，在本质上是一种忧患意识。先忧后乐，正是其价值呈现。(   )长江生态，如今已不是居安思危，长江脆弱性展露无遗。老问题已没时间一拖再拖，看起来尚可的同样要建立健全监测预警长效机制，做到“治未病”。</p>
-<p>依次填入横线处最合适的一组是（ ）。</p>
-<ul>
-<li>A 鲸吞 沉湎 喜欢 思量</li>
-<li>B 蚕食 沉湎 溺爱 把脉</li>
-<li>C 蚕食 溺爱 沉湎 把脉</li>
-<li>D 鲸吞 溺爱 敬畏 惊叹</li>
-</ul>
-</blockquote>
-</li>
-<li><blockquote>
-<p>(2019 武汉 C类)全党同志的(  ) ，全国各族人民的(  ) ，是对我们做好工作的(    )鼓舞，(   )我们肩上的重大责任。</p>
-<p>依次填入横线中最合适的一组是（ ）。</p>
-<ul>
-<li>A 期望 重托 巨大 更是</li>
-<li>B 重托 期望 巨大 也是</li>
-<li>C 期望 重托 重大 更是</li>
-<li>D 重托 期待 重大 也是</li>
-</ul>
-</blockquote>
-</li>
-<li><p><strong>老实/木讷</strong></p>
-<p>老实指忠厚诚实，循规蹈矩，木讷指反应迟钝、呆头呆脑，二者不是近义关系</p>
-<blockquote>
-<p>普通：平常</p>
-<p>A喜庆：愉悦</p>
-<p>B相似：类似</p>
-<p>C凶狠：残忍</p>
-<p>D老实：木讷</p>
-</blockquote>
-</li>
-<li><p><strong>活跃/剧烈</strong></p>
-<p><strong>活跃</strong>：表示频繁</p>
-<p><strong>剧烈</strong>：表示激烈、强烈程度，一般表示力度</p>
-</li>
-</ul>
-<blockquote>
-<p>【2018国考副省级26】黄河三角洲是中国大河三角洲中海陆变迁最<strong>__ 的地区，特别是黄河口地区造陆速率之快、尾闾迁徙之频繁，更为世界罕见。黄河三角洲的__</strong>受黄河水沙条件和海洋动力作用的制约，黄河来沙使海岸堆积向海洋推进，海洋动力作用又使海岸侵蚀向陆地推进。</p>
-<p>依次填入画横线部分最恰当的一项是：</p>
-<ul>
-<li>A 壮观 形成</li>
-<li>B 复杂 形态</li>
-<li>C 剧烈 演化</li>
-<li>D 活跃 演变</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-        <tag>成语</tag>
-        <tag>词语</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测--判断推理</title>
-    <url>/2020/07/11/%E8%A1%8C%E6%B5%8B-%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</url>
-    <content><![CDATA[<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><blockquote>
-<ol>
-<li><p>图形推理</p>
-</li>
-<li><p>定义判断</p>
-</li>
-<li><p>类比推理</p>
-</li>
-<li><p>逻辑推理</p>
-</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="1-图形推理"><a href="#1-图形推理" class="headerlink" title="1.图形推理"></a>1.图形推理</h3><p><img src="/../../../../../../../../images/image-20200711200625794.png" alt="image-20200711200625794"></p>
-<p><img src="/../../../../../../../../images/image-20200711200707743.png" alt="image-20200711200707743"></p>
-<h3 id="2-定义判断"><a href="#2-定义判断" class="headerlink" title="2.定义判断"></a>2.定义判断</h3><ul>
-<li><p><strong>看清题干</strong></p>
-<p>属于/不属于；单定义/多定义</p>
-</li>
-<li><p><strong>关键词</strong></p>
-<ul>
-<li>主/客体</li>
-<li>原因/条件 ：因为/由于…</li>
-<li>结果：导致/从而…</li>
-<li>方式：通过/利用…</li>
-<li>目的：以/达到…</li>
-<li>时间：当/在….阶段</li>
-</ul>
-</li>
-<li><p><strong>比较选项</strong></p>
-<p>同构选项排除</p>
-</li>
-<li><p><strong>Tips</strong></p>
-<ul>
-<li>优先看到  概念所在那句话的  <strong>句号</strong>；</li>
-<li>注意阅读的补充说明  <strong>“即”，“也就是说”</strong>…</li>
-<li>出题人<strong>讲故事</strong>，略过</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-类比推理"><a href="#3-类比推理" class="headerlink" title="3.类比推理"></a>3.类比推理</h3><p><img src="/../../../../../../../../images/image-20200711202834919.png" alt="image-20200711202834919"></p>
-<h3 id="4-逻辑推理"><a href="#4-逻辑推理" class="headerlink" title="4.逻辑推理"></a>4.逻辑推理</h3><h4 id="4-1-翻译"><a href="#4-1-翻译" class="headerlink" title="4.1 翻译"></a>4.1 翻译</h4><ul>
-<li><p><strong>充分条件</strong>        A-&gt;B</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只要A...就B</span><br><span class="line">如果A...那么B</span><br><span class="line">若A...则B</span><br><span class="line">**必须**</span><br><span class="line">所有的A是B</span><br><span class="line">一旦A，就B</span><br><span class="line">要想A，就需要B</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>必要条件</strong>       B-&gt;A</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只有A，才B</span><br><span class="line">A是B的基础&#x2F;前提</span><br><span class="line">A对B不可或缺</span><br><span class="line">除非A，否则 非B #注意这个除非</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>矛盾命题</strong></p>
-</li>
-<li><p><strong>联言命题</strong></p>
-</li>
-<li><p><strong>Tips：</strong></p>
-<p>除非A，否则B  ——-》非A，则B  ———》-A —&gt;B</p>
-</li>
-</ul>
-<h4 id="4-2加强-削弱"><a href="#4-2加强-削弱" class="headerlink" title="4.2加强/削弱"></a>4.2加强/削弱</h4><ul>
-<li><strong>加强论证</strong></li>
-</ul>
-<p><img src="/../../../../../../../../images/image-20200711192836327.png" alt="image-20200711192836327"></p>
-<ul>
-<li><strong>削弱/质疑</strong></li>
-</ul>
-<p><img src="/../../../../../../../../images/image-20200711194140376.png" alt="image-20200711194140376"></p>
-<ul>
-<li><strong><em>论点与论据一致时，若要加强，优先考虑 直接补充论据；若要削弱，优先考虑直接否点论点。</em></strong></li>
-</ul>
-<h4 id="4-3日常结论题"><a href="#4-3日常结论题" class="headerlink" title="4.3日常结论题"></a>4.3日常结论题</h4><ul>
-<li>不选 ： 逻辑错误/偷换概念</li>
-<li>慎选：  一定/必定</li>
-<li>优选：  可能</li>
-</ul>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测--常识百科</title>
-    <url>/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</url>
-    <content><![CDATA[<p>本篇用以积累常识</p>
-<a id="more"></a>
-
-<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><ol>
-<li>《孙子兵法》作者是孙武；《孙膑兵法》作者是孙膑。</li>
-<li></li>
-</ol>
-<h3 id="地理"><a href="#地理" class="headerlink" title="地理"></a>地理</h3><ul>
-<li><p>1.万山之祖，昆仑山脉。</p>
-</li>
-<li><p>2.<strong>时区</strong></p>
-<ul>
-<li><p>全球以<strong>格林尼治本初子午线（英国）</strong>为基础划分为<strong>24个时区</strong>（东、西各12个时区），<strong>不是</strong>两小时一个时区。</p>
-</li>
-<li><p><strong>国际日期变更线</strong>：太平洋中的180°经线上，俄罗斯东部<strong>白令海峡</strong>与美国的<a href="https://baike.baidu.com/item/阿拉斯加" target="_blank" rel="noopener">阿拉斯加</a>地区之间</p>
-<p>从东向西越过这条界线时，日期要加一天；从西向东越过这条界线时，日期要减去一天。即国际日期变更线的<strong>西边</strong>要比<strong>东边早一天</strong>。</p>
-</li>
-<li><p><strong>夏时制</strong>：“夏令时间”。一般在天亮早的夏季人为将时间<strong>调快一小时</strong>，<strong>为节约能源</strong></p>
-</li>
-</ul>
-</li>
-<li><p>3.世界陆地的<strong>最低处</strong>位于<strong>死海</strong></p>
-</li>
-</ul>
-<h3 id="生物"><a href="#生物" class="headerlink" title="生物"></a>生物</h3><ul>
-<li><p>1.血浆呈<strong>淡黄色</strong>。</p>
-</li>
-<li><p>2.<strong>角蛋白</strong></p>
-<p>角蛋白是<strong>硬蛋白</strong>之一，是一类具有结缔和保护功能的纤维状蛋白质，来源于外胚层分化而来的细胞。它是外胚层细胞的结构蛋白，包括毛发、指甲、羽毛等，它还是一种不能直接为畜禽所吸收利用的硬蛋白，主要存在于动物的鳞片、毛发、羽毛和蹄中。在人体的皮肤中，角蛋白主要分布在<strong>表皮层</strong></p>
-</li>
-<li><p>3.<strong>影响听力下降的原因</strong></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>太多的噪音</strong>会导致内耳的微细血管经常处于痉挛状态，内耳供血减少，听力急剧减退。</li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> <p><strong>精神压力过大</strong>导致内耳供血障碍</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>听觉中枢受损</strong>容易导致中枢性耳聋。</li>
-<li><input disabled="" type="checkbox"> 经常用耳勺掏挖耳朵碰伤了耳道，<strong>碰伤耳道并不会引起听力下降</strong>、听力减退；如果洁耳过度导致破坏鼓膜，则会引起听力下降、听力减退。</li>
-</ul>
-</li>
-<li><p><strong>4.</strong>在我国，树木<strong>南面</strong>的<strong>年轮较稀疏</strong>、<strong>北面</strong>的<strong>较密集</strong></p>
-</li>
-</ul>
-<h3 id="物理"><a href="#物理" class="headerlink" title="物理"></a>物理</h3><ul>
-<li><p>1.<strong>光波</strong></p>
-<p>在所有的可见光中，<strong>红光</strong>的<strong>波长</strong>是<strong>最长</strong>的，<strong>频率最小</strong>，因此红光的<strong>穿透力最强</strong>，折射角度小，<strong>不容易被散射</strong>。</p>
-</li>
-<li><p><strong>2.水的热传递性比空气好</strong></p>
-<blockquote>
-<p>冰冻的肉类在水中比在同温度的空气中解冻得快</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="化学"><a href="#化学" class="headerlink" title="化学"></a>化学</h3><ul>
-<li><p>1.硬度</p>
-<p><strong>金刚石</strong>是<strong>最硬</strong>的矿石，是已知的世界上最硬的物质。</p>
-<p><strong>滑石</strong>是世界上<strong>最软</strong>的矿石，任何一种矿物都能在滑石上划出痕迹；</p>
-</li>
-<li><p><strong>2.碳酸镁</strong>具有很强的<strong>吸湿作用</strong>。</p>
-<blockquote>
-<p><strong>举重运动员</strong>、体操运动员在比赛时，手掌心常会冒汗，而湿滑的掌心会使摩擦力减少，因此在赛前涂抹些碳酸镁，能够吸去掌心汗水，从而增加掌心与器械之间的摩擦力，使运动员能握紧器械，提高动作质量。</p>
-</blockquote>
-</li>
-<li><p><strong>3.铁制容器盛放浓硫酸</strong></p>
-<blockquote>
-<p>浓硫酸具有强氧化性，常温下能够使铁钝化形成致密氧化膜阻止反应继续进行，所以可以用铁制容器盛放浓硫酸</p>
-</blockquote>
-</li>
-<li><p>4.</p>
-</li>
-<li><p>5.</p>
-</li>
-<li><p>6.</p>
-</li>
-<li><p>7.</p>
-</li>
-</ul>
-<h3 id="时政"><a href="#时政" class="headerlink" title="时政"></a>时政</h3><ul>
-<li><p>1.保障性安居工程不得占用<strong>基本农田</strong>，而国家能源、交通、水利、军事设施等重点建设项目确实需占用基本农田的，经国务院批准，可占用。</p>
-</li>
-<li><p>2.<strong>习近平新时代中国特色社会主义思想</strong></p>
-<ul>
-<li><strong>核心要义</strong>，就是<strong>坚持和发展中国特色社会主义</strong></li>
-<li>习近平总书记在党的<strong>十九大报告</strong>中指出，<strong>坚持以人民为中心</strong>。</li>
-<li><strong>总任务</strong>是<strong>实现社会主义现代化和中华民族伟大复兴</strong></li>
-<li><strong>我国发展新的历史方位</strong>：<strong>中国特色社会主义进入了新时代</strong></li>
-</ul>
-</li>
-<li><p><strong>3.建设生态文明是中华民族永续发展的千年大计</strong></p>
-</li>
-<li><p>4.<strong>没有农户的书面委托</strong>，农村基层组织<strong>无权以任何方式决定流转农户的承包地</strong>，更不能以少数服从多数的名义，将整村整组农户承包地集中对外招商经营。</p>
-</li>
-<li><p>5.<strong>国民收入</strong>是指物质生产部门劳动者在一定时期所创造的价值，是一国生产要素（包括土地、劳动、资本、企业家才能等）所有者在一定时期内提供生产要素所得的报酬，即<strong>工资</strong>、<strong>利息</strong>、<strong>租金</strong>和<strong>利润</strong>等的<strong>总和</strong>。退休人员的退休金在经济中属于政府转移支付的范畴，属于政府支出，<strong>不属于国民收入</strong></p>
-</li>
-</ul>
-<h3 id="文化"><a href="#文化" class="headerlink" title="文化"></a>文化</h3><ul>
-<li><p><strong>1.京剧</strong></p>
-<ul>
-<li><strong>白色</strong>：一般表示<strong>阴险奸诈</strong>，如曹操、赵高。</li>
-<li><strong>红色</strong>：一般表示<strong>忠勇侠义</strong>，如关羽、姜维、常遇春；</li>
-<li><strong>黑色</strong>：一般表示<strong>刚烈正直</strong>，如包拯、张飞、李逵等</li>
-<li>蓝色或绿色：一般表示粗豪暴躁</li>
-</ul>
-</li>
-<li><p><strong>2.重阳节</strong></p>
-<ul>
-<li><p><strong>插茱萸–对亲朋好友的思念之情</strong></p>
-<p>特别注意：并不是敬老爱老</p>
-<blockquote>
-<p>独在异乡为异客，每逢佳节倍思亲。遥知兄弟登高处，遍插茱萸少一人。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p>【2015广东行测】83.下列选项中，用热水比用冷水洗涤效果更好的是：</p>
-<ul>
-<li>A有油渍的碗筷</li>
-<li>B有汗渍的衣服</li>
-<li>C有血渍的衣服</li>
-<li>D有农药残留的蔬菜</li>
-</ul>
-<p>A项正确，油渍不溶于水，用冷水难以去掉，而热水温度高，可以加快分子运动，使油渍更快软化，因此用热水来洗涤有油渍的碗筷，效果要比用冷水洗好。</p>
-<p>B项中的汗渍和C项中的血渍中都含有蛋白质，用热水洗容易导致蛋白质凝固，附着在衣服上，更难清洗。</p>
-<p>D项，去除有农药残留的蔬菜，通常是用清水多冲洗几遍，用热水洗，水温过高的话，容易导致蔬菜中的营养物质流失，洗涤效果不比冷水好。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-        <tag>常识</tag>
       </tags>
   </entry>
   <entry>
@@ -3110,47 +2357,22 @@
       </tags>
   </entry>
   <entry>
-    <title>行测-言语理解</title>
-    <url>/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</url>
-    <content><![CDATA[<ul>
-<li>略读<ul>
-<li>背景：近年来</li>
-<li>原因：由于</li>
-<li>例子：例如</li>
-</ul>
-</li>
-<li>错误选项<ul>
-<li>转折之前</li>
-<li>原因</li>
-<li>例子</li>
-<li>无中生有</li>
-<li>与文意相悖</li>
-</ul>
-</li>
-</ul>
-<h3 id="1-关键词"><a href="#1-关键词" class="headerlink" title="1.关键词"></a>1.关键词</h3><h4 id="1-1转折"><a href="#1-1转折" class="headerlink" title="1.1转折"></a>1.1转折</h4><ul>
-<li>典型：….</li>
-<li>非典型：殊不知、截然相反、全新的研究、一种误读、相对而言</li>
-</ul>
-<h4 id="1-2-主题词"><a href="#1-2-主题词" class="headerlink" title="1.2 主题词"></a>1.2 主题词</h4><p>多为名词、高频、前后有引入说明</p>
-<h4 id="1-3-因果"><a href="#1-3-因果" class="headerlink" title="1.3 因果"></a>1.3 因果</h4><h4 id="1-4-必要条件"><a href="#1-4-必要条件" class="headerlink" title="1.4 必要条件"></a>1.4 必要条件</h4><h4 id="1-5-并列"><a href="#1-5-并列" class="headerlink" title="1.5 并列"></a>1.5 并列</h4><h3 id="2-自我总结"><a href="#2-自我总结" class="headerlink" title="2.自我总结"></a>2.自我总结</h3><h4 id="2-1-切勿无中生有"><a href="#2-1-切勿无中生有" class="headerlink" title="2.1 切勿无中生有"></a>2.1 切勿无中生有</h4><p><strong>无中生有</strong>指的是：如果文段中未提及的事情，不仅仅是指<strong>细节判断题</strong>，也包含<strong>接与选择、逻辑填空</strong>，要充分尊重题干，不要自己瞎补充。</p>
+    <title>写作积累</title>
+    <url>/2020/08/13/%E5%86%99%E4%BD%9C%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<p>描述一个问题是并<strong>不是短时间形成</strong></p>
 <blockquote>
-<p>【2020广东选调】72.近年来，市场监管、司法等部门纷纷开展了告知承诺制度的积极探索。告知承诺制度是指行政机关在办理有关事项时，以书面形式把法律法规中规定的证明义务和证明内容一次性告知申请人。申请人书面承诺已符合告知的条件、标准和要求，愿意承担不实承诺的法律责任，行政机关便不再索要有关证明，直接予以办理。该制度的创新之处是以一种“合同式”治理的方式来替代以往反复的行政审批。</p>
-<p>以下最适合接在这段文字后面的是（  ）。</p>
-<ul>
-<li>A告知承诺制度已经在多个部门里面进行了推广使用，但是也有群众说造成了新的不便，那么下一步应该如何解决新的问题，值得深入思考、研究</li>
-<li>B告知承诺制度已经取得了一定的实践经验，应当考虑如何进一步宣传推广方案，最终取代反复的行政审批</li>
-<li>C显然，告知承诺制已经迈出了简约治理的第一步，接下来要怎么走下去，各个部门都应该结合自身实际，加以整改落实</li>
-<li>D尽管告知承诺制度已经在许多行政领域开展了应用探索，也取得了一些成绩，<strong>但实施中存在的问题不容忽视</strong>，应当积极解决，进一步完善这一制度</li>
-</ul>
+<p>冰冻三尺非一日之寒</p>
 </blockquote>
-<p>解析： 本题中的D选项，看起来确实没什么毛病，但是犯了大忌，无中生有。<strong>但实施中存在的问题不容忽视</strong>，在题干中并没有提及任何问题，所以D选项错误。</p>
+<p>强调重在积累</p>
+<blockquote>
+<p>大厦之成非一木之材，大海之阔非一流之归</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>公考</category>
       </categories>
       <tags>
-        <tag>行测</tag>
+        <tag>写作</tag>
       </tags>
   </entry>
   <entry>
@@ -3339,156 +2561,369 @@
       </tags>
   </entry>
   <entry>
-    <title>错题集-类比推理</title>
-    <url>/2020/07/29/%E9%94%99%E9%A2%98%E9%9B%86-%E7%B1%BB%E6%AF%94%E6%8E%A8%E7%90%86/</url>
-    <content><![CDATA[<h3 id="1-语义关系"><a href="#1-语义关系" class="headerlink" title="1.语义关系"></a>1.语义关系</h3><blockquote>
-<p>【2015广东行测】47.天真：幼稚</p>
+    <title>行测-易错成语积累</title>
+    <url>/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这篇博客用以加深行测的词汇积累!</p>
+<a id="more"></a>
+
+<h3 id="高频成语"><a href="#高频成语" class="headerlink" title="高频成语"></a>高频成语</h3><ul>
+<li><p><strong>等量齐观/相提并论</strong></p>
 <ul>
-<li>A小偷：强盗</li>
-<li>B懵懂：糊涂</li>
-<li>C公正：公平</li>
-<li>D懦弱：忍让</li>
+<li><p><strong>相提并论</strong>：指把不同的人或不同的事放在一起谈论或看待，多用否定句式<strong>侧重强调差距大</strong></p>
+</li>
+<li><p><strong>等量齐观</strong>：指对有差别的事物同等看待，置于否定句中表达两者不一样</p>
+</li>
 </ul>
-</blockquote>
-<p><strong>错因</strong>：联想到了二级辨析的褒贬义词性。</p>
+</li>
+<li><p><strong>责无旁贷/义不容辞</strong></p>
+<ul>
+<li><p><strong>责无旁贷</strong>：自己应尽的责任，不能推卸给别人，通常<strong>不做定语</strong>，经常<strong>放在句子结尾</strong></p>
 <blockquote>
-<p>【2018国考 副省级】97.羔羊跪乳：乌鸦反哺</p>
+<p>e.g 实现祖国的繁荣和富强我们每个人都<strong>责无旁贷</strong></p>
+</blockquote>
+</li>
+<li><p><strong>义不容辞</strong>：指道义上不允许推辞。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>千头万绪</strong></p>
+<p>比喻事情的<strong>开端</strong>，头绪非常多，也形容<strong>事情复杂纷乱</strong></p>
+</li>
+<li><p><strong>浮光掠影/浅尝辄止/走马观花</strong></p>
 <ul>
-<li>A 昙花一现：惊鸿一瞥</li>
-<li>B 魂不附体：失魂落魄</li>
-<li>C 锋芒毕露：锐不可当</li>
-<li>D 朽木难雕：孺子可教</li>
+<li><p><strong>浮光掠影</strong>：意思是水面上的反光和一闪而过的影子。</p>
+<p>比喻<strong>观察不细致</strong>,没有深的印象;又指<strong>文章言论的肤浅</strong>,无真知实学。</p>
+</li>
+<li><p><strong>浅尝辄止</strong>：意思是略微尝试一下就停下来。</p>
+<p>强调不深入研究，<strong>通常</strong>用于<strong>做学问</strong>、搞研究。</p>
+</li>
+<li><p><strong>走马观花</strong>：意思是指骑在奔跑的马上看花。</p>
+<p>原形容事情如意，心情愉快。后多指粗略地观察一下，<strong>强调观察这个动作</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E6%9B%B2%E7%AA%81%E5%BE%99%E8%96%AA](https://baike.baidu.com/item/曲突徙薪)">曲突徙薪</a></strong></p>
+<p>意思是把烟囱改建成弯的，把灶旁的柴草搬走。</p>
+<p>比喻<strong>事先采取措施，才能防止灾祸。</strong></p>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E6%89%AC%E6%B1%A4%E6%AD%A2%E6%B2%B8](https://baike.baidu.com/item/扬汤止沸)">洋洋止沸</a></strong></p>
+<p>意思是把锅里开着的水舀起来再倒回去，使它凉下来不沸腾。</p>
+<p>比喻<strong>办法不彻底</strong>，<strong>不能从根本上解决问题。</strong></p>
+<blockquote>
+<p>汉·枚乘《上书谏吴王》：“欲汤之沧，一人炊之，百人扬之，无益也；不如绝薪止火而已。”《三国志·魏书·刘廙传》：“扬汤止沸，使不焦烂。”</p>
+</blockquote>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E5%A4%A7%E4%B9%89%E5%87%9B%E7%84%B6](https://baike.baidu.com/item/大义凛然)">大义凛然</a></strong></p>
+<p>意思是由于胸怀正义而神态庄严，令人敬畏。</p>
+<p>常形容<strong>英勇无畏</strong>，而<strong>不是壮烈</strong>！</p>
+<blockquote>
+<p>宋·曹辅《唐颜文忠公新庙记》：“大义凛然，奋裙首倡。”</p>
+</blockquote>
+</li>
+<li><p><strong>一成不变</strong>（偏<strong>贬义</strong>）</p>
+<p>指一经形成，不再改变。亦泛指墨守成规，不知变通。</p>
+<blockquote>
+<p>《礼记·王制》：“一成而不可变，故君子尽心焉。”</p>
+</blockquote>
+</li>
+<li><p><strong>潜移默化/耳濡目染</strong></p>
+<ul>
+<li><p><strong>潜移默化</strong></p>
+<p>对象可以是 <strong>人/物</strong></p>
+<p><strong>定语、状语</strong></p>
+</li>
+<li><p><strong>耳濡目染</strong></p>
+<p>对象只能是<strong>人</strong></p>
+<p><strong>谓语、定语</strong></p>
+<p>强调<strong>看、听</strong></p>
+</li>
+<li><p>大多数情况下选 <strong>潜移默化</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>缘木求鱼/饮鸠止渴/抱薪救火/杀鸡取卵/竭泽而渔</strong></p>
+<ul>
+<li><p><strong>缘木求鱼(贬义)</strong></p>
+<p>字面解读为爬到树上去找鱼。比喻方向或办法不对，不可能达到目的。<strong>并不强调使后果更严重</strong>。</p>
+<blockquote>
+<p>“以若所为，求若所欲，犹缘木而求鱼也。”——《孟子·梁惠王章句上》</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>饮鸠止渴</strong></p>
+<p>比喻用错误的办法来解决<strong>眼前的</strong>困难而<strong>不顾严重后果</strong>。</p>
+<blockquote>
+<p>《后汉书·霍谞传》：“譬犹疗饥于附子，止渴于鸩毒，未入肠胃，已绝咽喉。”</p>
+</blockquote>
+</li>
+<li><p><strong>抱薪救火</strong></p>
+<p>抱着柴草去救火。比喻用错误的方法去消除灾祸，结果反而<strong>使灾祸扩大</strong>。</p>
+<blockquote>
+<p>西汉·司马迁《史记·魏世家》：且夫以地事秦，譬犹抱薪救火，薪不尽，火不灭</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>杀鸡取卵</strong></p>
+<p>为了要得到鸡蛋，不惜把鸡杀了。比喻贪图眼前利益而不顾长远利益。</p>
+<blockquote>
+<p>希腊《伊索寓言·生金蛋的鸡》</p>
+</blockquote>
+</li>
+<li><p><strong>竭泽而渔</strong></p>
+<p>排尽湖中或池中的水来捕鱼。比喻目光短浅，只顾眼前利益，不顾长远打算。</p>
+<blockquote>
+<p>竭泽而渔，岂不获得？而来年无鱼；焚薮(sǒu)而田，岂不获得？而来年无兽。诈伪之道，虽今偷可，后将无复，非长术也。——《吕氏春秋·义赏》</p>
+</blockquote>
+<ul>
+<li>成语辨析：饮鸩止渴和“杀鸡取卵”；都指只顾眼前需要。但“杀鸡取卵”偏重利的取舍，指为了眼前利益，而放弃长远利益；而饮鸩止渴则在于害的轻重，指为了弥补或减少当前的损害，而不计严重后果。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>泥沙俱下/鱼龙混杂/鱼目混珠（3 Times）</strong></p>
+<ul>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>指在江河的急流中泥土和沙子随着水一起冲下。比喻好坏性质不同的人或者事物混杂在一起。</p>
+<blockquote>
+<p>“人称才大者，如万里黄河，与泥沙俱下。余以为，此粗才，非大才也。”</p>
+<p>——《随园诗话》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>是形容好人和坏人混在一起，现也可形容事物好的坏的混在一起</p>
+<blockquote>
+<p>“风搅长空浪搅风，鱼龙混杂一川中。”</p>
+<p>——唐·张志和《和渔夫词》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼目混珠</strong></p>
+<p>指拿鱼眼睛冒充珍珠，比喻用假的冒充真的。</p>
+<blockquote>
+<p>“鱼目岂为珠？蓬蒿不成槚。”</p>
+<p>——汉·魏伯阳《参同契》</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>背道而驰/分道扬镳</strong></p>
+<ul>
+<li><p><strong>背道而驰</strong></p>
+<p>比喻方向和目的完全相反，<strong>背离正确的道路</strong>，通常用在<strong>消极</strong>的对象身上</p>
+<blockquote>
+<p>唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《〈杨评事文集〉后序》：“其余各探一隅，相与背驰于道者，其去弥远。”</p>
+</blockquote>
+</li>
+<li><p><strong>分道扬镳</strong></p>
+<p>比喻目标不同，各走各的路或各干各的事。</p>
+<blockquote>
+<p>《魏书·河间公齐传》：“洛阳我之丰沛，自应分路扬镳。自今以后，可分路而行。”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>汗牛充栋(5 Times)</strong> </p>
+<p>指用牛运书，牛要累得出汗；用屋子放书，要放满整个屋子。<strong>形容藏书很多</strong>。</p>
+<blockquote>
+<p>“其为书，处则充<a href="https://baike.baidu.com/item/栋宇" target="_blank" rel="noopener">栋宇</a>，出则汗牛马。”</p>
+<p>——唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《文通先生陆给事墓表》</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
+<li><p><strong>产生/唤醒/触发</strong></p>
+<p>“产生”指由<strong>已有的事物</strong>中生出新的事物</p>
+<p>“唤醒”表示使之觉醒，也是指<strong>原来有</strong>，现在重新使之苏醒</p>
+<p>“触发”指触动引发</p>
+</li>
+<li><p><strong>呵护/爱护（3 Times）</strong></p>
+<p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
+<p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
+<blockquote>
+<p>家风是具有鲜明特征的家庭文化，良好家风是一个家庭最宝贵的精神财富，也是每个家庭成员形成正确世界观、人生观、价值观的(    )。家庭是人生的第一所学校，良好家风是人生幸福生活的“第一组密码”。“积善之家，必有余庆；积不善之家，必有余殃。”只有守住和(    )好温暖的家庭，才能有人生的成功。</p>
+<p>依次填入划横线部分最恰当的一项是：</p>
+<ul>
+<li>A 基点 庇护</li>
+<li>B 基准 保护</li>
+<li>C 基础 爱护</li>
+<li>D 基石 呵护</li>
 </ul>
 </blockquote>
-<p><strong>错因</strong>：搞不清楚选项词语的意思，我做题的时候以为ABC都是近义关系。</p>
-<ul>
-<li><strong>昙花一现</strong>：指美好的事物出现的时间很短，</li>
-<li><strong>惊鸿一瞥</strong>：人只是匆匆看了一眼，却给人留下强烈、深刻的印象，常用来形容身形轻盈娇艳的女子摄人心魄的目光</li>
-<li><strong>魂不附体</strong>的意思是灵魂离开了身体，形容极端惊慌</li>
-<li><strong>失魂落魄</strong>的意思是魂魄离开了身体，也是形容惊慌忧虑</li>
-<li><strong>锋芒毕露</strong>的意思是刀锋和矛尖都露出来，比喻锐气和才干全都显露、透露出来</li>
-<li><strong>锐不可当</strong>形容勇往直前的气势不可抵挡</li>
+</li>
+</ul>
+<h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
+<li><p><strong>过犹不及</strong></p>
+<p>指事情做得过头，就跟做得不够一样，都是不合适的；</p>
+</li>
+<li><p><strong>穷经皓首</strong></p>
+<p>指直到年老头白还在钻研经书和古籍，形容勤勉好学，至老不倦；</p>
+</li>
+<li><p><strong>老调重弹</strong></p>
+<p>比喻把说过多次的理论、主张重新搬出来</p>
+</li>
+<li><p><strong>推波助澜</strong>（<strong>==无贬义==</strong>）</p>
+<p>比喻从旁鼓动、助长事物（多指坏的事物）的声势和发展，扩大影响。</p>
+</li>
+<li><p><strong>买椟还珠</strong></p>
+<p>指买来装珍珠的木匣退还了珍珠；比喻<strong>取舍不当</strong>，<strong>次要</strong>的东西<strong>比主要</strong>的还要<strong>好</strong></p>
+</li>
+<li><p><strong>以讹传讹</strong></p>
+<p>指把本来就不正确或不符合实际情况的话又不正确地传出去，越传越错。</p>
+</li>
+<li><p><strong>却之不恭</strong>（近义词：<strong>盛情难却</strong>）</p>
+<p>指对别人的邀请、赠与等，如果拒绝接受，就显得不恭敬。</p>
+</li>
+<li><p><strong>三人成虎</strong></p>
+<p>比喻说的人多了，就能使人们把谣言当作事实；含贬义，一般做分句。</p>
+</li>
+<li><p><strong>言不由衷/口是心非</strong></p>
+<p><strong>[释义]</strong>  由：从；<strong>衷：内心</strong>。</p>
+<p>话不是从内心发出来的；即说的话不是出于真心实意；指心口不一。</p>
+<p><strong>衷</strong>不是苦衷，多含<strong>贬义</strong></p>
+</li>
+<li><p><strong>邯郸学步/鹦鹉学舌/<a href="https://baike.baidu.com/item/东施效颦/232075" target="_blank" rel="noopener">东施效颦</a>/数典忘祖</strong></p>
+<p>比喻一味地模仿别人，不仅没学到本事，反而把原来的本事也丢了。</p>
+<blockquote>
+<p>《<a href="https://baike.baidu.com/item/庄子·秋水" target="_blank" rel="noopener">庄子·秋水</a>》：“子往呼！且子独不闻夫寿陵余子之学行于<a href="https://baike.baidu.com/item/邯郸/334665" target="_blank" rel="noopener">邯郸</a>与？未得国能，又失其故行矣，直匍匐而归耳。今子不去，将忘子之故，失子之业。”</p>
+</blockquote>
+</li>
+<li><p><strong>细枝末节</strong></p>
+<p><strong>==不等于细节！！！==</strong>比喻事情或问题的<strong>细小</strong>而<strong>无关紧要的部分</strong></p>
+<blockquote>
+<p>《礼记·乐记》：“铺筵席，陈尊俎，列笾豆，以升降为礼者，礼之末节也。”</p>
+</blockquote>
+</li>
+<li><p><strong>雪泥鸿爪</strong></p>
+<p>意思是大雁在雪泥上踏过留下的爪印。比喻<strong>往事遗留的痕迹</strong>。</p>
+<blockquote>
+<p>宋·苏轼《和子由渑池怀旧》诗：“人生到处知何似，应似飞鸿踏雪泥。泥上偶然留指爪，鸿飞那复计东西。”</p>
+</blockquote>
+</li>
+<li><p><strong>吉光片羽</strong></p>
+<p>比喻残存的珍贵文物。吉光：古代神话中的神兽名；片羽：一片毛。</p>
+<blockquote>
+<p>“武帝时西域献吉光裘，入水不濡。</p>
+<p>汉·刘歆《西京杂记》卷一</p>
+</blockquote>
+</li>
+<li><p><strong>闻过则喜</strong></p>
+<p>听到别人批评自己的缺点或错误，表示欢迎和高兴；指虚心接受意见。</p>
+<blockquote>
+<p>《<a href="https://baike.baidu.com/item/孟子/126" target="_blank" rel="noopener">孟子</a>·公孙丑上》：“子路人告之以有过则喜。</p>
+</blockquote>
+</li>
+<li><p><strong><a href="https://baike.baidu.com/item/杳如黄鹤" target="_blank" rel="noopener">杳如黄鹤</a></strong></p>
+<p>原指传说中仙人骑着黄鹤飞去，从此不再回来；现比喻<strong>无影无踪</strong>或<strong>下落不明</strong>。</p>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E7%A6%8F%E6%97%A0%E5%8F%8C%E8%87%B3](https://baike.baidu.com/item/福无双至)">福无双至</a></strong></p>
+<p>指幸运的事不会接连到来，常与“<a href="https://baike.baidu.com/item/祸不单行" target="_blank" rel="noopener">祸不单行</a>”连用。</p>
+<blockquote>
+<p>汉·刘向《说苑·权谋》：“此所谓<a href="https://baike.baidu.com/item/福不重至，祸必重来" target="_blank" rel="noopener">福不重至，祸必重来</a>者也。”</p>
+</blockquote>
+</li>
+<li><p><strong><a href="https://baike.baidu.com/item/厝火积薪" target="_blank" rel="noopener">厝火积薪</a></strong></p>
+<p>拼音cuò huǒ jī xīn，把火放到柴堆下面，<strong>比喻潜伏着很大危险。</strong></p>
+</li>
+</ul>
+<h3 id="词语积累"><a href="#词语积累" class="headerlink" title="词语积累"></a>词语积累</h3><ul>
+<li><p><strong>昭示</strong></p>
+<p>明白地表示或宣布</p>
+<p>跟<strong>昭然若揭</strong>没有关系，<strong>不是贬义词</strong>！</p>
+</li>
+<li><p><strong>保持、维持</strong></p>
+<p>“保持”指维持某种状态使不消失或减弱</p>
+<p>“维持”指维系使继续存在，通常<strong>搭配</strong>生命、关系等，且倾向于较为<strong>被动</strong>勉强的维持</p>
+</li>
 </ul>
 <blockquote>
-<p>【2016广东行测县级】69.陈词滥调：老生常谈</p>
+<p>【2018 湖南 14】总的来讲，“社会”在处理与国家的关系过程中强调其自主性的成长与释放，并  <strong><strong><strong>____</strong></strong></strong>  了各种形式的自我保护运动。而且，“社会”也在改变其生存与发展策略，它不仅仅满足在国家为其 <strong><strong><strong>__</strong></strong></strong>   的范围内行动，而且还通过与国家的主动接触与互动，<strong><strong><strong><strong>__</strong></strong></strong></strong> 与政府的相关性，并以协作或合作的方式参与社会问题的解决。</p>
 <ul>
-<li>A 按部就班：循序渐进</li>
-<li>B 博闻强识：见多识广</li>
-<li>C 见义勇为：助人为乐</li>
-<li>D 八面玲珑：面面俱到</li>
+<li>A 展开 规定 保持</li>
+<li>B 拓展 制定 保护</li>
+<li>C 开展 划定 维持</li>
+<li>D 发展 制订 保障</li>
 </ul>
 </blockquote>
-<p><strong>错因</strong>：<strong>搞不清楚词语的意思</strong>，认为八面玲珑和面面俱到不是近义词</p>
-<h3 id="2-并列关系"><a href="#2-并列关系" class="headerlink" title="2.并列关系"></a>2.并列关系</h3><blockquote>
-<p>【2018国考 副省级】102.蛋：卤蛋：松花蛋</p>
 <ul>
-<li>A 豆：红豆：四季豆</li>
-<li>B 油：牛油：植物油</li>
-<li>C 瓜：丝瓜：白兰瓜</li>
-<li>D 茶：白茶：乌龙茶</li>
+<li><p><strong>观照</strong></p>
+<p>指仔细观察，审视</p>
+<ol>
+<li>佛家哲学。指静观世界以智慧而照见事理。</li>
+</ol>
+</li>
 </ul>
-</blockquote>
-<p><strong>错因</strong>：<strong>层级不同的并列</strong>需要二级辨析</p>
+<ol start="2">
+<li>显示；反映。<ol start="3">
+<li>原为美学术语，现也指仔细观察，审视的思考比较。</li>
+</ol>
+</li>
+<li>用心光向心中看，向心中照，是道家一种修道的方法。<ol start="5">
+<li>关心照顾关怀之意，是客气的委婉语气</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><p><strong>感叹/感慨</strong></p>
+<ul>
+<li><p>感叹：侧重强调因内心感触而<strong>发出的声音或语言</strong></p>
+</li>
+<li><p>感慨：侧重强调内心的感触</p>
+</li>
+</ul>
+</li>
+<li><p><strong>蚕食/鲸吞</strong></p>
+<ul>
+<li>蚕食：强调逐步侵占，有不断的意思</li>
+<li>鲸吞：强调食量特别大</li>
+</ul>
 <blockquote>
-<p>【2017广东行测43】.投票：抽签</p>
+<p>(2019 武汉 C类)洞庭湖国家级自然保护区违规采砂问题突出，采砂作业不断(   )侵占湿地洲滩。洞庭湖水已不能作为饮用水源，“静影沉璧”更是远矣。如果说，游人尚能因(   )名篇而(   )洞庭，没有“文心”的虾蟹却不会买账，娇弱的江豚更会因此退却。这正是至柔之水至刚的一面。思接千载，范仲淹的忧乐精神，在本质上是一种忧患意识。先忧后乐，正是其价值呈现。(   )长江生态，如今已不是居安思危，长江脆弱性展露无遗。老问题已没时间一拖再拖，看起来尚可的同样要建立健全监测预警长效机制，做到“治未病”。</p>
+<p>依次填入横线处最合适的一组是（ ）。</p>
 <ul>
-<li>A联系：沟通</li>
-<li>B管理：服务</li>
-<li>C劝说：争辩</li>
-<li>D推荐：号召</li>
+<li>A 鲸吞 沉湎 喜欢 思量</li>
+<li>B 蚕食 沉湎 溺爱 把脉</li>
+<li>C 蚕食 溺爱 沉湎 把脉</li>
+<li>D 鲸吞 溺爱 敬畏 惊叹</li>
 </ul>
 </blockquote>
-<p><strong>错因</strong>：没想到题干中两者的关系，理解成抽签是投票的一种方式了（投票时抽到哪个投哪个）。。。。</p>
+</li>
+<li><blockquote>
+<p>(2019 武汉 C类)全党同志的(  ) ，全国各族人民的(  ) ，是对我们做好工作的(    )鼓舞，(   )我们肩上的重大责任。</p>
+<p>依次填入横线中最合适的一组是（ ）。</p>
+<ul>
+<li>A 期望 重托 巨大 更是</li>
+<li>B 重托 期望 巨大 也是</li>
+<li>C 期望 重托 重大 更是</li>
+<li>D 重托 期待 重大 也是</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>老实/木讷</strong></p>
+<p>老实指忠厚诚实，循规蹈矩，木讷指反应迟钝、呆头呆脑，二者不是近义关系</p>
 <blockquote>
-<p>【2016广东行测县级61】.天空：蔚蓝</p>
-<ul>
-<li>A气氛：融洽</li>
-<li>B土地：耕种</li>
-<li>C茶叶：保健</li>
-<li>D河流：灌溉</li>
-</ul>
+<p>普通：平常</p>
+<p>A喜庆：愉悦</p>
+<p>B相似：类似</p>
+<p>C凶狠：残忍</p>
+<p>D老实：木讷</p>
 </blockquote>
-<p><strong>错因</strong>：第一反应是天空必然是蔚蓝的，然后GG了</p>
+</li>
+<li><p><strong>活跃/剧烈</strong></p>
+<p><strong>活跃</strong>：表示频繁</p>
+<p><strong>剧烈</strong>：表示激烈、强烈程度，一般表示力度</p>
+</li>
+</ul>
 <blockquote>
-<p>【2019年国考副省级】104.莲蓬 对于（ ）相当于（ ）对于 葛根</p>
+<p>【2018国考副省级26】黄河三角洲是中国大河三角洲中海陆变迁最<strong>__ 的地区，特别是黄河口地区造陆速率之快、尾闾迁徙之频繁，更为世界罕见。黄河三角洲的__</strong>受黄河水沙条件和海洋动力作用的制约，黄河来沙使海岸堆积向海洋推进，海洋动力作用又使海岸侵蚀向陆地推进。</p>
+<p>依次填入画横线部分最恰当的一项是：</p>
 <ul>
-<li>A荷叶；葛藤</li>
-<li>B荷花；葛粉</li>
-<li>C喜爱；纠缠</li>
-<li>D荷塘；山岗</li>
+<li>A 壮观 形成</li>
+<li>B 复杂 形态</li>
+<li>C 剧烈 演化</li>
+<li>D 活跃 演变</li>
 </ul>
 </blockquote>
-<p><strong>错因</strong>：荷花是一个总称，包含荷叶、莲蓬。。。</p>
-<blockquote>
-<p>【2019年国考副省级】97.马蹄莲：蟹爪兰</p>
-<ul>
-<li>A牵牛花：美人蕉</li>
-<li>B卷心菜：夜来香</li>
-<li>C灯笼椒：金针菇</li>
-<li>D佛手柑：含羞草</li>
-</ul>
-</blockquote>
-<p><strong>错因</strong>：<strong>牵牛花</strong>因其形似喇叭，所以也叫<strong>喇叭花</strong>；<strong>美人蕉</strong>因其<strong>花开的美艳</strong>而得名</p>
-<h3 id="语法关系"><a href="#语法关系" class="headerlink" title="语法关系"></a>语法关系</h3><blockquote>
-<p>【2017广东行测45】.言论：自由</p>
-<ul>
-<li>A版权：保护</li>
-<li>B危机：调控</li>
-<li>C生产：安全</li>
-<li>D设计：创新</li>
-</ul>
-</blockquote>
-<p><strong>错因</strong>：当时确实在纠结CD两项，后来是觉得安全地生产，创新的设计，设计可做名词才选的D。。</p>
-<h3 id="对应关系"><a href="#对应关系" class="headerlink" title="对应关系"></a>对应关系</h3><blockquote>
-<p>【2017广东行测47】.净水：过滤</p>
-<ul>
-<li>A名次：竞赛</li>
-<li>B房屋：装修</li>
-<li>C苗条：节食</li>
-<li>D环境：绿化</li>
-</ul>
-</blockquote>
-<p><strong>错因</strong>：单纯的从词性进行了耳机辨析，认为苗条是形容词。</p>
-<blockquote>
-<p>【2019年国考副省级】105.立案 对于（ ）相当于（ ）对于 判决</p>
-<ul>
-<li>A起诉；服刑</li>
-<li>B审理；质证</li>
-<li>C犯罪；调解</li>
-<li>D罚款；执行</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>常识不够，没搞清楚几个词之间的关系</p>
-<blockquote>
-<p>【2015广东行测】55.空气：空调：冷气</p>
-<ul>
-<li>A信号：电视：图像</li>
-<li>B食材：烹饪：美食</li>
-<li>C面粉：烤箱：面包</li>
-<li>D石油：提炼：汽油</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>辨析的时候理解为：冷气的原材料是空气。。。。。。。。</p>
-<blockquote>
-<p>【2015广东行测】52.花木：盆景</p>
-<ul>
-<li>A布料：窗帘</li>
-<li>B轮胎：汽车</li>
-<li>C墨水：书画</li>
-<li>D石头：假山</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>二级辨析：观赏功能</p>
-<blockquote>
-<p>【2016联考行测】94.水：森林：煤炭</p>
-<ul>
-<li>A雪：丰年：喜悦</li>
-<li>B表扬：自信：乐观</li>
-<li>C氮：蛋白质：智力</li>
-<li>D闪电：雨：打伞</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>必要条件</p>
 ]]></content>
       <categories>
         <category>公考</category>
@@ -3497,6 +2932,404 @@
         <tag>行测</tag>
         <tag>成语</tag>
         <tag>词语</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--常识百科</title>
+    <url>/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</url>
+    <content><![CDATA[<p>本篇用以积累常识</p>
+<a id="more"></a>
+
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><ol>
+<li>《孙子兵法》作者是孙武；《孙膑兵法》作者是孙膑。</li>
+<li></li>
+</ol>
+<h3 id="地理"><a href="#地理" class="headerlink" title="地理"></a>地理</h3><ul>
+<li><p>1.万山之祖，昆仑山脉。</p>
+</li>
+<li><p>2.<strong>时区</strong></p>
+<ul>
+<li><p>全球以<strong>格林尼治本初子午线（英国）</strong>为基础划分为<strong>24个时区</strong>（东、西各12个时区），<strong>不是</strong>两小时一个时区。</p>
+</li>
+<li><p><strong>国际日期变更线</strong>：太平洋中的180°经线上，俄罗斯东部<strong>白令海峡</strong>与美国的<a href="https://baike.baidu.com/item/阿拉斯加" target="_blank" rel="noopener">阿拉斯加</a>地区之间</p>
+<p>从东向西越过这条界线时，日期要加一天；从西向东越过这条界线时，日期要减去一天。即国际日期变更线的<strong>西边</strong>要比<strong>东边早一天</strong>。</p>
+</li>
+<li><p><strong>夏时制</strong>：“夏令时间”。一般在天亮早的夏季人为将时间<strong>调快一小时</strong>，<strong>为节约能源</strong></p>
+</li>
+</ul>
+</li>
+<li><p>3.世界陆地的<strong>最低处</strong>位于<strong>死海</strong></p>
+</li>
+</ul>
+<h3 id="生物"><a href="#生物" class="headerlink" title="生物"></a>生物</h3><ul>
+<li><p>1.血浆呈<strong>淡黄色</strong>。</p>
+</li>
+<li><p>2.<strong>角蛋白</strong></p>
+<p>角蛋白是<strong>硬蛋白</strong>之一，是一类具有结缔和保护功能的纤维状蛋白质，来源于外胚层分化而来的细胞。它是外胚层细胞的结构蛋白，包括毛发、指甲、羽毛等，它还是一种不能直接为畜禽所吸收利用的硬蛋白，主要存在于动物的鳞片、毛发、羽毛和蹄中。在人体的皮肤中，角蛋白主要分布在<strong>表皮层</strong></p>
+</li>
+<li><p>3.<strong>影响听力下降的原因</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>太多的噪音</strong>会导致内耳的微细血管经常处于痉挛状态，内耳供血减少，听力急剧减退。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <p><strong>精神压力过大</strong>导致内耳供血障碍</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>听觉中枢受损</strong>容易导致中枢性耳聋。</li>
+<li><input disabled="" type="checkbox"> 经常用耳勺掏挖耳朵碰伤了耳道，<strong>碰伤耳道并不会引起听力下降</strong>、听力减退；如果洁耳过度导致破坏鼓膜，则会引起听力下降、听力减退。</li>
+</ul>
+</li>
+<li><p><strong>4.</strong>在我国，树木<strong>南面</strong>的<strong>年轮较稀疏</strong>、<strong>北面</strong>的<strong>较密集</strong></p>
+</li>
+</ul>
+<h3 id="物理"><a href="#物理" class="headerlink" title="物理"></a>物理</h3><ul>
+<li><p>1.<strong>光波</strong></p>
+<p>在所有的可见光中，<strong>红光</strong>的<strong>波长</strong>是<strong>最长</strong>的，<strong>频率最小</strong>，因此红光的<strong>穿透力最强</strong>，折射角度小，<strong>不容易被散射</strong>。</p>
+</li>
+<li><p><strong>2.水的热传递性比空气好</strong></p>
+<blockquote>
+<p>冰冻的肉类在水中比在同温度的空气中解冻得快</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="化学"><a href="#化学" class="headerlink" title="化学"></a>化学</h3><ul>
+<li><p>1.硬度</p>
+<p><strong>金刚石</strong>是<strong>最硬</strong>的矿石，是已知的世界上最硬的物质。</p>
+<p><strong>滑石</strong>是世界上<strong>最软</strong>的矿石，任何一种矿物都能在滑石上划出痕迹；</p>
+</li>
+<li><p><strong>2.碳酸镁</strong>具有很强的<strong>吸湿作用</strong>。</p>
+<blockquote>
+<p><strong>举重运动员</strong>、体操运动员在比赛时，手掌心常会冒汗，而湿滑的掌心会使摩擦力减少，因此在赛前涂抹些碳酸镁，能够吸去掌心汗水，从而增加掌心与器械之间的摩擦力，使运动员能握紧器械，提高动作质量。</p>
+</blockquote>
+</li>
+<li><p><strong>3.铁制容器盛放浓硫酸</strong></p>
+<blockquote>
+<p>浓硫酸具有强氧化性，常温下能够使铁钝化形成致密氧化膜阻止反应继续进行，所以可以用铁制容器盛放浓硫酸</p>
+</blockquote>
+</li>
+<li><p>4.</p>
+</li>
+<li><p>5.</p>
+</li>
+<li><p>6.</p>
+</li>
+<li><p>7.</p>
+</li>
+</ul>
+<h3 id="时政"><a href="#时政" class="headerlink" title="时政"></a>时政</h3><ul>
+<li><p>1.保障性安居工程不得占用<strong>基本农田</strong>，而国家能源、交通、水利、军事设施等重点建设项目确实需占用基本农田的，经国务院批准，可占用。</p>
+</li>
+<li><p>2.<strong>习近平新时代中国特色社会主义思想</strong></p>
+<ul>
+<li><strong>核心要义</strong>，就是<strong>坚持和发展中国特色社会主义</strong></li>
+<li>习近平总书记在党的<strong>十九大报告</strong>中指出，<strong>坚持以人民为中心</strong>。</li>
+<li><strong>总任务</strong>是<strong>实现社会主义现代化和中华民族伟大复兴</strong></li>
+<li><strong>我国发展新的历史方位</strong>：<strong>中国特色社会主义进入了新时代</strong></li>
+</ul>
+</li>
+<li><p><strong>3.建设生态文明是中华民族永续发展的千年大计</strong></p>
+</li>
+<li><p>4.<strong>没有农户的书面委托</strong>，农村基层组织<strong>无权以任何方式决定流转农户的承包地</strong>，更不能以少数服从多数的名义，将整村整组农户承包地集中对外招商经营。</p>
+</li>
+<li><p>5.<strong>国民收入</strong>是指物质生产部门劳动者在一定时期所创造的价值，是一国生产要素（包括土地、劳动、资本、企业家才能等）所有者在一定时期内提供生产要素所得的报酬，即<strong>工资</strong>、<strong>利息</strong>、<strong>租金</strong>和<strong>利润</strong>等的<strong>总和</strong>。退休人员的退休金在经济中属于政府转移支付的范畴，属于政府支出，<strong>不属于国民收入</strong></p>
+</li>
+</ul>
+<h3 id="文化"><a href="#文化" class="headerlink" title="文化"></a>文化</h3><ul>
+<li><p><strong>1.京剧</strong></p>
+<ul>
+<li><strong>白色</strong>：一般表示<strong>阴险奸诈</strong>，如曹操、赵高。</li>
+<li><strong>红色</strong>：一般表示<strong>忠勇侠义</strong>，如关羽、姜维、常遇春；</li>
+<li><strong>黑色</strong>：一般表示<strong>刚烈正直</strong>，如包拯、张飞、李逵等</li>
+<li>蓝色或绿色：一般表示粗豪暴躁</li>
+</ul>
+</li>
+<li><p><strong>2.重阳节</strong></p>
+<ul>
+<li><p><strong>插茱萸–对亲朋好友的思念之情</strong></p>
+<p>特别注意：并不是敬老爱老</p>
+<blockquote>
+<p>独在异乡为异客，每逢佳节倍思亲。遥知兄弟登高处，遍插茱萸少一人。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>【2015广东行测】83.下列选项中，用热水比用冷水洗涤效果更好的是：</p>
+<ul>
+<li>A有油渍的碗筷</li>
+<li>B有汗渍的衣服</li>
+<li>C有血渍的衣服</li>
+<li>D有农药残留的蔬菜</li>
+</ul>
+<p>A项正确，油渍不溶于水，用冷水难以去掉，而热水温度高，可以加快分子运动，使油渍更快软化，因此用热水来洗涤有油渍的碗筷，效果要比用冷水洗好。</p>
+<p>B项中的汗渍和C项中的血渍中都含有蛋白质，用热水洗容易导致蛋白质凝固，附着在衣服上，更难清洗。</p>
+<p>D项，去除有农药残留的蔬菜，通常是用清水多冲洗几遍，用热水洗，水温过高的话，容易导致蔬菜中的营养物质流失，洗涤效果不比冷水好。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+        <tag>常识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测-言语理解</title>
+    <url>/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<ul>
+<li>略读<ul>
+<li>背景：近年来</li>
+<li>原因：由于</li>
+<li>例子：例如</li>
+</ul>
+</li>
+<li>错误选项<ul>
+<li>转折之前</li>
+<li>原因</li>
+<li>例子</li>
+<li>无中生有</li>
+<li>与文意相悖</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-关键词"><a href="#1-关键词" class="headerlink" title="1.关键词"></a>1.关键词</h3><h4 id="1-1转折"><a href="#1-1转折" class="headerlink" title="1.1转折"></a>1.1转折</h4><ul>
+<li>典型：….</li>
+<li>非典型：殊不知、截然相反、全新的研究、一种误读、相对而言</li>
+</ul>
+<h4 id="1-2-主题词"><a href="#1-2-主题词" class="headerlink" title="1.2 主题词"></a>1.2 主题词</h4><p>多为名词、高频、前后有引入说明</p>
+<h4 id="1-3-因果"><a href="#1-3-因果" class="headerlink" title="1.3 因果"></a>1.3 因果</h4><h4 id="1-4-必要条件"><a href="#1-4-必要条件" class="headerlink" title="1.4 必要条件"></a>1.4 必要条件</h4><h4 id="1-5-并列"><a href="#1-5-并列" class="headerlink" title="1.5 并列"></a>1.5 并列</h4><h3 id="2-自我总结"><a href="#2-自我总结" class="headerlink" title="2.自我总结"></a>2.自我总结</h3><h4 id="2-1-切勿无中生有"><a href="#2-1-切勿无中生有" class="headerlink" title="2.1 切勿无中生有"></a>2.1 切勿无中生有</h4><p><strong>无中生有</strong>指的是：如果文段中未提及的事情，不仅仅是指<strong>细节判断题</strong>，也包含<strong>接与选择、逻辑填空</strong>，要充分尊重题干，不要自己瞎补充。</p>
+<blockquote>
+<p>【2020广东选调】72.近年来，市场监管、司法等部门纷纷开展了告知承诺制度的积极探索。告知承诺制度是指行政机关在办理有关事项时，以书面形式把法律法规中规定的证明义务和证明内容一次性告知申请人。申请人书面承诺已符合告知的条件、标准和要求，愿意承担不实承诺的法律责任，行政机关便不再索要有关证明，直接予以办理。该制度的创新之处是以一种“合同式”治理的方式来替代以往反复的行政审批。</p>
+<p>以下最适合接在这段文字后面的是（  ）。</p>
+<ul>
+<li>A告知承诺制度已经在多个部门里面进行了推广使用，但是也有群众说造成了新的不便，那么下一步应该如何解决新的问题，值得深入思考、研究</li>
+<li>B告知承诺制度已经取得了一定的实践经验，应当考虑如何进一步宣传推广方案，最终取代反复的行政审批</li>
+<li>C显然，告知承诺制已经迈出了简约治理的第一步，接下来要怎么走下去，各个部门都应该结合自身实际，加以整改落实</li>
+<li>D尽管告知承诺制度已经在许多行政领域开展了应用探索，也取得了一些成绩，<strong>但实施中存在的问题不容忽视</strong>，应当积极解决，进一步完善这一制度</li>
+</ul>
+</blockquote>
+<p>解析： 本题中的D选项，看起来确实没什么毛病，但是犯了大忌，无中生有。<strong>但实施中存在的问题不容忽视</strong>，在题干中并没有提及任何问题，所以D选项错误。</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--资料分析</title>
+    <url>/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>资料分析一直是行测考试中较为重要的一个模块，个人认为是 <strong>得分稳</strong>、<strong>分值高</strong>、<strong>性价比高</strong>的模块。</p>
+<p>最近，由于复习进入<strong>“深水区”</strong>，特地重新梳理一下资料分析的知识点。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
+<ol>
+<li>如何快速查找数据？</li>
+<li>速算技巧</li>
+<li>考点整理</li>
+<li>易错知识点</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-如何快速查找数据？"><a href="#1-如何快速查找数据？" class="headerlink" title="1.如何快速查找数据？"></a>1.如何快速查找数据？</h3><p>资料分析分数取决于速度、正确率，你需要在单位时间内获得最高的分值。因此，数据查找至关重要。</p>
+<ul>
+<li><p>剖析题干</p>
+<p>你需要把握题干中的三个基本点：<strong>时间、主体、考点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【2019 联考】2016年山东、广东和河南三省出生人口之和占当年全国出生人口的比重约为：</span><br><span class="line"></span><br><span class="line">A 21%</span><br><span class="line">B 25%</span><br><span class="line">C 28%</span><br><span class="line">D 31%</span><br></pre></td></tr></table></figure>
+
+<p>你可以圈出 <strong><em>2016年</em></strong>、 <strong><em>广东和河南三省出生人口之和</em></strong>、<strong><em>占（比重问题）</em></strong></p>
+</li>
+<li><p>在题目中查找</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>文字材料</strong>：预留10s-20s来略读一下全文，了解每段在讲些什么东西，比如第一段讲去年往年、第二段将省份之类的。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>图形材料</strong>：需特别注意标题、单位、图例、注释，（扇形图，一般是从0度向360度方向顺时针排列）</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>表格材料</strong>：需特别注意标题、时间、单位、横纵目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-速算技巧"><a href="#2-速算技巧" class="headerlink" title="2.速算技巧"></a>2.速算技巧</h3><ul>
+<li><p>截位直除</p>
+</li>
+<li><p>分子分母比较法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;(1+r)&#x3D;A*(1+r) # 当r&lt;5%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>A * a%  </p>
+<p>将a% 拆分称常用的1/2 ,1/4之类的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">945 * 44.2% &#x3D; 945 * 40% + 945 * 4% + 945 * 0.2%</span><br><span class="line"></span><br><span class="line">或者 &#x3D;945 * 4&#x2F;9</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>多位数求和</p>
+<ul>
+<li>四舍五入（取前两位）</li>
+<li>基准法（找一个基准数）适用于数据波动较小</li>
+<li>尾数法（适用于精确计算）</li>
+</ul>
+</li>
+<li><p>比重计算（特殊）</p>
+<p>比重靠近100%时，用1-a来计算</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3927&#x2F;4041 &#x3D; 1 -110&#x2F;4041 &#x3D; 1 - 2.x% &#x3D; 97.x% 选A</span><br><span class="line"></span><br><span class="line">A 97%</span><br><span class="line">B 99%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>特殊题型 <code>A * a% - B * b%</code>当A与B非常大的时候</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">134735 * 9.1% - 134091 * 8.9%</span><br><span class="line"></span><br><span class="line">A 124</span><br><span class="line">B 249</span><br><span class="line">C 327</span><br><span class="line">D 467</span><br><span class="line"></span><br><span class="line">&#x3D; 134735 * (9.1% - 8.9%) - (134091 - 134735) * 8.9%</span><br><span class="line">&#x3D; 134735 * 0.2% + 644 * 8.9%</span><br><span class="line">&#x3D; 269.x + 57.x &#x3D; 326.x  选C</span><br></pre></td></tr></table></figure>
+
+<p>不能直接化成分数计算，不然结果误差很大</p>
+</li>
+</ul>
+<h3 id="3-知识点汇总"><a href="#3-知识点汇总" class="headerlink" title="3.知识点汇总"></a>3.知识点汇总</h3><ul>
+<li><p>隔年增长率</p>
+<ul>
+<li>隔年倍数</li>
+<li>隔年基期量</li>
+<li>逆向运用</li>
+</ul>
+</li>
+<li><p>合成增长率</p>
+<p>十字交叉法：值得注意的是，十字交叉法本来得到的是基期，只不过我们经常用近似值，现期量来替代。</p>
+</li>
+<li><p>年均增长率</p>
+<ul>
+<li><p>编数法</p>
+<blockquote>
+<p>编造每一年的值，尽量分布得均匀一些、方便自己计算，然后计算每一年的增长率，最后再求平均值</p>
+<p>—–公考齐麟</p>
+</blockquote>
+<p>例如：已知2010的基期产量为1000亿，2015年的现期产量为2000亿，求这五年的年均增长率。</p>
+<p>此时假设2011-2014每年的产量如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+<th>2015</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1000</td>
+<td>1200</td>
+<td>1400</td>
+<td>1600</td>
+<td>1800</td>
+<td>2000</td>
+</tr>
+</tbody></table>
+<p>计算每一年的增长率，以A表示</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A2011&#x3D;(1200-1000)&#x2F;1000&#x3D;0.2</span><br><span class="line">A2012&#x3D;(1400-1200)&#x2F;1200&#x3D;0.167</span><br><span class="line">A2013&#x3D;0.143</span><br><span class="line">A2014&#x3D;0.125</span><br><span class="line">A2015&#x3D;0.111</span><br></pre></td></tr></table></figure>
+
+<p>那么年均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x3D;(0.2+0.167+0.143+0.125+0.111)&#x2F;5&#x3D;15.6%</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>平均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(a-b)&#x2F;(1-b)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>比重增长率</p>
+<p>常用公式：<strong>现期比重-基期比重</strong><br>$$<br>=\frac{A}{B} * \frac{a-b}{1+a}<br>$$<br>⚠️：上述公式是：<strong>现期比重-基期比重</strong>的值</p>
+<p>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体倍数</strong>？<br>$$<br>\frac{A}{B} / \frac{A}{B} * \frac{1+b}{1+a}=\frac{1+a}{1+b}<br>$$<br>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体增长率</strong>？其实也就是平均增长率。<br>$$<br>\frac{1+a}{1+b}-1=\frac{a-b}{1+b}<br>$$<br>⚠️<strong>要清楚的知道公式是怎么来的，而不能随意套用！</strong></p>
+<p><strong>只要能推清楚这几个公式，比重、平均增长率的本质就搞清楚了</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>a&gt;b ，比重比上年⬆️</p>
+</li>
+<li><p>a&lt;b，比重比上年⬇️</p>
+</li>
+<li><p>逆向运用</p>
+</li>
+<li><p>通常比重的变化量&lt;&lt; (a-b)</p>
+</li>
+<li><p>注意与基期公式结合<code>A/B * (1+b)/(1+a)</code></p>
+</li>
+</ul>
+<ul>
+<li><p>综合分析错略</p>
+<ul>
+<li>倒序验证</li>
+<li>某个选项太难直接跳过（其实可以优先考虑题干短的、现期的）</li>
+<li>确定某个选项对了直接跳过</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-易错知识点"><a href="#4-易错知识点" class="headerlink" title="4.易错知识点"></a>4.易错知识点</h3><ul>
+<li>增幅、降幅、变化幅度</li>
+<li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
+<li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
+<li>不到、约、近、超过、XX多（XX余）</li>
+<li>量级 （特别是综合分析中）</li>
+</ul>
+<h3 id="5-特殊题型"><a href="#5-特殊题型" class="headerlink" title="5.特殊题型"></a>5.特殊题型</h3><ul>
+<li><p>某月和月均比大小</p>
+<p><strong>e.g.</strong>      已知7月的量，1-6月的量或1-7月的量，求7月与上半年的平均值之类的题型<br>$$<br>V_7&gt;? \frac{V_{1-6}}{6}=====&gt;V_7<em>6&gt;?(\frac{V_{1-6}}{6}</em>6=V_{1-6})=====&gt;<br>$$</p>
+<p>$$<br>V_7<em>6+V_7&gt;?V_{1-6}+V_7=====&gt;V_7</em>7&gt;?V_{1-7}<br>$$</p>
+<p>一般我们比较7月的单期量和1-7或1-6月的总量即可</p>
+</li>
+</ul>
+<hr>
+<p>先写这么多吧，以后错题有补充的再添加！</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>错题集-逻辑推理</title>
+    <url>/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/</url>
+    <content><![CDATA[<h3 id="加强-削弱"><a href="#加强-削弱" class="headerlink" title="加强/削弱"></a>加强/削弱</h3><blockquote>
+<p>【2018国考副省级114】.自上世纪50年代以来，全球每年平均爆发的大型龙卷风的次数从10次左右上升至15次。与此同时，人类活动激增，全球气候明显变暖，有人据此认为，气候变暖导致龙卷风爆发次数增加。  以下哪项如果为真，不能削弱上述结论？  </p>
+<p>A 龙卷风的类型多样，全球变暖后，小型龙卷风出现的次数并没有明显的变化  </p>
+<p>B 气候温暖是龙卷风形成的一个必要条件，几乎所有龙卷风的形成都与当地较高的温度有关  </p>
+<p>C 尽管全球变暖，龙卷风依然最多地发生在美国的中西部地区，其他地区的龙卷风现象并不多见  </p>
+<p>D 龙卷风是雷暴天气（即伴有雷击和闪电的局地对流性天气）的产物，只要在雷雨天气下出现极强的空气对流，就容易发生龙卷风.</p>
+</blockquote>
+<p><strong>错因：</strong>当时认为：B气候温暖是龙卷风形成的一个必要条件，那么<strong>龙卷风–》气候温暖</strong>。而题目论点：气候变暖导致龙卷风爆发次数增加即：<strong>气候变暖–》龙卷风爆发次数增加</strong>，二者因果倒置</p>
+<p>​        实际上： 错误有两点</p>
+<p>​        第一，把<strong>因果关系和条件关系混为一谈</strong>。题干是因果关系（气温升高是因、龙卷风增加是果），选项是条件关系（高气温是形成龙卷风的必要条件），而<strong>因果关系和条件关系没有必然联系</strong>。  B项根本就没出现因果表述，而你想当然的把必要条件作为果，那肯定就错了。如果把B改成“龙卷风导致气温升高”，这才是因果倒置。  </p>
+<p>​        第二，<strong>没理解必要条件到底什么意思</strong>。根据B高气温是形成龙卷风的必要条件，可以得出形成龙卷风→高气温，这种条件关系仅代表后者是前者的必要条件。换句同义替换就是“要形成龙卷风，必须要有高气温”，再换句话就是“如果形成了龙卷风，那么一定有高气温”或者也可以说“如果有龙卷风，那么可以推出有高气温”。但是不能说龙卷风这个原因导致了高气温这个结果。  B项的意思就是高气温是形成龙卷风的必要条件。而当气温升高，导致气候温暖，给形成更多龙卷风创造了条件，那B如果成立的话，很可能气温升高就会导致龙卷风增多，这是个加强项。</p>
+<hr>
+<blockquote>
+<p>【2015广东行测】62.某项科学研究发现：经常使用左手能更好地锻炼右脑，使得人的形象思维能力增强，更利于促进创造性思维的发展。但事实证明：发明家中左撇子的比例并不高。因此，这个科学研究的结论不可信。以下最能削弱上述结论的是：</p>
+<ul>
+<li>A用右手也可以达到锻炼右脑的效果</li>
+<li>B用右手的人数大大超过用左手的人数</li>
+<li>C发明创造主要依靠天赋，而非后天锻炼</li>
+<li>D发明创造不依靠形象思维能力</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>看清题干，论点到底是什么？</p>
+<blockquote>
+<p>【2015广东行测】59.有甲、乙两家公司，甲公司售后服务部门接到的产品投诉电话是乙公司的3倍。因此，甲公司产品的质量没有乙公司的好。以下最能反驳上述结论的是：</p>
+<ul>
+<li>A乙公司的产品操作相对来说更为简单</li>
+<li>B甲公司接到电话大多数是咨询电话</li>
+<li>C甲公司的咨询电话机数量比乙公司多</li>
+<li>D甲公司产品的市场占有率达到76%</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>题干已经明确说明，是产品投诉数量多–》产品<strong>质量不如乙</strong>。所以这个<strong>论点是存在比较的</strong>，而B项大多数是咨询电话并不能说明什么，就算你甲产品咨询电话占99%，那只能说明确实投诉率不高，但题干说的是要和乙产品比，人家来个99.1%就比你好了，所以B选项错在没有能够形成与乙产品进行对比。</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
       </tags>
   </entry>
   <entry>
@@ -3858,6 +3691,167 @@
       </tags>
   </entry>
   <entry>
+    <title>错题集-类比推理</title>
+    <url>/2020/07/29/%E9%94%99%E9%A2%98%E9%9B%86-%E7%B1%BB%E6%AF%94%E6%8E%A8%E7%90%86/</url>
+    <content><![CDATA[<h3 id="1-语义关系"><a href="#1-语义关系" class="headerlink" title="1.语义关系"></a>1.语义关系</h3><blockquote>
+<p>【2015广东行测】47.天真：幼稚</p>
+<ul>
+<li>A小偷：强盗</li>
+<li>B懵懂：糊涂</li>
+<li>C公正：公平</li>
+<li>D懦弱：忍让</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：联想到了二级辨析的褒贬义词性。</p>
+<blockquote>
+<p>【2018国考 副省级】97.羔羊跪乳：乌鸦反哺</p>
+<ul>
+<li>A 昙花一现：惊鸿一瞥</li>
+<li>B 魂不附体：失魂落魄</li>
+<li>C 锋芒毕露：锐不可当</li>
+<li>D 朽木难雕：孺子可教</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：搞不清楚选项词语的意思，我做题的时候以为ABC都是近义关系。</p>
+<ul>
+<li><strong>昙花一现</strong>：指美好的事物出现的时间很短，</li>
+<li><strong>惊鸿一瞥</strong>：人只是匆匆看了一眼，却给人留下强烈、深刻的印象，常用来形容身形轻盈娇艳的女子摄人心魄的目光</li>
+<li><strong>魂不附体</strong>的意思是灵魂离开了身体，形容极端惊慌</li>
+<li><strong>失魂落魄</strong>的意思是魂魄离开了身体，也是形容惊慌忧虑</li>
+<li><strong>锋芒毕露</strong>的意思是刀锋和矛尖都露出来，比喻锐气和才干全都显露、透露出来</li>
+<li><strong>锐不可当</strong>形容勇往直前的气势不可抵挡</li>
+</ul>
+<blockquote>
+<p>【2016广东行测县级】69.陈词滥调：老生常谈</p>
+<ul>
+<li>A 按部就班：循序渐进</li>
+<li>B 博闻强识：见多识广</li>
+<li>C 见义勇为：助人为乐</li>
+<li>D 八面玲珑：面面俱到</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：<strong>搞不清楚词语的意思</strong>，认为八面玲珑和面面俱到不是近义词</p>
+<h3 id="2-并列关系"><a href="#2-并列关系" class="headerlink" title="2.并列关系"></a>2.并列关系</h3><blockquote>
+<p>【2018国考 副省级】102.蛋：卤蛋：松花蛋</p>
+<ul>
+<li>A 豆：红豆：四季豆</li>
+<li>B 油：牛油：植物油</li>
+<li>C 瓜：丝瓜：白兰瓜</li>
+<li>D 茶：白茶：乌龙茶</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：<strong>层级不同的并列</strong>需要二级辨析</p>
+<blockquote>
+<p>【2017广东行测43】.投票：抽签</p>
+<ul>
+<li>A联系：沟通</li>
+<li>B管理：服务</li>
+<li>C劝说：争辩</li>
+<li>D推荐：号召</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：没想到题干中两者的关系，理解成抽签是投票的一种方式了（投票时抽到哪个投哪个）。。。。</p>
+<blockquote>
+<p>【2016广东行测县级61】.天空：蔚蓝</p>
+<ul>
+<li>A气氛：融洽</li>
+<li>B土地：耕种</li>
+<li>C茶叶：保健</li>
+<li>D河流：灌溉</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：第一反应是天空必然是蔚蓝的，然后GG了</p>
+<blockquote>
+<p>【2019年国考副省级】104.莲蓬 对于（ ）相当于（ ）对于 葛根</p>
+<ul>
+<li>A荷叶；葛藤</li>
+<li>B荷花；葛粉</li>
+<li>C喜爱；纠缠</li>
+<li>D荷塘；山岗</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：荷花是一个总称，包含荷叶、莲蓬。。。</p>
+<blockquote>
+<p>【2019年国考副省级】97.马蹄莲：蟹爪兰</p>
+<ul>
+<li>A牵牛花：美人蕉</li>
+<li>B卷心菜：夜来香</li>
+<li>C灯笼椒：金针菇</li>
+<li>D佛手柑：含羞草</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：<strong>牵牛花</strong>因其形似喇叭，所以也叫<strong>喇叭花</strong>；<strong>美人蕉</strong>因其<strong>花开的美艳</strong>而得名</p>
+<h3 id="语法关系"><a href="#语法关系" class="headerlink" title="语法关系"></a>语法关系</h3><blockquote>
+<p>【2017广东行测45】.言论：自由</p>
+<ul>
+<li>A版权：保护</li>
+<li>B危机：调控</li>
+<li>C生产：安全</li>
+<li>D设计：创新</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：当时确实在纠结CD两项，后来是觉得安全地生产，创新的设计，设计可做名词才选的D。。</p>
+<h3 id="对应关系"><a href="#对应关系" class="headerlink" title="对应关系"></a>对应关系</h3><blockquote>
+<p>【2017广东行测47】.净水：过滤</p>
+<ul>
+<li>A名次：竞赛</li>
+<li>B房屋：装修</li>
+<li>C苗条：节食</li>
+<li>D环境：绿化</li>
+</ul>
+</blockquote>
+<p><strong>错因</strong>：单纯的从词性进行了耳机辨析，认为苗条是形容词。</p>
+<blockquote>
+<p>【2019年国考副省级】105.立案 对于（ ）相当于（ ）对于 判决</p>
+<ul>
+<li>A起诉；服刑</li>
+<li>B审理；质证</li>
+<li>C犯罪；调解</li>
+<li>D罚款；执行</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>常识不够，没搞清楚几个词之间的关系</p>
+<blockquote>
+<p>【2015广东行测】55.空气：空调：冷气</p>
+<ul>
+<li>A信号：电视：图像</li>
+<li>B食材：烹饪：美食</li>
+<li>C面粉：烤箱：面包</li>
+<li>D石油：提炼：汽油</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>辨析的时候理解为：冷气的原材料是空气。。。。。。。。</p>
+<blockquote>
+<p>【2015广东行测】52.花木：盆景</p>
+<ul>
+<li>A布料：窗帘</li>
+<li>B轮胎：汽车</li>
+<li>C墨水：书画</li>
+<li>D石头：假山</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>二级辨析：观赏功能</p>
+<blockquote>
+<p>【2016联考行测】94.水：森林：煤炭</p>
+<ul>
+<li>A雪：丰年：喜悦</li>
+<li>B表扬：自信：乐观</li>
+<li>C氮：蛋白质：智力</li>
+<li>D闪电：雨：打伞</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>必要条件</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+        <tag>成语</tag>
+        <tag>词语</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>非root的艰难之旅</title>
     <url>/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/</url>
     <content><![CDATA[<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/abstract/image-20200826194947271.png" alt="Cloud"></p>
@@ -4058,84 +4052,6 @@
       <tags>
         <tag>折腾</tag>
         <tag>技术</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>错题集-逻辑推理</title>
-    <url>/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/</url>
-    <content><![CDATA[<h3 id="加强-削弱"><a href="#加强-削弱" class="headerlink" title="加强/削弱"></a>加强/削弱</h3><blockquote>
-<p>【2018国考副省级114】.自上世纪50年代以来，全球每年平均爆发的大型龙卷风的次数从10次左右上升至15次。与此同时，人类活动激增，全球气候明显变暖，有人据此认为，气候变暖导致龙卷风爆发次数增加。  以下哪项如果为真，不能削弱上述结论？  </p>
-<p>A 龙卷风的类型多样，全球变暖后，小型龙卷风出现的次数并没有明显的变化  </p>
-<p>B 气候温暖是龙卷风形成的一个必要条件，几乎所有龙卷风的形成都与当地较高的温度有关  </p>
-<p>C 尽管全球变暖，龙卷风依然最多地发生在美国的中西部地区，其他地区的龙卷风现象并不多见  </p>
-<p>D 龙卷风是雷暴天气（即伴有雷击和闪电的局地对流性天气）的产物，只要在雷雨天气下出现极强的空气对流，就容易发生龙卷风.</p>
-</blockquote>
-<p><strong>错因：</strong>当时认为：B气候温暖是龙卷风形成的一个必要条件，那么<strong>龙卷风–》气候温暖</strong>。而题目论点：气候变暖导致龙卷风爆发次数增加即：<strong>气候变暖–》龙卷风爆发次数增加</strong>，二者因果倒置</p>
-<p>​        实际上： 错误有两点</p>
-<p>​        第一，把<strong>因果关系和条件关系混为一谈</strong>。题干是因果关系（气温升高是因、龙卷风增加是果），选项是条件关系（高气温是形成龙卷风的必要条件），而<strong>因果关系和条件关系没有必然联系</strong>。  B项根本就没出现因果表述，而你想当然的把必要条件作为果，那肯定就错了。如果把B改成“龙卷风导致气温升高”，这才是因果倒置。  </p>
-<p>​        第二，<strong>没理解必要条件到底什么意思</strong>。根据B高气温是形成龙卷风的必要条件，可以得出形成龙卷风→高气温，这种条件关系仅代表后者是前者的必要条件。换句同义替换就是“要形成龙卷风，必须要有高气温”，再换句话就是“如果形成了龙卷风，那么一定有高气温”或者也可以说“如果有龙卷风，那么可以推出有高气温”。但是不能说龙卷风这个原因导致了高气温这个结果。  B项的意思就是高气温是形成龙卷风的必要条件。而当气温升高，导致气候温暖，给形成更多龙卷风创造了条件，那B如果成立的话，很可能气温升高就会导致龙卷风增多，这是个加强项。</p>
-<hr>
-<blockquote>
-<p>【2015广东行测】62.某项科学研究发现：经常使用左手能更好地锻炼右脑，使得人的形象思维能力增强，更利于促进创造性思维的发展。但事实证明：发明家中左撇子的比例并不高。因此，这个科学研究的结论不可信。以下最能削弱上述结论的是：</p>
-<ul>
-<li>A用右手也可以达到锻炼右脑的效果</li>
-<li>B用右手的人数大大超过用左手的人数</li>
-<li>C发明创造主要依靠天赋，而非后天锻炼</li>
-<li>D发明创造不依靠形象思维能力</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>看清题干，论点到底是什么？</p>
-<blockquote>
-<p>【2015广东行测】59.有甲、乙两家公司，甲公司售后服务部门接到的产品投诉电话是乙公司的3倍。因此，甲公司产品的质量没有乙公司的好。以下最能反驳上述结论的是：</p>
-<ul>
-<li>A乙公司的产品操作相对来说更为简单</li>
-<li>B甲公司接到电话大多数是咨询电话</li>
-<li>C甲公司的咨询电话机数量比乙公司多</li>
-<li>D甲公司产品的市场占有率达到76%</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>题干已经明确说明，是产品投诉数量多–》产品<strong>质量不如乙</strong>。所以这个<strong>论点是存在比较的</strong>，而B项大多数是咨询电话并不能说明什么，就算你甲产品咨询电话占99%，那只能说明确实投诉率不高，但题干说的是要和乙产品比，人家来个99.1%就比你好了，所以B选项错在没有能够形成与乙产品进行对比。</p>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vim Note</title>
-    <url>/2020/08/03/Vim-Note/</url>
-    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
-<li><p>复制</p>
-<p>n yy</p>
-</li>
-<li><p>查找/替换</p>
-<p>查找  <code>:/</code></p>
-<p>替换  <code>:s/</code></p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s:表示替换操作,其为substitute的缩写</span><br><span class="line"></span><br><span class="line">[option] : 表示操作类型,如:</span><br><span class="line"></span><br><span class="line">g:globe,表示全局替换</span><br><span class="line"></span><br><span class="line">c:confirm,表示进行确认</span><br><span class="line"></span><br><span class="line">p:表示替代结果逐行显示(Ctrl + L恢复屏幕)</span><br><span class="line"></span><br><span class="line">i:ignore,不区分大小写</span><br><span class="line"></span><br><span class="line">[option]省略时仅对每行第一个匹配串进行替换</span><br><span class="line">如果在源字符串和目的字符串中出现特殊字符,如&#39;&#x2F;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;,&#39;等需要前面加反斜杠\进行转义</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">常用命令示例:</span><br><span class="line">#将当前行第一个a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将当前行的所有a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将每行第一个a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b</span><br><span class="line"></span><br><span class="line">#将整个文件的所有a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将1至3行的第一个a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将1至3行的所有a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;g</span><br></pre></td></tr></table></figure>
-
-]]></content>
-  </entry>
-  <entry>
-    <title>写作积累</title>
-    <url>/2020/08/13/%E5%86%99%E4%BD%9C%E7%A7%AF%E7%B4%AF/</url>
-    <content><![CDATA[<p>描述一个问题是并<strong>不是短时间形成</strong></p>
-<blockquote>
-<p>冰冻三尺非一日之寒</p>
-</blockquote>
-<p>强调重在积累</p>
-<blockquote>
-<p>大厦之成非一木之材，大海之阔非一流之归</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>写作</tag>
       </tags>
   </entry>
 </search>
