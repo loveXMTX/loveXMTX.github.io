@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-08-13T03:22:11.000Z</updated>
+  <updated>2020-08-31T12:52:30.550Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>结构化面试</title>
+    <link href="http://blog.lovexmtx.icu/2020/08/29/%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
+    <id>http://blog.lovexmtx.icu/2020/08/29/%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</id>
+    <published>2020-08-29T00:18:26.000Z</published>
+    <updated>2020-08-31T12:52:30.550Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-人际关系题&quot;&gt;&lt;a href=&quot;#1-人际关系题&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
+    
+    
+      <category term="结构化面试" scheme="http://blog.lovexmtx.icu/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>写作积累</title>
     <link href="http://blog.lovexmtx.icu/2020/08/13/%E5%86%99%E4%BD%9C%E7%A7%AF%E7%B4%AF/"/>
     <id>http://blog.lovexmtx.icu/2020/08/13/%E5%86%99%E4%BD%9C%E7%A7%AF%E7%B4%AF/</id>
     <published>2020-08-13T03:18:07.000Z</published>
-    <updated>2020-08-13T03:22:11.000Z</updated>
+    <updated>2020-08-13T03:22:11.208Z</updated>
     
     <summary type="html">
     
@@ -55,7 +82,7 @@
     <link href="http://blog.lovexmtx.icu/2020/08/03/Vim-Note/"/>
     <id>http://blog.lovexmtx.icu/2020/08/03/Vim-Note/</id>
     <published>2020-08-03T02:40:55.000Z</published>
-    <updated>2020-08-03T04:33:12.508Z</updated>
+    <updated>2020-08-03T04:33:12.000Z</updated>
     
     <summary type="html">
     
@@ -83,7 +110,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/"/>
     <id>http://blog.lovexmtx.icu/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/</id>
     <published>2020-07-31T11:38:03.000Z</published>
-    <updated>2020-08-01T03:18:04.122Z</updated>
+    <updated>2020-08-01T03:18:04.000Z</updated>
     
     <summary type="html">
     
@@ -110,7 +137,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/"/>
     <id>http://blog.lovexmtx.icu/2020/07/30/%E9%9D%9Eroot%E7%9A%84%E8%89%B0%E9%9A%BE%E4%B9%8B%E6%97%85/</id>
     <published>2020-07-30T12:23:16.000Z</published>
-    <updated>2020-08-26T12:09:00.037Z</updated>
+    <updated>2020-08-26T12:09:00.000Z</updated>
     
     <summary type="html">
     
@@ -134,7 +161,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/30/%E9%94%99%E9%A2%98%E9%9B%86-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/"/>
     <id>http://blog.lovexmtx.icu/2020/07/30/%E9%94%99%E9%A2%98%E9%9B%86-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</id>
     <published>2020-07-30T03:36:07.000Z</published>
-    <updated>2020-08-16T11:57:24.000Z</updated>
+    <updated>2020-08-16T11:57:24.794Z</updated>
     
     <summary type="html">
     
@@ -163,7 +190,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/29/%E9%94%99%E9%A2%98%E9%9B%86-%E7%B1%BB%E6%AF%94%E6%8E%A8%E7%90%86/"/>
     <id>http://blog.lovexmtx.icu/2020/07/29/%E9%94%99%E9%A2%98%E9%9B%86-%E7%B1%BB%E6%AF%94%E6%8E%A8%E7%90%86/</id>
     <published>2020-07-29T12:29:26.000Z</published>
-    <updated>2020-08-26T11:04:05.887Z</updated>
+    <updated>2020-08-26T11:04:05.000Z</updated>
     
     <summary type="html">
     
@@ -194,7 +221,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/21/%E7%94%B3%E8%AE%BA%E4%BD%9C%E6%96%87%E6%80%8E%E4%B9%88%E5%86%99/"/>
     <id>http://blog.lovexmtx.icu/2020/07/21/%E7%94%B3%E8%AE%BA%E4%BD%9C%E6%96%87%E6%80%8E%E4%B9%88%E5%86%99/</id>
     <published>2020-07-21T13:50:26.000Z</published>
-    <updated>2020-07-31T11:36:42.528Z</updated>
+    <updated>2020-07-31T11:36:42.000Z</updated>
     
     <summary type="html">
     
@@ -217,7 +244,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/15/%E7%94%B3%E8%AE%BA-%E5%A4%A7%E4%BD%9C%E6%96%87%E7%A7%AF%E7%B4%AF/"/>
     <id>http://blog.lovexmtx.icu/2020/07/15/%E7%94%B3%E8%AE%BA-%E5%A4%A7%E4%BD%9C%E6%96%87%E7%A7%AF%E7%B4%AF/</id>
     <published>2020-07-15T11:38:36.000Z</published>
-    <updated>2020-08-05T13:08:58.076Z</updated>
+    <updated>2020-08-05T13:08:58.000Z</updated>
     
     <summary type="html">
     
@@ -253,7 +280,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/15/%E7%94%B3%E8%AE%BA-%E9%AB%98%E9%A2%91%E6%A6%82%E6%8B%AC%E9%87%91%E5%8F%A5/"/>
     <id>http://blog.lovexmtx.icu/2020/07/15/%E7%94%B3%E8%AE%BA-%E9%AB%98%E9%A2%91%E6%A6%82%E6%8B%AC%E9%87%91%E5%8F%A5/</id>
     <published>2020-07-15T11:10:29.000Z</published>
-    <updated>2020-08-03T09:38:23.157Z</updated>
+    <updated>2020-08-03T09:38:23.000Z</updated>
     
     <summary type="html">
     
@@ -274,7 +301,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/"/>
     <id>http://blog.lovexmtx.icu/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</id>
     <published>2020-07-14T03:59:22.000Z</published>
-    <updated>2020-08-08T02:01:16.000Z</updated>
+    <updated>2020-08-08T02:01:16.438Z</updated>
     
     <summary type="html">
     
@@ -313,7 +340,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/"/>
     <id>http://blog.lovexmtx.icu/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</id>
     <published>2020-07-12T06:57:18.000Z</published>
-    <updated>2020-08-02T03:37:07.402Z</updated>
+    <updated>2020-08-02T03:37:07.000Z</updated>
     
     <summary type="html">
     
@@ -336,7 +363,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/"/>
     <id>http://blog.lovexmtx.icu/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</id>
     <published>2020-07-10T03:52:26.000Z</published>
-    <updated>2020-08-16T09:02:57.000Z</updated>
+    <updated>2020-08-16T09:02:57.433Z</updated>
     
     <summary type="html">
     
@@ -361,7 +388,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/08/%E4%B8%80%E7%A7%8D%E7%89%B9%E5%88%AB%E7%9A%84%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7-bypy/"/>
     <id>http://blog.lovexmtx.icu/2020/07/08/%E4%B8%80%E7%A7%8D%E7%89%B9%E5%88%AB%E7%9A%84%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7-bypy/</id>
     <published>2020-07-08T05:01:24.000Z</published>
-    <updated>2020-08-26T12:10:15.250Z</updated>
+    <updated>2020-08-26T12:10:15.000Z</updated>
     
     <summary type="html">
     
@@ -390,7 +417,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/"/>
     <id>http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</id>
     <published>2020-07-07T08:44:50.000Z</published>
-    <updated>2020-08-02T02:59:58.485Z</updated>
+    <updated>2020-08-02T02:59:58.000Z</updated>
     
     <summary type="html">
     
@@ -420,7 +447,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/"/>
     <id>http://blog.lovexmtx.icu/2020/07/07/Mac%E5%8E%9F%E7%94%9F%E6%8C%82%E8%BD%BDntfs%E7%9A%84%E6%96%B9%E6%B3%95/</id>
     <published>2020-07-07T02:53:36.000Z</published>
-    <updated>2020-07-10T14:50:43.157Z</updated>
+    <updated>2020-07-10T14:50:43.000Z</updated>
     
     <summary type="html">
     
@@ -443,7 +470,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/05/Git-Note/"/>
     <id>http://blog.lovexmtx.icu/2020/07/05/Git-Note/</id>
     <published>2020-07-05T13:59:59.000Z</published>
-    <updated>2020-07-10T14:47:55.706Z</updated>
+    <updated>2020-07-10T14:47:55.000Z</updated>
     
     <summary type="html">
     
@@ -472,7 +499,7 @@
     <link href="http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/"/>
     <id>http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/</id>
     <published>2020-07-04T14:40:02.000Z</published>
-    <updated>2020-07-10T15:07:28.782Z</updated>
+    <updated>2020-07-10T15:07:28.000Z</updated>
     
     <summary type="html">
     
@@ -495,7 +522,7 @@
     <link href="http://blog.lovexmtx.icu/2020/06/24/Aria2-Note/"/>
     <id>http://blog.lovexmtx.icu/2020/06/24/Aria2-Note/</id>
     <published>2020-06-24T06:27:02.000Z</published>
-    <updated>2020-07-17T06:02:45.065Z</updated>
+    <updated>2020-07-17T06:02:45.000Z</updated>
     
     <summary type="html">
     
