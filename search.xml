@@ -227,6 +227,13 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s:表示替换操作,其为substitute的缩写</span><br><span class="line"></span><br><span class="line">[option] : 表示操作类型,如:</span><br><span class="line"></span><br><span class="line">g:globe,表示全局替换</span><br><span class="line"></span><br><span class="line">c:confirm,表示进行确认</span><br><span class="line"></span><br><span class="line">p:表示替代结果逐行显示(Ctrl + L恢复屏幕)</span><br><span class="line"></span><br><span class="line">i:ignore,不区分大小写</span><br><span class="line"></span><br><span class="line">[option]省略时仅对每行第一个匹配串进行替换</span><br><span class="line">如果在源字符串和目的字符串中出现特殊字符,如&#39;&#x2F;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;,&#39;等需要前面加反斜杠\进行转义</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">常用命令示例:</span><br><span class="line">#将当前行第一个a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将当前行的所有a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将每行第一个a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b</span><br><span class="line"></span><br><span class="line">#将整个文件的所有a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将1至3行的第一个a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将1至3行的所有a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;g</span><br></pre></td></tr></table></figure>
 
 ]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Vim</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mac原生挂载ntfs的方法</title>
@@ -3451,6 +3458,7 @@
         <tag>行测</tag>
         <tag>成语</tag>
         <tag>词语</tag>
+        <tag>错题</tag>
       </tags>
   </entry>
   <entry>
@@ -3494,6 +3502,7 @@
       </categories>
       <tags>
         <tag>行测</tag>
+        <tag>错题</tag>
       </tags>
   </entry>
   <entry>
@@ -3852,6 +3861,7 @@
       <tags>
         <tag>行测</tag>
         <tag>言语</tag>
+        <tag>错题</tag>
       </tags>
   </entry>
   <entry>
@@ -3862,6 +3872,9 @@
 <a id="more"></a>
 
 <p>内存也算不错，总之比云主机强一万倍。因此呢，我走上了一条不归路，把我的休息时间大部分折腾在了这台服务器上。但是呢，这段时间也算是摸索出了很多Linux的知识吧，马克思诚不我欺也，实践是检验整理的唯一标准。</p>
+<hr>
+<p><strong>2020.09.16Update</strong></p>
+<p><a href="https://www.natfrp.com/" target="_blank" rel="noopener">SakuraFrp</a>目前需要<strong>实名认证</strong>才能开启http且需要端口<strong>80</strong>(即须是root用户)，且每个账户有流量限制了一个月好像<strong>25G</strong>。以后有公网服务器再来更新</p>
 <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>​        在最初折腾之前呢，主要目的是视频服务器+离线下载，但后来衍生出了一些新需求，在折腾的路上停不下来，主要目的有以下几点：</p>
 <ul>
 <li><input checked="" disabled="" type="checkbox"> 私人云盘s</li>
@@ -4401,16 +4414,16 @@
     <title>2020-09-12初体验结构化面试</title>
     <url>/2020/09/14/2020-09-12%E5%88%9D%E4%BD%93%E9%AA%8C%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</url>
     <content><![CDATA[<h3 id="1-体验"><a href="#1-体验" class="headerlink" title="1.体验"></a>1.体验</h3><p>记录一下我的首次结构化面试。</p>
-<p>夏天的末梢，今天的武汉没什么☁️，中午的太阳就显得有些大。我于下午13:15从酒店打车出发，13:24到达省厅门口，其正中处矗立着一座“为人民服务”的石碑，彰显着我们人民政府的执政理念。旁边侧门排了很长的队，考生们潮气蓬勃，大家等待着测体温、登记入内。（哈哈我还因为在太阳底下的时间长了点，导致第一次测体温还不过）</p>
-<p>进入省厅大门，在进入机关大楼处还需测一次体温，尽管我国疫情防控情况已经非常不错，但检测手续还是很严谨的。走进单位的报告厅，门口处有工作人员负责登记、分区、安排座位。我进去的时候人已经到的差不多了，一共三个考场，每个考场大概10多个人。我被分到了第三考场，我们考场下午一共十个人，emmm，仔细数了数，好像全是女生，算上我一共两个男生。之后需要将手机关机放置于包中，并将包放在报告厅最后一排。</p>
-<p>接下来是抽签环节，是分单位抽签，也就是说同单位的考生是连在一起面试的。我抽到的8号，看起来数字不错。</p>
-<p>下午的考场很安静，和老哥们所说的会小声交谈似乎不太一样，可能也是由于大家隔的有点远（左右间距大概2m的样子），也有可能是大家都带着口罩哈。我前边是个女生，扎着丸子头、戴着圆形眼镜，有些可爱，在她旁边好像是她同学，两人事先并未约定，报考不同单位，也是有些缘分。我右边是个秀气的老哥，刚开始的时候很严肃，我最开始和他聊天，他讲话比较小声，拘谨一些。我开玩笑，“现在不说话，之后上了考场都说不出话来了”，老哥笑了一笑，开始他的小声说话，我是听不到的，意思全靠猜，hh，这就开始了我们的意念沟通。老哥好像是中科院哪个所的，这次报的遥感院，说侯考的时候最好闭目养神，由于他是4号，所以很快就被叫上去考试了。我呢，百无聊赖，大家也不愿意聊天，我也不像那些小姐姐们能看得下去笔记，所以我也只好神游梦虚了。</p>
-<p>时间过的很慢，由于不知道时间，所以也不知道等了多久，我终于被叫上去了。两位引导员，一左一右护送我上了11楼，有一说一，有点像押送犯人的感觉。我被叫到了一个很亲切的姐姐那里，姐姐让我更换口罩，并提醒我面试的时候可以不戴口罩。其实，我上来后倒比之前在侯考厅那放松了很多，主要是由于没什么事情干，也貌似不能聊天，只能左顾右盼，而这个走廊两侧都是办公室，看不到外景，所以没办法就只能数地板的格子。姐姐以为我紧张了，就提醒我放轻松。</p>
-<p>好了，我终于挪动地方了，去到了走廊尽头的考场门前，等了一会儿就进考场了。</p>
-<p>进考场的一瞬间，我反而一点紧张感都没有，不知道为什么。就普普通通，向考官问好，开始答题，反而没什么感觉。考场内是个会议室，对面一排考官7个，右侧是纪委、记分员，我这侧就我一个人。emm，之后就开始了答题，每道题平均用时4min吧，一会儿就答完了。</p>
-<p>出考场等待成绩，等成绩的规则是：隔一位签字确认成绩，所以我和之前的那个女生简单交流了下，她好像很担心之前面试的时候戴了口罩。她领完成绩之后和我打了个招呼，看起来还不错的样子。</p>
+<p>​        夏天的末梢，今天的武汉没什么☁️，中午的太阳就显得有些大。我于下午13:15从酒店打车出发，13:24到达省厅门口，其正中处矗立着一座“为人民服务”的石碑，彰显着我们人民政府的执政理念。旁边侧门排了很长的队，考生们潮气蓬勃，大家等待着测体温、登记入内。（哈哈我还因为在太阳底下的时间长了点，导致第一次测体温还不过）</p>
+<p>​        进入省厅大门，在进入机关大楼处还需测一次体温，尽管我国疫情防控情况已经非常不错，但检测手续还是很严谨的。走进单位的报告厅，门口处有工作人员负责登记、分区、安排座位。我进去的时候人已经到的差不多了，一共三个考场，每个考场大概10多个人。我被分到了第三考场，我们考场下午一共十个人，emmm，仔细数了数，好像全是女生，算上我一共两个男生。之后需要将手机关机放置于包中，并将包放在报告厅最后一排。</p>
+<p>​        接下来是抽签环节，是分单位抽签，也就是说同单位的考生是连在一起面试的。我抽到的8号，看起来数字不错。</p>
+<p>​        下午的考场很安静，和老哥们所说的会小声交谈似乎不太一样，可能也是由于大家隔的有点远（左右间距大概2m的样子），也有可能是大家都带着口罩哈。我前边是个女生，扎着丸子头、戴着圆形眼镜，有些可爱，在她旁边好像是她同学，两人事先并未约定，报考不同单位，也是有些缘分。我右边是个秀气的老哥，刚开始的时候很严肃，我最开始和他聊天，他讲话比较小声，拘谨一些。我开玩笑，“现在不说话，之后上了考场都说不出话来了”，老哥笑了一笑，开始他的小声说话，我是听不到的，意思全靠猜，hh，这就开始了我们的意念沟通。老哥好像是中科院哪个所的，这次报的遥感院，说侯考的时候最好闭目养神，由于他是4号，所以很快就被叫上去考试了。我呢，百无聊赖，大家也不愿意聊天，我也不像那些小姐姐们能看得下去笔记，所以我也只好神游梦虚了。</p>
+<p>​        时间过的很慢，由于不知道时间，所以也不知道等了多久，我终于被叫上去了。两位引导员，一左一右护送我上了11楼，有一说一，有点像押送犯人的感觉。我被叫到了一个很亲切的姐姐那里，姐姐让我更换口罩，并提醒我面试的时候可以不戴口罩。其实，我上来后倒比之前在侯考厅那放松了很多，主要是由于没什么事情干，也貌似不能聊天，只能左顾右盼，而这个走廊两侧都是办公室，看不到外景，所以没办法就只能数地板的格子。姐姐以为我紧张了，就提醒我放轻松。</p>
+<p>​        好了，我终于挪动地方了，去到了走廊尽头的考场门前，等了一会儿就进考场了。</p>
+<p>​        进考场的一瞬间，我反而一点紧张感都没有，不知道为什么。就普普通通，向考官问好，开始答题，反而没什么感觉。考场内是个会议室，对面一排考官7个，右侧是纪委、记分员，我这侧就我一个人。emm，之后就开始了答题，每道题平均用时4min吧，一会儿就答完了。</p>
+<p>​        出考场等待成绩，等成绩的规则是：隔一位签字确认成绩，所以我和之前的那个女生简单交流了下，她好像很担心之前面试的时候戴了口罩。她领完成绩之后和我打了个招呼，看起来还不错的样子。</p>
 <p>……</p>
-<p>漫长的等待，确认成绩，签字，离考场，向那个姐姐道了谢（希望以后有机会和这个姐姐同事哈…）</p>
+<p>​        漫长的等待，确认成绩，签字，离考场，向那个姐姐道了谢（希望以后有机会和这个姐姐同事哈…）</p>
 <p>下电梯，emmm，这就走了，问了下保安，好像确实流程完了，要离开了。就像是一场梦，醒来之后还是很感动。</p>
 <hr>
 <p>emmm，这就是我的First Structured Interview….，以后有机会再补充</p>
@@ -4465,7 +4478,92 @@
         <category>公考</category>
       </categories>
       <tags>
+        <tag>结构化面试</tag>
         <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--判断推理</title>
+    <url>/2020/07/11/%E8%A1%8C%E6%B5%8B-%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</url>
+    <content><![CDATA[<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><blockquote>
+<ol>
+<li><p>图形推理</p>
+</li>
+<li><p>定义判断</p>
+</li>
+<li><p>类比推理</p>
+</li>
+<li><p>逻辑推理</p>
+</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-图形推理"><a href="#1-图形推理" class="headerlink" title="1.图形推理"></a>1.图形推理</h3><p><img src="/../../../../../../../../images/image-20200711200625794.png" alt="image-20200711200625794"></p>
+<p><img src="/../../../../../../../../images/image-20200711200707743.png" alt="image-20200711200707743"></p>
+<h3 id="2-定义判断"><a href="#2-定义判断" class="headerlink" title="2.定义判断"></a>2.定义判断</h3><ul>
+<li><p><strong>看清题干</strong></p>
+<p>属于/不属于；单定义/多定义</p>
+</li>
+<li><p><strong>关键词</strong></p>
+<ul>
+<li>主/客体</li>
+<li>原因/条件 ：因为/由于…</li>
+<li>结果：导致/从而…</li>
+<li>方式：通过/利用…</li>
+<li>目的：以/达到…</li>
+<li>时间：当/在….阶段</li>
+</ul>
+</li>
+<li><p><strong>比较选项</strong></p>
+<p>同构选项排除</p>
+</li>
+<li><p><strong>Tips</strong></p>
+<ul>
+<li>优先看到  概念所在那句话的  <strong>句号</strong>；</li>
+<li>注意阅读的补充说明  <strong>“即”，“也就是说”</strong>…</li>
+<li>出题人<strong>讲故事</strong>，略过</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-类比推理"><a href="#3-类比推理" class="headerlink" title="3.类比推理"></a>3.类比推理</h3><p><img src="/../../../../../../../../images/image-20200711202834919.png" alt="image-20200711202834919"></p>
+<h3 id="4-逻辑推理"><a href="#4-逻辑推理" class="headerlink" title="4.逻辑推理"></a>4.逻辑推理</h3><h4 id="4-1-翻译"><a href="#4-1-翻译" class="headerlink" title="4.1 翻译"></a>4.1 翻译</h4><ul>
+<li><p><strong>充分条件</strong>        A-&gt;B</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只要A...就B</span><br><span class="line">如果A...那么B</span><br><span class="line">若A...则B</span><br><span class="line">**必须**</span><br><span class="line">所有的A是B</span><br><span class="line">一旦A，就B</span><br><span class="line">要想A，就需要B</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>必要条件</strong>       B-&gt;A</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只有A，才B</span><br><span class="line">A是B的基础&#x2F;前提</span><br><span class="line">A对B不可或缺</span><br><span class="line">除非A，否则 非B #注意这个除非</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>矛盾命题</strong></p>
+</li>
+<li><p><strong>联言命题</strong></p>
+</li>
+<li><p><strong>Tips：</strong></p>
+<p>除非A，否则B  ——-》非A，则B  ———》-A —&gt;B</p>
+</li>
+</ul>
+<h4 id="4-2加强-削弱"><a href="#4-2加强-削弱" class="headerlink" title="4.2加强/削弱"></a>4.2加强/削弱</h4><ul>
+<li><strong>加强论证</strong></li>
+</ul>
+<p><img src="/../../../../../../../../images/image-20200711192836327.png" alt="image-20200711192836327"></p>
+<ul>
+<li><strong>削弱/质疑</strong></li>
+</ul>
+<p><img src="/../../../../../../../../images/image-20200711194140376.png" alt="image-20200711194140376"></p>
+<ul>
+<li><strong><em>论点与论据一致时，若要加强，优先考虑 直接补充论据；若要削弱，优先考虑直接否点论点。</em></strong></li>
+</ul>
+<h4 id="4-3日常结论题"><a href="#4-3日常结论题" class="headerlink" title="4.3日常结论题"></a>4.3日常结论题</h4><ul>
+<li>不选 ： 逻辑错误/偷换概念</li>
+<li>慎选：  一定/必定</li>
+<li>优选：  可能</li>
+</ul>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
       </tags>
   </entry>
 </search>
