@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-09-15T07:37:36.553Z</updated>
+  <updated>2020-09-22T08:00:27.373Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>文档处理的好助手--pandas的使用</title>
+    <link href="http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
+    <published>2020-09-18T10:32:02.000Z</published>
+    <updated>2020-09-22T08:00:27.373Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-前言&quot;&gt;&lt;a href=&quot;#1-前言&quot; class=&quot;headerlink&quot; title=&quot;1.前言&quot;&gt;&lt;/a&gt;1.前言&lt;/h3&gt;&lt;p&gt;​       
+        
+      
+    
+    </summary>
+    
+    
+      <category term="工具" scheme="http://blog.lovexmtx.icu/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="python" scheme="http://blog.lovexmtx.icu/tags/python/"/>
+    
+      <category term="pandas" scheme="http://blog.lovexmtx.icu/tags/pandas/"/>
+    
+      <category term="文档处理" scheme="http://blog.lovexmtx.icu/tags/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title>2020-09-12初体验结构化面试</title>
@@ -574,29 +605,6 @@
       <category term="Linux" scheme="http://blog.lovexmtx.icu/tags/Linux/"/>
     
       <category term="Git" scheme="http://blog.lovexmtx.icu/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello MyBlog</title>
-    <link href="http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/"/>
-    <id>http://blog.lovexmtx.icu/2020/07/04/hello-MyBlog/</id>
-    <published>2020-07-04T14:40:02.000Z</published>
-    <updated>2020-09-15T03:37:36.697Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这篇文章就留下来纪念吧，本来最初搭建这个博客的目的是想梳理一下行测的知识点，想用一个托管比较方便的工具，后来还是折腾了一天。。。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="杂谈" scheme="http://blog.lovexmtx.icu/categories/%E6%9D%82%E8%B0%88/"/>
-    
-    
-      <category term="blog" scheme="http://blog.lovexmtx.icu/tags/blog/"/>
-    
-      <category term="杂谈" scheme="http://blog.lovexmtx.icu/tags/%E6%9D%82%E8%B0%88/"/>
     
   </entry>
   
