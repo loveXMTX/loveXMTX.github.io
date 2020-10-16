@@ -1,59 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Aria2 Note</title>
-    <url>/2020/06/24/Aria2-Note/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
-<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
-<a id="more"></a>
-
-<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
-<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
-<ul>
-<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
-<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
-<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
-<ul>
-<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
-<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
-</ul>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
-<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
-<hr>
-<p>以下为aria2 常用命令</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
-<p>另外有时候需要后台运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
-<ul>
-<li>当使用gcc编译时，找不到库文件</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>configure时，要求使用pkg来包含库</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>实用工具</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-        <tag>离线下载</tag>
-        <tag>折腾</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Git Note</title>
     <url>/2020/07/05/Git-Note/</url>
     <content><![CDATA[<h3 id="1-添加SSH-KEY"><a href="#1-添加SSH-KEY" class="headerlink" title="1.添加SSH KEY"></a>1.添加SSH KEY</h3><ul>
@@ -208,31 +155,8 @@
         <category>IT</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vim Note</title>
-    <url>/2020/08/03/Vim-Note/</url>
-    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
-<li><p>复制</p>
-<p>n yy</p>
-</li>
-<li><p>查找/替换</p>
-<p>查找  <code>:/</code></p>
-<p>替换  <code>:s/</code></p>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s:表示替换操作,其为substitute的缩写</span><br><span class="line"></span><br><span class="line">[option] : 表示操作类型,如:</span><br><span class="line"></span><br><span class="line">g:globe,表示全局替换</span><br><span class="line"></span><br><span class="line">c:confirm,表示进行确认</span><br><span class="line"></span><br><span class="line">p:表示替代结果逐行显示(Ctrl + L恢复屏幕)</span><br><span class="line"></span><br><span class="line">i:ignore,不区分大小写</span><br><span class="line"></span><br><span class="line">[option]省略时仅对每行第一个匹配串进行替换</span><br><span class="line">如果在源字符串和目的字符串中出现特殊字符,如&#39;&#x2F;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;,&#39;等需要前面加反斜杠\进行转义</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">常用命令示例:</span><br><span class="line">#将当前行第一个a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将当前行的所有a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将每行第一个a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b</span><br><span class="line"></span><br><span class="line">#将整个文件的所有a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将1至3行的第一个a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将1至3行的所有a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;g</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>实用工具</category>
-      </categories>
-      <tags>
         <tag>Linux</tag>
-        <tag>Vim</tag>
       </tags>
   </entry>
   <entry>
@@ -300,6 +224,59 @@
       </categories>
       <tags>
         <tag>Mac</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Aria2 Note</title>
+    <url>/2020/06/24/Aria2-Note/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前一直对离线下载很感兴趣，但苦于没有大带宽、大容量，所以一直没有付诸于行动。最近一次偶然的机会，我有了一台7T、1000mbps下行带宽的服务器帐号。</p>
+<p>而且我发现<a href="https://www.natfrp.com/" target="_blank" rel="noopener">sakurafrp</a>的映射服务有4-8mbps的上行带宽（实测1mb/s），<a href="https://moe.do/archives/sakurafrp_help.html" target="_blank" rel="noopener">映射教程</a>，如此机会怎能不行动呢？</p>
+<a id="more"></a>
+
+<h3 id="1-安装Aria2"><a href="#1-安装Aria2" class="headerlink" title="1.安装Aria2"></a>1.安装Aria2</h3><p>由于本人没有root权限，yum、rpm都用不了，且不认识管理员，所以选择了使用源码编译。</p>
+<p>如果你用root权限，那么请参考：<a href="https://blog.csdn.net/lichenzero/article/details/80141390?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.nonecase" target="_blank" rel="noopener">Centos7 Install Aria2</a></p>
+<ul>
+<li>首先你需要在<a href="https://github.com/aria2/aria2/releases" target="_blank" rel="noopener">Aira2官方库</a>找到适合自己机器的版本，下载并解压它。  <a href="https://aria2.github.io/" target="_blank" rel="noopener">这里是Windows/MacOS</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#下载</span><br><span class="line">mkdir Aria2 &amp;&amp;cd Aria2</span><br><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;aria2&#x2F;aria2&#x2F;releases&#x2F;download&#x2F;release-1.35.0&#x2F;aria2-1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#解压</span><br><span class="line">tar -xvzf 1.35.0.tar.gz</span><br><span class="line"></span><br><span class="line">#设置路径</span><br><span class="line">.&#x2F;configure --prefix&#x3D;</span><br><span class="line"></span><br><span class="line">#编译,在执行make命令前也可以先执行 make clean 命令</span><br><span class="line">make -j 4</span><br></pre></td></tr></table></figure>
+<p>说一下我这里遇到的坑：1.LibXML2这个依赖库，我也是用源码装的，设置bash_profile的PATH 、CLibPath、PKG_CON_PATH之后。我编译aria2一直搜索不到libxml2，气死了。目前还没解决</p>
+<h3 id="2-设置Aria2参数"><a href="#2-设置Aria2参数" class="headerlink" title="2.设置Aria2参数"></a>2.设置Aria2参数</h3><p>我实在网上下载的模板稳健aria2.conf</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在一个文件夹下新建aria2.conf、aria2.session(这个是会话文件)</span><br><span class="line">#然后进入aria2.conf 编辑</span><br><span class="line"></span><br><span class="line">## &#39;#&#39;开头为注释内容, 选项都有相应的注释说明, 根据需要修改 ##</span><br><span class="line">## 被注释的选项填写的是默认值, 建议在需要修改时再取消注释  ##</span><br><span class="line"></span><br><span class="line">## 文件保存相关 ##</span><br><span class="line"></span><br><span class="line"># 文件的保存路径(可使用绝对路径或相对路径), 默认: 当前启动位置</span><br><span class="line">dir&#x3D;D:\Download</span><br><span class="line"># 启用磁盘缓存, 0为禁用缓存, 需1.16以上版本, 默认:16M</span><br><span class="line">disk-cache&#x3D;32M</span><br><span class="line"># 文件预分配方式, 能有效降低磁盘碎片, 默认:prealloc</span><br><span class="line"># 预分配所需时间: none &lt; falloc ? trunc &lt; prealloc</span><br><span class="line"># falloc和trunc则需要文件系统和内核支持</span><br><span class="line"># NTFS建议使用falloc, EXT3&#x2F;4建议trunc, MAC 下需要注释此项</span><br><span class="line">file-allocation&#x3D;falloc</span><br><span class="line"># 断点续传</span><br><span class="line">continue&#x3D;true</span><br><span class="line"></span><br><span class="line">## 下载连接相关 ##</span><br><span class="line"></span><br><span class="line"># 最大同时下载任务数, 运行时可修改, 默认:5</span><br><span class="line">max-concurrent-downloads&#x3D;20</span><br><span class="line"># 同一服务器连接数, 添加时可指定, 默认:1</span><br><span class="line">max-connection-per-server&#x3D;16</span><br><span class="line"># 最小文件分片大小, 添加时可指定, 取值范围1M -1024M, 默认:20M</span><br><span class="line"># 假定size&#x3D;10M, 文件为20MiB 则使用两个来源下载; 文件为15MiB 则使用一个来源下载</span><br><span class="line">min-split-size&#x3D;10M</span><br><span class="line"># 单个任务最大线程数, 添加时可指定, 默认:5</span><br><span class="line">split&#x3D;20</span><br><span class="line"># 整体下载速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-download-limit&#x3D;0</span><br><span class="line"># 单个任务下载速度限制, 默认:0</span><br><span class="line">#max-download-limit&#x3D;0</span><br><span class="line"># 整体上传速度限制, 运行时可修改, 默认:0</span><br><span class="line">#max-overall-upload-limit&#x3D;0</span><br><span class="line"># 单个任务上传速度限制, 默认:0</span><br><span class="line">#max-upload-limit&#x3D;0</span><br><span class="line"># 禁用IPv6, 默认:false</span><br><span class="line">#disable-ipv6&#x3D;true</span><br><span class="line"></span><br><span class="line">## 进度保存相关 ##</span><br><span class="line"></span><br><span class="line"># 从会话文件中读取下载任务</span><br><span class="line">input-file&#x3D;aria2.session</span><br><span class="line"># 在Aria2退出时保存&#96;错误&#x2F;未完成&#96;的下载任务到会话文件</span><br><span class="line">save-session&#x3D;aria2.session</span><br><span class="line"># 定时保存会话, 0为退出时才保存（此处需要设置，否则失去自动保存）, 需1.16.1以上版本, 默认:0 </span><br><span class="line">save-session-interval&#x3D;60</span><br><span class="line"></span><br><span class="line">## RPC相关设置 ##</span><br><span class="line"></span><br><span class="line"># 启用RPC, 默认:false</span><br><span class="line">enable-rpc&#x3D;true</span><br><span class="line"># 允许所有来源, 默认:false</span><br><span class="line">rpc-allow-origin-all&#x3D;true</span><br><span class="line"># 允许非外部访问, 默认:false</span><br><span class="line">rpc-listen-all&#x3D;true</span><br><span class="line"># 事件轮询方式, 取值:[epoll, kqueue, port, poll, select], 不同系统默认值不同</span><br><span class="line">#event-poll&#x3D;select</span><br><span class="line"># RPC监听端口, 端口被占用时可以修改, 默认:6800</span><br><span class="line">#rpc-listen-port&#x3D;6800</span><br><span class="line"></span><br><span class="line">## BT&#x2F;PT下载相关 ##</span><br><span class="line"></span><br><span class="line"># 当下载的是一个种子(以.torrent结尾)时, 自动开始BT任务, 默认:true</span><br><span class="line">follow-torrent&#x3D;true</span><br><span class="line"># BT监听端口, 当端口被屏蔽时使用, 默认:6881-6999</span><br><span class="line">listen-port&#x3D;51413</span><br><span class="line"># 单个种子最大连接数, 默认:55</span><br><span class="line">#bt-max-peers&#x3D;55</span><br><span class="line"># 打开DHT功能, PT需要禁用, 默认:true</span><br><span class="line">enable-dht&#x3D;true</span><br><span class="line"># 打开IPv6 DHT功能, PT需要禁用</span><br><span class="line">#enable-dht6&#x3D;false</span><br><span class="line"># DHT网络监听端口, 默认:6881-6999</span><br><span class="line">#dht-listen-port&#x3D;6881-6999</span><br><span class="line"># 本地节点查找, PT需要禁用, 默认:false</span><br><span class="line">bt-enable-lpd&#x3D;true</span><br><span class="line"># 种子交换, PT需要禁用, 默认:true</span><br><span class="line">enable-peer-exchange&#x3D;true</span><br><span class="line"># 每个种子限速, 对少种的PT很有用, 默认:50K</span><br><span class="line">#bt-request-peer-speed-limit&#x3D;50K</span><br><span class="line"># 客户端伪装, PT需要</span><br><span class="line">peer-id-prefix&#x3D;-TR2770-</span><br><span class="line">user-agent&#x3D;Transmission&#x2F;2.77</span><br><span class="line"># 当种子的分享率达到这个数时, 自动停止做种, 0为一直做种, 默认:1.0</span><br><span class="line">seed-ratio&#x3D;1.0</span><br><span class="line"># 强制保存会话, 即使任务已经完成, 默认:false </span><br><span class="line"># 较新的版本开启后会在任务完成后依然保留.aria2文件</span><br><span class="line">force-save&#x3D;false</span><br><span class="line"># BT校验相关, 默认:true</span><br><span class="line">#bt-hash-check-seed&#x3D;true</span><br><span class="line"># 继续之前的BT任务时, 无需再次校验, 默认:false</span><br><span class="line">bt-seed-unverified&#x3D;true</span><br><span class="line"># 保存磁力链接元数据为种子文件(.torrent文件), 默认:false</span><br><span class="line">bt-save-metadata&#x3D;true</span><br><span class="line"></span><br><span class="line"># bt-tracker 更新，解决Aria2 BT下载速度慢没速度的问题</span><br><span class="line"># https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;ngosang&#x2F;trackerslist&#x2F;master&#x2F;trackers_best.txt</span><br><span class="line">bt-tracker&#x3D;udp:&#x2F;&#x2F;tracker.opentrackr.org:1337&#x2F;announce,udp:&#x2F;&#x2F;p4p.arenabg.com:1337&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.to:2710&#x2F;announce,udp:&#x2F;&#x2F;9.rarbg.me:2710&#x2F;announce,udp:&#x2F;&#x2F;exodus.desync.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.cyberia.is:6969&#x2F;announce,udp:&#x2F;&#x2F;open.stealth.si:80&#x2F;announce,udp:&#x2F;&#x2F;tracker.sbsub.com:2710&#x2F;announce,udp:&#x2F;&#x2F;retracker.lanta-net.ru:2710&#x2F;announce,udp:&#x2F;&#x2F;tracker.tiny-vps.com:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker.torrent.eu.org:451&#x2F;announce,udp:&#x2F;&#x2F;tracker.moeking.me:6969&#x2F;announce,udp:&#x2F;&#x2F;tracker3.itzmx.com:6961&#x2F;announce,http:&#x2F;&#x2F;tracker1.itzmx.com:8080&#x2F;announce,udp:&#x2F;&#x2F;ipv4.tracker.harry.lu:80&#x2F;announce,udp:&#x2F;&#x2F;bt2.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;bt1.archive.org:6969&#x2F;announce,udp:&#x2F;&#x2F;explodie.org:6969&#x2F;announce,udp:&#x2F;&#x2F;www.loushao.net:8080&#x2F;announce,udp:&#x2F;&#x2F;valakas.rollo.dnsabr.com:2710&#x2F;announce</span><br><span class="line"></span><br><span class="line"># 后台挂起服务</span><br><span class="line">aria2c --cong-file&#x3D;&#x2F;$path -D</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h5 id="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏"><a href="#这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT-磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏" class="headerlink" title="这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^"></a>这些参数中有一条需要注意bt-tracker，它决定了你的初次下载速度。我的大致理解是：在进行BT/磁力链下载时，我们是需要先搜索并进入一个有资源的网络的，这个网络由很多节点组成。而我们在初次下载的时候，由于本地没有节点缓存，是需要重新搜索，因此速度很慢。添加bt-tracker可以让我们迅速的找到有资源的网络，会使我们的初次下载速度明显提快，我之前就吃了这个亏=__=^</h5><p>但是，我发现了几个问题：</p>
+<ul>
+<li>1 rpc调用不了：起初我是直接使用tcp映射，将6800映射到公网的某端口，然后我是用BaiduExporter，无法使用<a href="http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。" target="_blank" rel="noopener">http://cn-fz-dx.sakurafrp.com:16811/jsonrpc来进行调用，目前还不知道为什么。</a></li>
+<li>2 我发现这个服务开启以后，只是一个服务，我是用命令行下载，如<code>aria2c 1.torrent</code>如果不指定目录的话-o  他的下载路径就在当前目录。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>目前呢，我还是刚刚摸索会了一点，目前就是开多条命令下载，然后通过ftp取回本地，还无法做到远程rpc，实现真正离线下载。</p>
+<p>路漫漫其修远兮，吾将上下而求索！<br>嘻嘻~</p>
+<hr>
+<p>以下为aria2 常用命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-o 指定下载目录</span><br><span class="line">#具体用法：yy是指重命名的文件名</span><br><span class="line">aria2c -o yy http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#使用aria2的分段和多线程下载功能可以加快文件的下载速度，对于下载大文件时特别有用。-x 分段下载，-s 多线程下载，如：</span><br><span class="line">aria2c -s 2 -x 2 http:&#x2F;&#x2F;xx.com&#x2F;xx</span><br><span class="line"></span><br><span class="line">#种子和磁力下载，注意要加&#39;&#39;，否则可能无法下载</span><br><span class="line">aria2c ‘xxx.torrnet‘</span><br><span class="line">aria2c &#39;磁力链接&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#单个文件最大下载速度：</span><br><span class="line">aria2c --max-download-limit&#x3D;300K -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br><span class="line"></span><br><span class="line">#整体下载最大速度：</span><br><span class="line">aria2c --max-overall-download-limit&#x3D;300k -s10 -x10 &#39;http:&#x2F;&#x2F;xx.com&#x2F;xx&#39;</span><br></pre></td></tr></table></figure>
+<p>另外有时候需要后台运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#screen or nohup</span><br><span class="line">nohub aria2c XXX &gt;out.log 2&gt;&amp;1 &amp;</span><br><span class="line">nohup aria2c XXX &gt;&amp;out.log &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-环境配置"><a href="#Linux-环境配置" class="headerlink" title="Linux 环境配置"></a>Linux 环境配置</h3><p>本节只是不想新建文件，所以才有这个</p>
+<ul>
+<li>当使用gcc编译时，找不到库文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export LDFLAGS&#x3D;&quot;-L&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;lib&quot;</span><br><span class="line">export CPPFLAGS&#x3D;&quot;-I&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;zlib&#x2F;include&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>configure时，要求使用pkg来包含库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#根据依赖库的位置，换一下就可以了</span><br><span class="line">export PKG_CONFIG_PATH&#x3D;&quot;$PKG_CONFIG_PATH:&#x2F;home&#x2F;tongshun&#x2F;byp&#x2F;devel&#x2F;sqlite3&#x2F;lib&#x2F;pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>离线下载</tag>
+        <tag>折腾</tag>
       </tags>
   </entry>
   <entry>
@@ -387,6 +364,489 @@
         <tag>离线下载</tag>
         <tag>折腾</tag>
         <tag>百度云</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>结构化面试</title>
+    <url>/2020/08/29/%E3%80%90%E5%85%AC%E8%80%83%E3%80%91%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文用来记录在公务员面试中所遇到的结构化面试，梳理面试知识点。</p>
+<ul>
+<li>常用语句</li>
+</ul>
+<blockquote>
+<p> 1、要<strong>严格执法</strong>，推进决定的全面实施。担起主体责任，加强协调配合，以霹雳手段开展雷霆行动，从严、从重、从快查处违反本决定的行为。</p>
+<p> 2、要坚守底线和原则，<strong>推进后续的高质量立法</strong>。立法涉及不同利益的抉择与定夺，无论利益群体博弈多么剧烈，必须坚守XXX的底线，坚决维护最大多数人的根本利益，坚定构筑公共卫生安全的法律屏障。</p>
+<p>3、<strong>完善公众监督和举报反馈机制</strong>，防止恶意低价中标，建立排污企业黑名单制度，设立国家绿色发展基金。</p>
+<p>4、推进环境治理体系和治理能力现代化，既要抓改革，也要抓落实。一方面，<strong>须加快制度创新、增加制度供给，解决体制机制不健全、法律法规不严密</strong>等问题；另一方面，<strong>须强化制度执行、确保制度落地</strong>，让制度成为不可触碰的“带电高压线”。</p>
+<p>5、传承优秀文化和价值，绝不是简单复古，也不是盲目排外，而是根植于文化自信当中的辩证取舍、推陈出新，实现中华文化、中国价值的创造性转化和创新性发展，激励中国人民创造出新的、更大的中国奇迹。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-人际关系题"><a href="#1-人际关系题" class="headerlink" title="1.人际关系题"></a>1.人际关系题</h3><p><strong>心态展示+解决问题+总结提高</strong></p>
+<p>人际关系题一定要多从自身角度分析，<strong>多找自己的原因</strong>，列提纲的时候，按照“<strong>换位思考</strong>、<strong>自我反思</strong>、<strong>主动沟通</strong>、<strong>工作为主</strong>”的思路分店答题。</p>
+<blockquote>
+<p>有群众打来咨询电话了解政策，但是不在你的职权范围，你也如实说明了情况，但是她的情绪很激动，依然要投诉你，请问你怎么办？</p>
+</blockquote>
+<ul>
+<li>1、换位思考。对群众表示理解，并安抚情绪</li>
+<li>2、主动沟通。及时帮助他联系负责该事的同事</li>
+<li>3、自我反思。是不是存在语气、态度存在问题</li>
+<li>4、强调以工作为主。</li>
+</ul>
+<blockquote>
+<p>考生开始作答。</p>
+<p>首先，我会啊，换位思考啊，群众既然打电话过来咨询政策，那么他必然是希望得到一个满意的回复的，同时呢，他可能遇到的情况比较急切啊，那么我不能因群众激动而影响到我的工作情绪，并且要积极地安抚对方的情绪。</p>
+<p>第二呢。我们要主动与群众进行沟通啊，我想最关键的还是要解决群众的问题和他所想知道的政策规定，既然该政策不在我的职权范围内啊，我对该政策了解的可能也不够清晰，那么我们可以帮他联系专门负责该政策的同事啊，尽快能给他一个满意的答复。如果问题较为复杂，一时难以答复，那么就要做好解释工作，详细记录好问题，留下联系方式，保证在向领导汇报后第一时间做出反馈。 </p>
+<p>第三呢，我们要进行自我反思，我既然已经向群众反映了该政策不在我的职权范围内，群众依然很激动要投诉，那么是不是我的语气、态度上存在问题，给群众造成了一种推皮球、推卸责任的印象。在今后的工作中呢，一定要啊注意自己的态度问题以及沟通技巧方面的问题。</p>
+<p>最后呢，我不会因为在工作中出现类似问题，而影响我的工作热情和积极性，会一如既往 地做好本职工作，同时也要提升自己的业务水平和沟通能力，争取在今后的工作中有更出色 的表现，能够更好地服务群众。</p>
+<p>考生作答完毕。</p>
+</blockquote>
+<blockquote>
+<p>刚进新单位，你做的事太多，有人说你太爱表现；你做的事太少，有人说你懒不作为。对此，你怎么办？</p>
+<p>1.调整心态，这是同时在关心我</p>
+<p>2.工作中存在不足，对于量的把握</p>
+<p>3.自我检查</p>
+<p>作为初入职场的新人，必然要有个适应工作环境的过程，在此期间遇到这样或那样的问题也是不可避免的。遇到题目当中的这种情况，我会这样去做。<br>首先，要调整好自己的心态。如果有人对我的日常工作产生了以上评论，一方面说明同事在日常中关注着我的发展和成长，这是集体和团队关心同事的体现，也是我的荣幸；另一方面也说明我个人在工作中存在不足，缺少对量的把握，缺少与同事的交流。我会认识到作为一个新人出现这样的问题是正常的，我会调整好我的心态，尽最大可能做好自己的本职工作，避免今后出现不必要的误解。<br>其次，要认真进行自我检查。查看一下是否在工作日常当中存在一些疏漏，第一，如果是我日常工作心态存在偏差，过于冒进或者行事拖沓，我今后就要时刻提醒自己在工作上要更加严谨、稳重，事前做好每日工作计划，确保按质按量完成任务；第二，如果是对自己工作内容认知不清，涉及到越权办事影响了其他同事的正常工作，我会主动的反省自己工作当中存在的问题，在今后工作当中，尽快明确自己工作权限，在范畴之内灵活机动地去学习，提升自己的综合素质，不干扰其他同事的工作，不影响团队的整体发展；第三，如果是对自己工作职责不够明确导致了工作主动性不够，参与工作较少的情况，我会多与同事和领导进行交流，多参与团队协作、多参加技术研讨，多请教前辈指导工作，并且认真学习、总结他们的工作经验，以此来逐步改善自己的工作方式方法尽快适应工作需求。<br>最后，做好后续完善提升工作。我会本着“有则改之，无则加勉”的心态，时常自省，做好经验总结，尽快提升自己，尽快适应新环境，融入新团体。我相信“路遥知马力”，时间长了之后，大家一定能够给予我客观、公正的评判。</p>
+</blockquote>
+<h3 id="2-漫画题"><a href="#2-漫画题" class="headerlink" title="2.漫画题"></a>2.漫画题</h3><ul>
+<li><p>2.1是什么？<strong>提出论点立意</strong></p>
+</li>
+<li><p>2.2为什么？</p>
+<ul>
+<li><strong>举例说明意义</strong></li>
+<li><strong>国家+政府+企业+个人</strong>不同角度</li>
+</ul>
+</li>
+<li><p>2.3怎么办？</p>
+<ul>
+<li><strong>具体！</strong>不能假大空！</li>
+<li><strong>基层公务员视角</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-组织计划题"><a href="#3-组织计划题" class="headerlink" title="3.组织计划题"></a>3.组织计划题</h3><p>传统思路：</p>
+<ul>
+<li>前期计划（人、财（大活动）、物、地、时）</li>
+<li>中期实施</li>
+<li>后期总结</li>
+</ul>
+<p>具体一些：</p>
+<ul>
+<li><p>1、调查了解，学习经验；（主体、兄弟单位、文献调研（法律支持））</p>
+</li>
+<li><p>2、宣传发动；（宣传）</p>
+</li>
+<li><p>3、具体活动内容；（人员培训、机制考核、监督）</p>
+</li>
+<li><p>4、事后造势；</p>
+</li>
+<li><p>5、形成长效机制。（制度保障）</p>
+</li>
+</ul>
+<blockquote>
+<p> 你是某镇副镇长，针对返乡下岗农民工，领导让你组织一次职业技能培训，你会 怎么组织？     </p>
+</blockquote>
+<blockquote>
+<p>第一点应该做调查，并可以向有经验的同事请教，我会先了解下这次返乡农民工的数量、以前从事的工作、收入情况、家庭结构和负担情况，以及他们未来的打算等。可以向单位里组织过类似活动的同事请教，在网上搜集 相关政策法规等信息、市场上急需哪些技能。   </p>
+<p>第二点要做好动员工作。任何一次活动没有广泛地参与是不可能成功的，我会组织人员到 村里发传单和张贴海报，也可以和村委会、社区或通过广播电台等方式宣传，让辖区内农民 工知道这次培训，并强调是免费公益性的。 </p>
+<p>第三点，谈具体的活动内容，如找老师来讲课，做一些技能培训，可以与企业联系，开展实操训练等等，根据自己的发挥分点作答即可。     </p>
+<p>第四点，要主要活动开展过程中的造势，可对该项工作进行全程资料信息搜集，整理出照片、VCR等，可以通过微信微博或互联网等平台进行广泛宣传，也可以联系当地广播电台、电视台等进行宣传，营造良好社会氛围。     </p>
+<p>最后应说长效机制，一次培训仅是开始，类似的活动要经常举办，也要对这次培训进行宣传以引起更多的社会关注，让农民工得到更多的帮助。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>随着互联网+技术越来越重要，你局准备在网上开建网上工作室，领导让你来做，请问你准备怎么做？</p>
+</blockquote>
+<p><strong>复杂活动题：专项建设</strong>的<strong>一般流程</strong></p>
+<ul>
+<li>1.<strong>前期调研</strong>——兄弟单位、群众、同事等</li>
+<li>2.<strong>建设内容</strong>——决策、审批事项、政务活动、网络办事</li>
+<li>3.<strong>团队组建</strong>——选拔培训分工</li>
+<li>4.<strong>平台开发</strong></li>
+<li>5.<strong>宣传指导</strong></li>
+<li>6.<strong>制度保障</strong>——工作流程、监督、激励、责任机制</li>
+</ul>
+<blockquote>
+<p>某地旅游资源丰富，为宣传和推广当地的旅游文化，旅游部门决定成立一支由当地群众组成的志愿者导游队伍，利用业余时间，在旅游区为游客免费讲解。如果由你负责组建志愿者导游队伍，你会怎么做？</p>
+</blockquote>
+<p>一揽子解决方案：</p>
+<ul>
+<li>1、开展调研——供应、需求、同业者</li>
+<li>2、宣传招募——渠道、内容</li>
+<li>3、展开选拔——标准、方式</li>
+<li>4、培训考核——主题、内容</li>
+<li>5、制度建设——激励、监督</li>
+<li>6、工作计划——排班</li>
+</ul>
+<h4 id="3-1接待"><a href="#3-1接待" class="headerlink" title="3.1接待"></a>3.1接待</h4><blockquote>
+<p>本市智慧社区搞得不错，有外界媒体想过来采访了解，领导让你接待，你如何接待？</p>
+</blockquote>
+<p><strong>常用思路：前期对接、制定方案、行程安排、效果保障</strong></p>
+<ul>
+<li>1.前期对接——目的、时间、信息、行程</li>
+<li>2.制定方案——接站、食宿、采访对象等</li>
+<li>3.接待流程——参观、采访、交流会</li>
+<li>4.效果保障——稿件预审</li>
+</ul>
+<h4 id="3-2调研"><a href="#3-2调研" class="headerlink" title="3.2调研"></a>3.2调研</h4><ul>
+<li><p>事前：调研目的、调研人员、调研方案</p>
+</li>
+<li><p>事中：调研对象+调研方式+调研内容</p>
+<p>主体供应端（企业）</p>
+<p>其他行政部门</p>
+</li>
+<li><p>事后：撰写调研报告</p>
+</li>
+</ul>
+<h3 id="4-沟通协调题"><a href="#4-沟通协调题" class="headerlink" title="4.沟通协调题"></a>4.沟通协调题</h3><h4 id="4-1情景模拟题"><a href="#4-1情景模拟题" class="headerlink" title="4.1情景模拟题"></a>4.1情景模拟题</h4><p>这类试题应注意语态仪表，真心诚意的沟通，换位思考，站在对方立场考虑问题。</p>
+<p>答题思路是先套近乎，给予对方肯定，然后说明来意，最后给出激励方式。</p>
+<blockquote>
+<p>根据工作需要，单位决定让家住市区的李老师到近郊的农村小学支教一年，请你现场模拟一下，如何说服李老师愉快接受工作安排。    </p>
+<hr>
+<p>刘老师您好，今天看您课表没课，过来和您交流一下，好久没和您好好聊了，记得当年刚来学校，还是个应届大学生，一转眼七八年过去了，已经成为我们的骨干教师了。（拉近距离）     </p>
+<p>第一，您每年带的班级学生都很优秀，家长满意。很多家长点名要把孩子送到您所带的班级，您也连续三年被评为县级优秀教师，确实是非常不容易，管理班级也很有经验，我代表校方也对您的工作表示充分的肯定。（充分肯定）    </p>
+<p> 第二，这次我们根据中央政策要求，结合我校实际，安排支教老师，支教是重要工作，我们学校今年有两个指标，我认为您是不二人选，准备派您到近郊支持教育一年。（说明真相）     </p>
+<p>第三，这次支教有偏远上百公里远的地方，郊区有一所学校，有一二十公里，相对还比较方便。所以在这方面来讲，您不要有太多地顾虑和担忧。（动机激励）     </p>
+<p>第四，支教期间，您的工作关系保留在单位不动，到那边去还有相关的车补、餐补、课时津贴等，待遇肯定比现在要高。并且工作经历，包括基层考核结果都会记入档案，对于以后您的晋升、评职称，甚至中层干部选拔，在同等条件下组织都会优先考虑的。您看，我们的李校长以前还到西藏支教过三年，后面成长的比较快。（动机激励）     </p>
+<p>第五，我觉得像您这么优秀的教师，基层是很需要的。您能带去新的教学理念思路，对 郊区孩子们的成长有帮助，也是您奉献精神淋漓尽致的一次体现。（动机激励）     </p>
+<p>第六，我知道您家里现在有点困难，上有老下有小，也比较有压力。所以，我希望您能 回去跟您家人好好商量一下。把我们校方的想法带回去，如果您还有什么疑问，回头向我们 校方反映，我们一定会全力以赴去解决。（动机激励）     </p>
+<p>最后，希望您能支持校方的决定，愉快地接受任务，把工作做好，好不好。谢谢您，今 天耽误您时间了，我们先聊到这啦。（收尾）</p>
+</blockquote>
+<hr>
+<blockquote>
+<p>你的辖区内经常有12岁左右的学生违规骑行共享单车，局领导很重视派你去解决。你多次找到共享单车负责人他都多次推脱，今天你又来了你准备怎么做。请现场模拟。</p>
+</blockquote>
+<p>传统思路：情景模拟逻辑层次不足，内容缺少说服力</p>
+<p><strong>一般流程</strong>：</p>
+<ul>
+<li><strong>安抚情绪</strong>——体谅困难</li>
+<li><strong>威逼利诱</strong>——危险现状（举出案例）、公司责任（讲法理）、这样的好处（树立形象、帮助处理不当使用）</li>
+<li><strong>建议鼓励</strong>——开锁验证、协同宣传</li>
+</ul>
+<blockquote>
+<p>你单位组织开展职业道德培训，可是单位人员普遍不积极，认为这个培训对实际工作没什么用，你该怎么<strong>动员</strong>？</p>
+</blockquote>
+<p>本题和组织计划题有些相似，可以：<strong>先调研，再分析，后解决</strong>。</p>
+<p>分析原因：培训内容、宣传不足、自身惰性</p>
+<ul>
+<li>1、调研</li>
+<li>2、更新培训内容——理实结合</li>
+<li>3、宣传号召——宣传栏、动员会</li>
+<li>4、行政推动</li>
+<li>5、典型带动</li>
+<li>6、个别沟通</li>
+</ul>
+<blockquote>
+<p>经验交流会上，两个同事就工作的开展方式各抒己见，认为对方的不科学，僵持不下，其他同事也热烈讨论，导致会议难以进入下一环节，作为会议的负责人，你怎么办？</p>
+</blockquote>
+<p>明确需要解决的问题：<strong>混乱、争吵、意见不统一</strong>。</p>
+<ul>
+<li><strong>肃清会场</strong></li>
+<li><strong>安抚情绪</strong>——会议宗旨、相互理解、争吵后果</li>
+<li><strong>制定会议规则</strong>——辩论赛规则、控制时间</li>
+<li><strong>民主投票+会议记录</strong></li>
+<li><strong>继续主持会议</strong></li>
+</ul>
+<p>模拟作答：</p>
+<blockquote>
+<p>考生开始作答：</p>
+<p><strong>首先呢</strong>，我会<strong>肃清会场</strong>，制止会议现场混乱。因为一个安静的一个会场啊，有利于我们的一个问题的解决啊，支持我们会议的一个有序进行。</p>
+<p><strong>其次呢</strong>，我会<strong>安抚双方的情绪</strong>，我会从以下几点开始展开：</p>
+<p>1.向双方阐明会议的宗旨，我们的会议的宗旨是讨论出一个科学的工作开展的一个方式。他并不是说需要，就是双方争论出一个你对我错出来。</p>
+<p>2.双方也需需要相互的一个理解，因为在我们的一个经验交流会上呢，双方可能来自不同的一个学科背景，然后看待问题的一个方式可能不一样，但是呢，并不是说必须就是有一个就是你正确他不正确，其实在实际生活中呢，很可能情况是啊，你的方法也具有合理性，它们也具有合理性。</p>
+<p>3.我会向双方阐明，我们这样争吵的后果。我们争吵与我们会议的宗旨是不相符，让我们的领导知道，以后呢就是我们都将会受到批评。</p>
+<p><strong>之后呢</strong>，我会<strong>制定会议规则</strong>，通过设置辩论赛的一个规则，以及民主投票的方式啊，来使双方的一个意见达成统一。因为辩论赛规则，它首先不会使双方发生言语争吵，这样也有利于达成一个意见的统一。同时我会做好相关的一个<strong>会议记录</strong>，然后上报给上级。</p>
+<p><strong>最后呢</strong>，我会<strong>继续主持会议</strong>，主导会议的一个发言顺序，使会议有序的进行到下一环节。</p>
+<p>考生作答完毕。</p>
+</blockquote>
+<h3 id="5-应急应变题"><a href="#5-应急应变题" class="headerlink" title="5.应急应变题"></a>5.应急应变题</h3><blockquote>
+<p>高考期间，有家长在高考考场附近拉起人墙，防止过往车辆干扰考生。家长与国王司机发生冲突，你是附近的民警，你怎么解决？</p>
+</blockquote>
+<p><strong>传统思路：表态、解决冲突、事后反思</strong></p>
+<p><strong>审题不清、定位不准、处理简单、假设过多</strong></p>
+<ul>
+<li>意义切题</li>
+<li>制止冲突、隔离双方</li>
+<li>联络人员、疏散人群</li>
+<li>了解缘由、处理矛盾</li>
+<li>联系交警、处理路况</li>
+<li>上报情况、宣传教育</li>
+</ul>
+<blockquote>
+<p>老王去税务服务厅办事，发现工作人员态度有问题，拍了照发上网，作为该税务服务厅的负责人，你怎么处理？</p>
+</blockquote>
+<p>列出需要解决的问题：媒体、当事工作人员、老王、单位</p>
+<p>处理：</p>
+<ul>
+<li>1、迅速回应媒体</li>
+<li>2、调研</li>
+<li>3、批评教育当事工作人员</li>
+<li>4、老王：登门道歉</li>
+<li>5、单位：规范服务态度建设——人员培训、监督平台、考核机制</li>
+<li>6、媒体：公示整改方案</li>
+</ul>
+<h4 id="5-1整改的一般方案"><a href="#5-1整改的一般方案" class="headerlink" title="5.1整改的一般方案"></a>5.1整改的一般方案</h4><ul>
+<li>人员培训</li>
+<li>监督平台</li>
+<li>考核机制</li>
+</ul>
+<h3 id="6-社会现象题"><a href="#6-社会现象题" class="headerlink" title="6.社会现象题"></a>6.社会现象题</h3><blockquote>
+<p>国家旅游局整治了景区乱象，取缔了一批景区的评级，但是游客反映乱象仍然存在，你怎么看？</p>
+</blockquote>
+<p>传统思路：辩证看待，有作用——仍不足——找原因——提对策</p>
+<p>可能存在：原因分析表面化、对策松散、缺少可行性</p>
+<ul>
+<li>1、谈意义：<ul>
+<li>政府角度：重拳震慑</li>
+<li>游客角度：评价引导</li>
+</ul>
+</li>
+<li>2、看问题：景区管理不足、游客需求上升</li>
+<li>3、析原因：<ul>
+<li>观念：一次性买卖（景区、政府、游客）</li>
+<li>机制：力度不够（违法成本过低）、责任主体多元、社会监督不足</li>
+</ul>
+</li>
+<li>4、提对策：<ul>
+<li>提高问题认识：问题的复杂性、长期性、影响（政府）</li>
+<li>治理体系建设：执法必严、旅游警察、联合执法</li>
+<li>监督平台建设：官方暗访评价、游客曝光平台、景区定期评级</li>
+<li>媒体宣传曝光：树立典型，带动一片</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>交警春节向司机发有交通知识的贺年片，对此，你怎么看？</p>
+</blockquote>
+<p>正面的社会现象谈完意义后，可以谈谈扩展完善，一是横向补充，二是纵向贯彻，三是自我号召</p>
+<ul>
+<li>谈意义：<ul>
+<li>1、创新交规宣传方式；</li>
+<li>2、构建和谐警民关系；</li>
+<li>3、树立服务型政府形象</li>
+</ul>
+</li>
+<li>谈完善：<ul>
+<li>1、持续创新，丰富宣 实，贺年片更要注重类容</li>
+<li>3、从我做起，不忘初心牢记使命</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>某机关为了加强廉政文化建设，向党员干部家属征集“廉政亲情寄语”，并悬挂在办公室最醒目的地方。如“吃菜根蛋中有味，守清廉梦里不惊” “公家的钱不能动，平安就是最大的福”。请谈谈对上述举措的看法。</p>
+</blockquote>
+<ul>
+<li>谈意义：<ul>
+<li>1、家属：腐败通常是从家人开始，也给家庭带来灾难</li>
+<li>2、干部：家庭关怀及督促</li>
+<li>3、群众：提升政府形象</li>
+<li>4、标语的内容：接地气、谈实在</li>
+<li>5、国家：家风-党风-国风</li>
+<li>6、廉政文化建设：根源治理腐败</li>
+</ul>
+</li>
+<li>谈完善：<ul>
+<li>横向扩展：影视文化、定期学习、政治巡视、源头净化</li>
+<li>纵向贯彻落实/长效机制：实践教育（井冈山）</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-综合分析题"><a href="#7-综合分析题" class="headerlink" title="7.综合分析题"></a>7.综合分析题</h3><blockquote>
+<p>尽管现在高校的人才越来越多，但是乡村的教师人数正在不断流失，如果你作为负责人，<strong>你打算怎么解决</strong>乡村教师流失的现象？</p>
+</blockquote>
+<p>先调研，再分析，再解决。</p>
+<p>分析原因（换位思考）：生活条件、工作环境、职业荣誉感、职业前景、新生力量</p>
+<ul>
+<li>1、开展调研——教师群体、相关部门（政策制定部门，如人社部）、成功经验</li>
+<li>2、提升待遇——住房、办公条件、社会保障</li>
+<li>3、改善环境——尊师重道的氛围</li>
+<li>4、关怀激励——社会力量的号召</li>
+<li>5、交换学习——晋升平台</li>
+<li>6、扩大宣传——典型示范带动</li>
+</ul>
+<p>模拟做答</p>
+<blockquote>
+<p>考生开始作答，如果我作为解决乡村教师流失的负责人，我会按如下几点展开工作：</p>
+<p>第一，开展调研。首先，我会像首先向相关的教师群体调研，他们对于不愿意或者说不想去乡村当老师的原因。其次，我会向相关部门进行调研。比如说啊，当地的一些人社部之类的啊，到底是不是因为政策没有到位啊？比如落户、住房等等。最后，我也会对兄弟乡村里面的成功的一些乡村教师的经验来进行调研。</p>
+<p>第二，我会提升乡村教师的待遇。这个待遇不仅仅指工资，它还包括乡村教师的住房问题，比如说我们可以对于乡村教师提供免费的人才公寓，多少年限之后可以申请永久的福利房。同时，我们也要改善他的办公环境啊，硬件环境也是不可或缺的。比如说啊，像今年的陕西省某贫困县投资七个亿来建新校区，这就是一个很好的例子啊。最后呢，我们要提供相应的社会保障，比如子女入学、配偶工作等问题。</p>
+<p>第三，要改善环境，指的是要在乡村营造尊师重道的氛围，这样能给乡村教师带来职业荣誉感。比如说啊，可以与村支书联合开展一些尊师重道的一些宣传活动之类的。</p>
+<p>第四，给予乡村教师相应的关怀与激励，号召全社会的力量去给予他们关怀，提升他们的职业荣誉感啊。比如说啊，马云的微博ID就是乡村教师马云，他经常发一些与公益相关的微博，改善人们对于乡村教师的固有看法。</p>
+<p>第五，给予乡村教师相对可靠的晋升平台。比如说乡村教师可以与省城的一些学校来进行交换学习，能够给他们一个比较光明的职业前景。</p>
+<p>第六呢，要扩大宣传。一方面，需要宣传我们能够给予乡村教师的福利与保障。另一方面，我们要树立一个典型的、积极的乡村教师的一个例子，来发挥典范带头的作用，一个点带动一片。</p>
+<p>考生作答完毕。</p>
+</blockquote>
+<blockquote>
+<p>小商小贩占道经营严重，影响附近的居民和学校的正常生活，你是城管工作人员，联合了工商等很多部门一起进行联合整治。如果你是这个城管工作人员，你会如何开展工作？</p>
+</blockquote>
+<p><strong>联合整治</strong>思路：</p>
+<ul>
+<li>1、调研</li>
+<li>2、沟通协调会</li>
+<li>3、广泛宣传</li>
+<li>4、突击执法</li>
+<li>5、持续监督（平台）</li>
+</ul>
+<p>模拟作答：</p>
+<blockquote>
+<p>考生开始作答，如果我是证明城管工作人员，我会按照如下几点展开工作：</p>
+<p>第一，开展调研。首先我会向附近的居民和学校发放问卷调查啊，了解他们对于小芳小贩占道经营，对他们的一个影响程度啊，第二呢，我会采取文献调研的形式。查看是否有铭文的一个法律规定，对于这种占道经营进进行了明确规定。</p>
+<p>第二，我会开展沟通协调会啊，我会联合多个部门一起在会上进行沟通讨论。一方面呢，对于我以上的调研结果予以公布；另一方面呢，我们在会上也要商讨出一个一致的解决方案啊，并对每个部门进行分配工作。</p>
+<p>第三呢，就是广泛宣传。我们要让恶这些小商小贩认识到这个问题的严重性，首先我们可以采用啊海张贴海报、限制整改单的方式，向他们指出占道经营的影响；同时呢，我们要耐心地对他们进行劝导啊，向他们普及相应的法律知识。</p>
+<p>第四呢，是我们要进行执法，我们的执法要突击执法，要不定期的开展，要坚决与这种占道经营这种行为作斗争，不能做运动式执法。</p>
+<p>第五是我们要做好持续监督的工作。我们可以建设一些持续监督的一些平台，比如说把我们的监督邮箱、监督微信公众号、监督电话等予以公开，以广告牌的形式放置于占道经营的街道上。</p>
+<p>第六呢，我们只用于堵是不行的，我们要疏堵结合，我们要给予他们建议，因为毕竟他们在这里能够经营那证明这里还是有需求的。那么呢，我们可以联系啊周围的一些物业、街道办，看能不能划定一块区域来，专门用于小商小贩的一个经营工作，可以让他们交相应的物业费，进行合法经营，同时满足周边人民的需求。</p>
+<p>考生作答完毕。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>结构化面试</tag>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vim Note</title>
+    <url>/2020/08/03/Vim-Note/</url>
+    <content><![CDATA[<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
+<li><p>复制</p>
+<p>n yy</p>
+</li>
+<li><p>查找/替换</p>
+<p>查找  <code>:/</code></p>
+<p>替换  <code>:s/</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">s:表示替换操作,其为substitute的缩写</span><br><span class="line"></span><br><span class="line">[option] : 表示操作类型,如:</span><br><span class="line"></span><br><span class="line">g:globe,表示全局替换</span><br><span class="line"></span><br><span class="line">c:confirm,表示进行确认</span><br><span class="line"></span><br><span class="line">p:表示替代结果逐行显示(Ctrl + L恢复屏幕)</span><br><span class="line"></span><br><span class="line">i:ignore,不区分大小写</span><br><span class="line"></span><br><span class="line">[option]省略时仅对每行第一个匹配串进行替换</span><br><span class="line">如果在源字符串和目的字符串中出现特殊字符,如&#39;&#x2F;&#39;,&#39;&lt;&#39;,&#39;&gt;&#39;,&#39;,&#39;等需要前面加反斜杠\进行转义</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">常用命令示例:</span><br><span class="line">#将当前行第一个a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将当前行的所有a替换为b</span><br><span class="line">:s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将每行第一个a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b</span><br><span class="line"></span><br><span class="line">#将整个文件的所有a替换为b</span><br><span class="line">:%s&#x2F;a&#x2F;b&#x2F;g</span><br><span class="line"></span><br><span class="line">#将1至3行的第一个a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;</span><br><span class="line"></span><br><span class="line">#将1至3行的所有a替换为b</span><br><span class="line">:1,3s&#x2F;a&#x2F;b&#x2F;g</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>实用工具</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>Vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>利用python来进行数据分析</title>
+    <url>/2020/10/12/%E5%88%A9%E7%94%A8python%E6%9D%A5%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>大概是研二那会儿，经常需要利用python爬取数据，再进行处理和数据可视化，现在暂时没什么事情就重新梳理一下。</p>
+<h3 id="1-搭建环境"><a href="#1-搭建环境" class="headerlink" title="1.搭建环境"></a>1.搭建环境</h3><h4 id="1-1-Conda创建独立环境"><a href="#1-1-Conda创建独立环境" class="headerlink" title="1.1 Conda创建独立环境"></a>1.1 Conda创建独立环境</h4><p>我采用的是Anaconda来管理python的包，首先查看当前所存在的环境</p>
+<ul>
+<li><strong>列出当前存在的环境</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ conda env list</span><br><span class="line"># conda environments:</span><br><span class="line">#</span><br><span class="line">root                  *  C:\ProgramData\Anaconda3</span><br></pre></td></tr></table></figure>
+
+<p>​    可以看到当前只存在一个root环境</p>
+<ul>
+<li><p><strong>创建虚拟环境</strong></p>
+<p>接下来可以用如下命令创建一个名字为data_analysis，python版本为3.6.3的虚拟环境。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ conda create -n data_analysis python&#x3D;3.6.3</span><br><span class="line"></span><br><span class="line">Fetching package metadata ...</span><br><span class="line">CondaHTTPError: HTTP 000 CONNECTION FAILED for url &lt;https:&#x2F;&#x2F;repo.continuum.io&#x2F;pkgs&#x2F;main&#x2F;win-64&#x2F;repodata.json.bz2&gt;</span><br><span class="line">Elapsed: -</span><br><span class="line"></span><br><span class="line">An HTTP error occurred when trying to retrieve this URL.</span><br><span class="line">HTTP errors are often intermittent, and a simple retry will get you on your way.</span><br><span class="line">ConnectTimeout(MaxRetryError(&quot;HTTPSConnectionPool(host&#x3D;&#39;repo.continuum.io&#39;, port&#x3D;443): Max retries exceeded with url: &#x2F;pkgs&#x2F;main&#x2F;win-64&#x2F;repodata.json.bz2 (Caused by ConnectTimeoutError(&lt;urllib3.connection.VerifiedHTTPSConnection object at 0x00000224E84CB518&gt;, &#39;Connection to repo.continuum.io timed out. (connect timeout&#x3D;9.15)&#39;))&quot;,),)</span><br></pre></td></tr></table></figure>
+
+<p>​    哦豁，好像访问不了，更换一下conda的镜像源（参考1.2）。</p>
+<p>​    以上方式创建的环境在默认路径下，但可以通过以下方式指定路径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda create --prefix&#x3D;&quot;D:\\my_python\\envs\\my_py_env&quot;  python&#x3D;3.6.3</span><br></pre></td></tr></table></figure>
+
+<p>​    其中”D:\my_python\envs&quot;是路径名，”my_py_env” 是环境名.</p>
+<ul>
+<li><p><strong>进入环境</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">activate my_py_env</span><br></pre></td></tr></table></figure>
+
+<p>在windows系统cmd下通过以上命令即可进入my_py_env环境，如果在linux系统下，需要使用：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source activate my_py_env</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>退出环境</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#Windows</span><br><span class="line">deactivate</span><br><span class="line">#Linux</span><br><span class="line">source deactivate</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用conda管理包</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda install -n my_py_env package_name</span><br><span class="line">conda uninstall -n my_py_env package_name</span><br></pre></td></tr></table></figure>
+
+<p>只需要在conda命令中通过 -n 显示指定python环境即可</p>
+</li>
+<li><p><strong>删除环境</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda remove -n my_py_env --all</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="1-2-Conda更换镜像源"><a href="#1-2-Conda更换镜像源" class="headerlink" title="1.2 Conda更换镜像源"></a>1.2 Conda更换镜像源</h4><ul>
+<li>查看配置文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --show</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>添加清华源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;conda-forge </span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;msys2&#x2F;</span><br><span class="line"></span><br><span class="line"># 设置搜索时显示通道地址</span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加中科大源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;main&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;conda-forge&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;msys2&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;bioconda&#x2F;</span><br><span class="line">conda config --add channels https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;menpo&#x2F;</span><br><span class="line"></span><br><span class="line">conda config --set show_channel_urls yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>换回默认源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda config --remove-key channels</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在linux下可以将以下配置文件写在<code>~/.condarc</code>中；在Windows下配置文件在<code>C://User/用户名/.condarc</code></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">channels:</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;main&#x2F;</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;anaconda&#x2F;cloud&#x2F;conda-forge&#x2F;</span><br><span class="line">  - https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;anaconda&#x2F;pkgs&#x2F;free&#x2F;</span><br><span class="line">  - defaults</span><br><span class="line">show_channel_urls: true</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="1-3安装所需包"><a href="#1-3安装所需包" class="headerlink" title="1.3安装所需包"></a>1.3安装所需包</h4><ul>
+<li>通过命令行来执行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">conda install pandas</span><br><span class="line"></span><br><span class="line">pip install pyecharts</span><br><span class="line">#可通过conda或者pip安装</span><br><span class="line"></span><br><span class="line">pip install echarts-countries-pypkg</span><br><span class="line">pip install echarts-china-provinces-pypkg</span><br><span class="line">pip install echarts-china-cities-pypkg</span><br><span class="line">pip install echarts-china-counties-pypkg</span><br><span class="line">pip install echarts-china-misc-pypkg</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>通过pycharm的包管理来进行安装</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20201013195750.png" alt=""></p>
+</li>
+</ul>
+<h3 id="2-获取数据"><a href="#2-获取数据" class="headerlink" title="2.获取数据"></a>2.获取数据</h3><p>通常情况下，我们可以采用网络爬虫来获取数据。</p>
+<h4 id="2-1请求并获取数据"><a href="#2-1请求并获取数据" class="headerlink" title="2.1请求并获取数据"></a>2.1请求并获取数据</h4><p>通常情况下，可以采用<strong>urllib</strong>来请求数据</p>
+<ul>
+<li><p><strong>urllib</strong></p>
+</li>
+<li><p><strong>示例</strong></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def askUrl(url):</span><br><span class="line">    # 伪装浏览器头信息</span><br><span class="line">    # 用户代理表示，告诉豆瓣服务器，我们是什么类型的机器，浏览器可以接收什么信息</span><br><span class="line">    headers &#x3D; &#123;</span><br><span class="line">        &quot;User-Agent&quot;: &quot;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;85.0.4183.121 Safari&#x2F;537.36&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    req&#x3D;urllib.request.Request(url,headers&#x3D;headers)</span><br><span class="line">    html&#x3D;&quot;&quot;</span><br><span class="line">    try:</span><br><span class="line">        response&#x3D;urllib.request.urlopen(req)</span><br><span class="line">        html&#x3D;response.read().decode(&quot;utf-8&quot;)</span><br><span class="line">        #print(html)</span><br><span class="line">    except urllib.error.URLError as e:</span><br><span class="line">        if hasattr(e,&quot;reason&quot;):</span><br><span class="line">            print(e.reason)</span><br><span class="line">        if hasattr(e,&quot;code&quot;):</span><br><span class="line">            print(e.code)</span><br><span class="line">    return html</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-2解析数据"><a href="#2-2解析数据" class="headerlink" title="2.2解析数据"></a>2.2解析数据</h4><p>通常使用<strong>bs4、re</strong>来解析数据</p>
+<ul>
+<li><p><strong>bs4</strong></p>
+</li>
+<li><p><strong>re</strong></p>
+</li>
+<li><p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#影片详情链接的规则</span><br><span class="line">findLink &#x3D; re.compile(r&#39;&lt;a href&#x3D;&quot;(.*?)&quot;&gt;&#39;)     #创建正则表达式对象，表示规则（字符串的模式）</span><br><span class="line">#影片图片</span><br><span class="line">findImgSrc &#x3D; re.compile(r&#39;&lt;img.*src&#x3D;&quot;(.*?)&quot;&#39;,re.S)   #re.S 让换行符包含在字符中</span><br><span class="line">#影片片名</span><br><span class="line">findTitle &#x3D; re.compile(r&#39;&lt;span class&#x3D;&quot;title&quot;&gt;(.*)&lt;&#x2F;span&gt;&#39;)</span><br><span class="line">#影片评分</span><br><span class="line">findRating &#x3D; re.compile(r&#39;&lt;span class&#x3D;&quot;rating_num&quot; property&#x3D;&quot;v:average&quot;&gt;(.*)&lt;&#x2F;span&gt;&#39;)</span><br><span class="line">#找到评价人数</span><br><span class="line">findJudge &#x3D; re.compile(r&#39;&lt;span&gt;(\d*)人评价&lt;&#x2F;span&gt;&#39;)</span><br><span class="line">#找到概况</span><br><span class="line">findInq &#x3D; re.compile(r&#39;&lt;span class&#x3D;&quot;inq&quot;&gt;(.*)&lt;&#x2F;span&gt;&#39;)</span><br><span class="line">#找到影片的相关内容</span><br><span class="line">findBd &#x3D; re.compile(r&#39;&lt;p class&#x3D;&quot;&quot;&gt;(.*?)&lt;&#x2F;p&gt;&#39;,re.S)</span><br><span class="line"></span><br><span class="line">def getData(baseurl):</span><br><span class="line">    datalist&#x3D;[]</span><br><span class="line">    for i in range(0,10):</span><br><span class="line">        url&#x3D;baseurl+str(i*25)</span><br><span class="line">        html&#x3D;askUrl(url)        #保存获取的网页源码</span><br><span class="line">        print(&quot;start jiexi &quot;+url)</span><br><span class="line">        #逐一解析数据</span><br><span class="line">        soup&#x3D;BeautifulSoup(html,&quot;html.parser&quot;)</span><br><span class="line">        for item in soup.find_all(&#39;div&#39;,class_&#x3D;&quot;item&quot;):</span><br><span class="line">            # print(item)</span><br><span class="line">            # break</span><br><span class="line">            data&#x3D;[]     #保存一部电影的所有信息</span><br><span class="line">            item&#x3D;str(item)</span><br><span class="line"></span><br><span class="line">            link&#x3D;re.findall(findLink,item)[0]       #re库用来通过正则表达式来查找符合要求的字符串</span><br><span class="line">            data.append(link)</span><br><span class="line"></span><br><span class="line">            imgSrc&#x3D;re.findall(findImgSrc,item)[0]</span><br><span class="line">            data.append(imgSrc)</span><br><span class="line"></span><br><span class="line">            name&#x3D;re.findall(findTitle,item)</span><br><span class="line">            if(len(name)&#x3D;&#x3D;2):</span><br><span class="line">                data.append(name[0])</span><br><span class="line">                data.append(name[1].replace(&quot;&#x2F;&quot;,&quot;&quot;))</span><br><span class="line">            else:</span><br><span class="line">                data.append(name[0])</span><br><span class="line">                data.append(&quot;&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            socre&#x3D;re.findall(findRating,item)[0]</span><br><span class="line">            data.append(socre)</span><br><span class="line"></span><br><span class="line">            judgeNum &#x3D; re.findall(findJudge,item)[0]</span><br><span class="line">            data.append(judgeNum)</span><br><span class="line"></span><br><span class="line">            inq&#x3D;re.findall(findInq,item)</span><br><span class="line">            if(len(inq)!&#x3D;0):</span><br><span class="line">                data.append(inq)</span><br><span class="line">            else:</span><br><span class="line">                data.append(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">            bd&#x3D;re.findall(findBd,item)[0]</span><br><span class="line">            bd&#x3D;re.sub(&#39;&#x2F;&#39;,&quot;&quot;,bd)        #去掉&#x2F;</span><br><span class="line">            data.append(bd.strip())     #strip()去掉空格</span><br><span class="line"></span><br><span class="line">            datalist.append(data)       #保存到datalist中</span><br><span class="line">    return datalist</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h4 id="2-3存储数据"><a href="#2-3存储数据" class="headerlink" title="2.3存储数据"></a>2.3存储数据</h4><ul>
+<li><p><strong>xlwt</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import xlwt</span><br><span class="line"># 创建一个workbook 设置编码</span><br><span class="line">workbook &#x3D; xlwt.Workbook(encoding &#x3D; &#39;utf-8&#39;)</span><br><span class="line"># 创建一个worksheet</span><br><span class="line">worksheet &#x3D; workbook.add_sheet(&#39;My Worksheet&#39;)</span><br><span class="line"></span><br><span class="line"># 写入excel</span><br><span class="line"># 参数对应 行, 列, 值</span><br><span class="line">worksheet.write(1,0, label &#x3D; &#39;this is test&#39;)</span><br><span class="line"></span><br><span class="line"># 保存</span><br><span class="line">workbook.save(&#39;Excel_test.xls&#39;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">def saveData(save_path,datalist):</span><br><span class="line">    # 创建一个workbook 设置编码</span><br><span class="line">    workbook &#x3D; xlwt.Workbook(encoding&#x3D;&#39;utf-8&#39;)</span><br><span class="line">    # 创建一个worksheet</span><br><span class="line">    worksheet &#x3D; workbook.add_sheet(&#39;豆瓣电影Top250&#39;)</span><br><span class="line">    colindex&#x3D;[&quot;详情链接&quot;,&quot;图片链接&quot;,&quot;中文名&quot;,&quot;外文名&quot;,&quot;评分&quot;,&quot;评价人数&quot;,&quot;Inq&quot;,&quot;bd&quot;]</span><br><span class="line">    for i in range(0,8):</span><br><span class="line">        worksheet.write(0,i,colindex[i])</span><br><span class="line">    for item in range(0,250):</span><br><span class="line">        print(&quot;d% item saving&quot;,item)</span><br><span class="line">        # data&#x3D;datalist[i]</span><br><span class="line">        for j in range(0,8):</span><br><span class="line">            worksheet.write(item+1,j,datalist[item][j])</span><br><span class="line"></span><br><span class="line">    workbook.save(save_path)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>pandas</tag>
+        <tag>echarts</tag>
+        <tag>数据分析</tag>
       </tags>
   </entry>
   <entry>
@@ -481,6 +941,123 @@
       </tags>
   </entry>
   <entry>
+    <title>申论-大作文积累</title>
+    <url>/2020/07/15/%E7%94%B3%E8%AE%BA-%E5%A4%A7%E4%BD%9C%E6%96%87%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<h3 id="零、万能句"><a href="#零、万能句" class="headerlink" title="零、万能句"></a>零、万能句</h3><p><strong>一是让奋斗因梦想而激扬。</strong>心中有阳光，脚下就有力量。人生的最大的资本不是经验丰富、胸有成竹，而是敢于做梦、勇于试错。不因一时挫折而灰心丧志，不因身处逆境而放弃前行，不让享受和偷安在我们内心扎根。</p>
+<p><strong>二是让奋斗因拼搏而精彩。</strong>通过各种方法让我们拥有有更扎实的知识，更开阔的视野，更宽广的舞台，更深厚的坚韧精神，多经历一点摔打、挫折、考验，走好一生的路，努力在时代的舞台创造无限的可能。</p>
+<p><strong>三是让奋斗因奉献而厚重。</strong>“只有把人生理想融入国家和民族的事业中，才能最终成就一番事业。”时代也需要我们用坚实的肩膀扛起民族复兴的重任。不管是身处象牙塔的年轻大学生，还是扎根基层的青年村官，或是穿行于大街小巷的快递小哥，只要尽心做好本职工作，不断的奉献与人民，都是在为国为家添砖加瓦！</p>
+<h3 id="一、生态"><a href="#一、生态" class="headerlink" title="一、生态"></a>一、生态</h3><ul>
+<li><p>人与自然是生命共同体，人类必须尊重自然、顺应自然、保护自然。</p>
+</li>
+<li><p>人法地、地法天、天法德、道法自然。</p>
+</li>
+<li><p>生态破坏是尚未远离的历史，生态修复则是正在进行的当下。</p>
+</li>
+<li><p>农村生态建设：望得见山，看得见水，记得住乡愁。</p>
+</li>
+<li><p>不负青山，方得金山。</p>
+</li>
+<li><p>习近平总书记曾指出：“纵观世界发展史，保护生态环境就是保护生产力，改善生态环境就是发展生产力，要更加自觉地推动绿色发展、循环发展、低碳发展，绝不以牺牲环境为代价去换取一时的经济增长。”</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>结尾</p>
+<p>对于（绿色发展/保护生态），要本着强烈的忧患意识和责任意识，（对策），切实保护好、建设好我们的青山绿水，切实保障社会的可持续发展。</p>
+</li>
+</ul>
+<h3 id="二、经济"><a href="#二、经济" class="headerlink" title="二、经济"></a>二、经济</h3><ul>
+<li><strong>发展</strong>是解决我国一切问题的基础和关键，发展必须是<strong>科学发展</strong>，必须坚定不移贯彻<strong>创新、协调、绿色、开放、共享</strong>的发展理念。</li>
+<li><strong>创新</strong>是引领发展的第一动力，是建设现代化经济体系的战略支撑。</li>
+<li><strong>开放</strong>带来进步，封闭必然落后。中国开放的大门不会关闭，只会越开越大。</li>
+</ul>
+<h3 id="三、社会"><a href="#三、社会" class="headerlink" title="三、社会"></a>三、社会</h3><ul>
+<li><strong>不忘初心，方得始终</strong>。(中国共产党人的初心和使命，就是为中国人民谋幸福，为中华民族谋复兴)</li>
+</ul>
+<h4 id="3-1农业-扶贫"><a href="#3-1农业-扶贫" class="headerlink" title="3.1农业/扶贫"></a>3.1农业/扶贫</h4><ul>
+<li>农业的出路在现代化，农业现代化的关键在科技进步。我们必须比以往任何时候都更加重视和依靠农业科技进步。</li>
+</ul>
+<blockquote>
+<p>习近平总书记</p>
+</blockquote>
+<ul>
+<li><p>让农业成为有奔头的产业，让农民成为体面的职业，让农村成为安居乐业的家园。</p>
+</li>
+<li><p>扶贫先扶志，扶贫必扶智。</p>
+</li>
+</ul>
+<blockquote>
+<p>释义：</p>
+<p>志：思想、观念、信心，有摆脱困境的素质</p>
+<p>智：知识、技术、思路，有摆脱困境的能力</p>
+</blockquote>
+<p>扶贫是头等大事，第一民生工程，中国共产党人的初心和使命，就是为中国人民谋幸福，为中华民族谋复兴。</p>
+<h4 id="3-2-教育"><a href="#3-2-教育" class="headerlink" title="3.2 教育"></a>3.2 教育</h4><p>十年树木，百年树人。</p>
+<p>高考，国以选贤，教以树人，民以求进。</p>
+<p>君子博学而日参省乎已，则知明而行无过矣。</p>
+<blockquote>
+<p>荀子《劝学》</p>
+</blockquote>
+<p>梦想从学习开始，事业从时间起步。</p>
+<p>以学固本，以学立德，以学增智，以学兴业。</p>
+<h4 id="3-4-法治"><a href="#3-4-法治" class="headerlink" title="3.4 法治"></a>3.4 法治</h4><p>国无常强，无常弱，奉法者强则国强，奉法者弱则国弱。</p>
+<p>一个富强民主和谐的中国，首先是法治的中国；一个自由平等公正的社会，首先是法治的社会；法治建设是一个国家兴旺发达的重要保障。</p>
+<p>法治是公民意识自觉的清醒剂，是社会持续和谐的助推器，是政治清明的指南针。</p>
+<h4 id="3-5-民生"><a href="#3-5-民生" class="headerlink" title="3.5 民生"></a>3.5 民生</h4><ul>
+<li><strong>人民健康</strong>是民族昌盛和国家富强的重要标志。要完善国民健康政策，为人民群众提供全方位全周期健康服务。</li>
+<li><strong>就业</strong>是最大的民生。要坚持就业优先战略和积极就业政策，实现更高质量和更充分就业。</li>
+<li>践行全心全意为人民服务的根本宗旨，把<strong>党的群众路线</strong>贯彻到治国理政全部活动之中，把人民对美好生活的向往作为奋斗目标，<strong>依靠人民</strong>创造历史伟业。</li>
+</ul>
+<h3 id="四、文化"><a href="#四、文化" class="headerlink" title="四、文化"></a>四、文化</h3><ul>
+<li>文化自信是一个国家、一个民族发展中更基本、更深沉、更持久的力量。</li>
+<li>文化是一个国家、一个民族的灵魂。文化兴国运兴，文化强民族强。没有高度的文化自信，没有文化的繁荣兴盛，就没有中华民族伟大复兴。</li>
+<li>不忘本来、吸收外来、面向未来，更好构筑中国精神、中国价值、中国力量，为人民提供精神指引。</li>
+</ul>
+<h4 id="4-1-青年人有理想、有本领、有担当"><a href="#4-1-青年人有理想、有本领、有担当" class="headerlink" title="4.1 青年人有理想、有本领、有担当"></a>4.1 青年人有理想、有本领、有担当</h4><ul>
+<li><p>有理想</p>
+<blockquote>
+<p>罗曼罗兰：理想，是一种力量。</p>
+</blockquote>
+<p>树立何种人生理想、选择那种奋斗方向，决定着我们青春的去处。站在新时代的起点。当青春踏上壮阔的征程，需要理想信念的支撑，需要思想的力量领航。</p>
+<p>而习近平新时代中国特色社会主义思想就是指南针，用以武装头脑、指导实践，必定能够更好地实现价值，收获更有意义的人生。</p>
+</li>
+<li><p>有本领</p>
+<p>打铁还需自身硬。</p>
+<p>空谈误国，实干兴邦。</p>
+<p>新矛盾需要广大青年在党的领导下同全国人民一道去应对、化解；新理论需要广大青年同全国人民一道去领会、贯彻落实；新征程需要广大青年在党的领导下继往开来、继续奋斗。</p>
+</li>
+<li><p>有担当</p>
+<p>先天下之忧而忧，后天下之乐而乐。</p>
+<blockquote>
+<p>范仲淹</p>
+</blockquote>
+<p>苟利国家生死以，岂因祸福避趋之。</p>
+<blockquote>
+<p>林则徐</p>
+</blockquote>
+<p>鞠躬精粹，死而后已（是诸葛亮心中的责任）</p>
+<p>杨振宁先生、黄大年—毅然放弃国外优越条件，回到祖国刻苦钻研。</p>
+</li>
+</ul>
+<p>青年的人生之路很长，前进途中，有平川也有高山，有缓流也有险滩，有丽日也有风雨，有喜悦也有哀伤。<strong>心中有阳光，脚下有力量，为了理想能坚持、不懈怠，才能创造无愧于时代的人生。</strong></p>
+<p>结尾：中国梦是我们这一代的，更是青年一代的。中华民族伟大复兴的中国梦终将在一代代青年的接力奋斗中变成现实。</p>
+<h4 id="4-2-诚信"><a href="#4-2-诚信" class="headerlink" title="4.2 诚信"></a>4.2 诚信</h4><ul>
+<li>君子养心，莫善于诚。</li>
+</ul>
+<h3 id="五、政治"><a href="#五、政治" class="headerlink" title="五、政治"></a>五、政治</h3><ul>
+<li>行百里者半九十。中华民族伟大复兴，绝不是轻轻松松、敲锣打鼓就能实现的。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>申论</tag>
+        <tag>作文</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>写作积累</title>
     <url>/2020/08/13/%E5%86%99%E4%BD%9C%E7%A7%AF%E7%B4%AF/</url>
     <content><![CDATA[<p>描述一个问题是并<strong>不是短时间形成</strong></p>
@@ -497,6 +1074,816 @@
       </categories>
       <tags>
         <tag>写作</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文档处理的好助手--pandas的使用</title>
+    <url>/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h3><p>​        回想了一下，我都好久没有用python来处理了文档了，记得最近一次是去年暑假用cpp处理csv文件。正好今天有个姐姐需要处理下文件，一个很简单的需求：将xls转换为xlsx，并添加一行和一列的index。正好发现pandas忘的一干二净了，重新学一学，记录一下。</p>
+<h3 id="2-处理过程"><a href="#2-处理过程" class="headerlink" title="2.处理过程"></a>2.处理过程</h3><ul>
+<li><p>构造Index等差数列</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hang &#x3D; list(range(220, 451, 5))</span><br><span class="line">lie &#x3D; [&#39;&#39;] + list(range(300, 551, 2))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加到首行、首列</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加行，对-1行赋值，然后将index+1，重新排序</span><br><span class="line">data.loc[-1] &#x3D; hang</span><br><span class="line">data.index &#x3D; data.index + 1</span><br><span class="line">data.sort_index(inplace&#x3D;True)</span><br><span class="line">#本方法在read_table时会报错，-1行无法赋值</span><br><span class="line"></span><br><span class="line">#以下方式均可适用</span><br><span class="line">df1&#x3D;pd.DataFrame(hang).T</span><br><span class="line">data&#x3D;df1.append(data)</span><br><span class="line"></span><br><span class="line">#添加列</span><br><span class="line">data.insert(0,&#39;newcol&#39;,lie)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>格式转换</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#格式转换</span><br><span class="line">data.to_excel(path + &#39;&#x2F;&#39; + file_name_be + &#39;_Transformat.xlsx&#39;,index &#x3D; False,header&#x3D;None)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="3-知识点总结"><a href="#3-知识点总结" class="headerlink" title="3.知识点总结"></a>3.知识点总结</h3>]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>pandas</tag>
+        <tag>文档处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--判断推理</title>
+    <url>/2020/07/11/%E8%A1%8C%E6%B5%8B-%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</url>
+    <content><![CDATA[<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><blockquote>
+<ol>
+<li><p>图形推理</p>
+</li>
+<li><p>定义判断</p>
+</li>
+<li><p>类比推理</p>
+</li>
+<li><p>逻辑推理</p>
+</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="1-图形推理"><a href="#1-图形推理" class="headerlink" title="1.图形推理"></a>1.图形推理</h3><p><img src="/../../../../../../../../images/image-20200711200625794.png" alt="image-20200711200625794"></p>
+<p><img src="/../../../../../../../../images/image-20200711200707743.png" alt="image-20200711200707743"></p>
+<h3 id="2-定义判断"><a href="#2-定义判断" class="headerlink" title="2.定义判断"></a>2.定义判断</h3><ul>
+<li><p><strong>看清题干</strong></p>
+<p>属于/不属于；单定义/多定义</p>
+</li>
+<li><p><strong>关键词</strong></p>
+<ul>
+<li>主/客体</li>
+<li>原因/条件 ：因为/由于…</li>
+<li>结果：导致/从而…</li>
+<li>方式：通过/利用…</li>
+<li>目的：以/达到…</li>
+<li>时间：当/在….阶段</li>
+</ul>
+</li>
+<li><p><strong>比较选项</strong></p>
+<p>同构选项排除</p>
+</li>
+<li><p><strong>Tips</strong></p>
+<ul>
+<li>优先看到  概念所在那句话的  <strong>句号</strong>；</li>
+<li>注意阅读的补充说明  <strong>“即”，“也就是说”</strong>…</li>
+<li>出题人<strong>讲故事</strong>，略过</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-类比推理"><a href="#3-类比推理" class="headerlink" title="3.类比推理"></a>3.类比推理</h3><p><img src="/../../../../../../../../images/image-20200711202834919.png" alt="image-20200711202834919"></p>
+<h3 id="4-逻辑推理"><a href="#4-逻辑推理" class="headerlink" title="4.逻辑推理"></a>4.逻辑推理</h3><h4 id="4-1-翻译"><a href="#4-1-翻译" class="headerlink" title="4.1 翻译"></a>4.1 翻译</h4><ul>
+<li><p><strong>充分条件</strong>        A-&gt;B</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只要A...就B</span><br><span class="line">如果A...那么B</span><br><span class="line">若A...则B</span><br><span class="line">**必须**</span><br><span class="line">所有的A是B</span><br><span class="line">一旦A，就B</span><br><span class="line">要想A，就需要B</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>必要条件</strong>       B-&gt;A</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只有A，才B</span><br><span class="line">A是B的基础&#x2F;前提</span><br><span class="line">A对B不可或缺</span><br><span class="line">除非A，否则 非B #注意这个除非</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>矛盾命题</strong></p>
+</li>
+<li><p><strong>联言命题</strong></p>
+</li>
+<li><p><strong>Tips：</strong></p>
+<p>除非A，否则B  ——-》非A，则B  ———》-A —&gt;B</p>
+</li>
+</ul>
+<h4 id="4-2加强-削弱"><a href="#4-2加强-削弱" class="headerlink" title="4.2加强/削弱"></a>4.2加强/削弱</h4><ul>
+<li><strong>加强论证</strong></li>
+</ul>
+<p><img src="/../../../../../../../../images/image-20200711192836327.png" alt="image-20200711192836327"></p>
+<ul>
+<li><strong>削弱/质疑</strong></li>
+</ul>
+<p><img src="/../../../../../../../../images/image-20200711194140376.png" alt="image-20200711194140376"></p>
+<ul>
+<li><strong><em>论点与论据一致时，若要加强，优先考虑 直接补充论据；若要削弱，优先考虑直接否点论点。</em></strong></li>
+</ul>
+<h4 id="4-3日常结论题"><a href="#4-3日常结论题" class="headerlink" title="4.3日常结论题"></a>4.3日常结论题</h4><ul>
+<li>不选 ： 逻辑错误/偷换概念</li>
+<li>慎选：  一定/必定</li>
+<li>优选：  可能</li>
+</ul>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>申论作文怎么写</title>
+    <url>/2020/07/21/%E7%94%B3%E8%AE%BA%E4%BD%9C%E6%96%87%E6%80%8E%E4%B9%88%E5%86%99/</url>
+    <content><![CDATA[<p> <strong>大作文怎么写？</strong></p>
+<a id="more"></a>
+
+<h3 id="1-论点立意"><a href="#1-论点立意" class="headerlink" title="1.论点立意"></a>1.论点立意</h3><h3 id="2-形式包装"><a href="#2-形式包装" class="headerlink" title="2.形式包装"></a>2.形式包装</h3><h4 id="2-1-标题（有就可以了，没必要思考太长时间，20s）"><a href="#2-1-标题（有就可以了，没必要思考太长时间，20s）" class="headerlink" title="2.1 标题（有就可以了，没必要思考太长时间，20s）"></a>2.1 标题（有就可以了，没必要思考太长时间，20s）</h4><ul>
+<li><p><strong>常规</strong></p>
+<ul>
+<li><p>引申（常用，我一般时间紧急就用这个）</p>
+<p><strong>由XXX说开去</strong>、XXX的启示、<strong>对XXX的思考</strong></p>
+<p>例子：从“礼”说开去</p>
+</li>
+<li><p>点睛（直接写文章的主题（对策、意义））</p>
+<p>…关键在于…、是XX之基/源、应以XXX为中心、应着眼于XXX</p>
+<p>例子：治理网络污染要制度建设和文化建设并重</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>比喻</strong></p>
+<p>常用：呵护、捍卫、托起、唤醒；见真功、挑大梁、打好样、聚能量</p>
+<p>例子：用文化铸造新农村“脊梁”、以创新奏出“最强音”</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>警醒</strong></p>
+<p>勿、莫让、不</p>
+</li>
+</ul>
+<ul>
+<li><p><strong>对称</strong></p>
+<p>动词+主题词</p>
+<p>改善、涵养、弘扬、树立、践行、兜底、共话、筑牢</p>
+<p>例子：盘活老品牌，焕发新生命</p>
+</li>
+</ul>
+<h4 id="2-2-文章结构"><a href="#2-2-文章结构" class="headerlink" title="2.2 文章结构"></a>2.2 文章结构</h4><p><strong>开头—–&gt;意义/问题——-&gt;原因——–&gt;对策—–&gt;结尾</strong></p>
+<h4 id="2-3-开头"><a href="#2-3-开头" class="headerlink" title="2.3 开头"></a>2.3 开头</h4><ul>
+<li><p>列举事件+总论点</p>
+<p>总论点万能句：</p>
+<ul>
+<li><p>这提醒我们；</p>
+</li>
+<li><p>如何处理某某问题，成为亟待破解（制约高质量发展、影响人民幸福感）的难题。</p>
+</li>
+</ul>
+</li>
+<li><p>列数字+总论点</p>
+</li>
+<li><p>引言+事件+总论点</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>*12岁小学生打赏网络主播，花掉环卫工母亲4万元积蓄</strong>；<strong>一青少年沉迷互联网赌博，走上盗窃之路</strong>；<strong>13岁少年沉迷某款网络游戏，疑似模仿游戏中翻墙跳楼动作而身亡</strong>……近段时间来出现的一些相关案件，背后都有网络沉迷的因素，<strong>这提醒人们</strong>：预防青少年沉迷网络，刻不容缓。*</p>
+<p><em>《预防青少年网络沉迷刻不容缓》</em></p>
+</blockquote>
+<h4 id="2-4-意义-问题、危害"><a href="#2-4-意义-问题、危害" class="headerlink" title="2.4 意义/问题、危害"></a>2.4 意义/问题、危害</h4><p>这一段主要是说理，不管是它好就说意义，它不好就说危害。</p>
+<p>议论文常见的论证方法有5种：举例论证、道理论证、对比论证、比喻论证和引用论证。</p>
+<p>举例论证方面，巧妙使用<strong>“从…到…”句式，“当…”句式</strong>来举例，可以让成绩、历史背景更加的有冲击力，这些例子都可以从给定材料里面找。</p>
+<ul>
+<li><p><strong>通用过渡句</strong>（适用于承上启下，欲抑先扬）</p>
+<ul>
+<li><strong>然而也要看到</strong>，旅游业转型升级过程中，旧的问题虽然得到有效克服，但一些新问题、新苗头值得警惕。</li>
+<li><strong>当然，也要看到</strong>，全民健身的管理问题和认识误区依然存在。</li>
+<li>然而，实习过程中出现的一些新情况、新问题，也值得警惕。</li>
+<li>如今文化事业蓬勃发展，然而文化遗产能否得到科学合理的保障，<strong>依然要画个问号。</strong></li>
+<li><strong>行百里者半九十</strong>。今天，我国扶贫事业取得了历史性的成就，但也要看到，越往后遇到的越是难啃的硬骨头，任务十分艰巨。</li>
+<li><strong>但也应看到</strong>，目前我国自然灾害防治能力总体还比较弱。</li>
+<li>但是，当前的“互联网+政务”，还处于“摸着石头过河”的探索阶段，<strong>存在许多不成熟、不规范之处。</strong></li>
+<li>但由于底子薄、欠账多，目前学前教育仍是整个教育体系的短板，发展不平衡不充分问题十分突出。</li>
+<li><strong>然而，一枚硬币有两面</strong>。老年人一旦过度依赖甚至上网成瘾，则有诸多弊端。</li>
+</ul>
+</li>
+<li><p><strong>举例论证</strong></p>
+<ul>
+<li><p><strong>从</strong>…<strong>到</strong>…;</p>
+</li>
+<li><p><strong>曾几何时</strong>…<strong>现如今</strong>…</p>
+</li>
+<li><p><strong>有的.</strong>…有的…;</p>
+</li>
+<li><p><strong>一些</strong>…一些…还有些…;</p>
+</li>
+</ul>
+</li>
+<li><p><strong>概括，总结</strong></p>
+<ul>
+<li><strong>凡此种种</strong>…..</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>但在</strong>以往雷霆万钧的治污行动中，<strong>也存在一些问题</strong>。一个突出表现就是在执法过程中出现过激和偏差，在特定时段把企业简单地一关了之。比如说，<strong>一些地方</strong>平时不作为、临时乱作为，平时对一些排污企业睁一只眼闭一只眼，监管紧一阵松一阵、有一搭没一搭，等到环保督察来了，又慌不择路地搞突击，用一律关停来应付检查。这种不分青红皂白、没有轻重缓解的运动式执法，不仅扭曲了环境治理的本义，损害了环保督察的公信力，更误伤了那些积极配合治污的企业，给经济发展和群众生活带来了负面影响。</p>
+<p>—-《人民日报人民时评：“雷霆手段”要经得起法治推敲》</p>
+</blockquote>
+<h4 id="2-5-原因分析"><a href="#2-5-原因分析" class="headerlink" title="2.5 原因分析"></a>2.5 原因分析</h4><p>本段其实可以和上一段合并，特别是些策论文的时候。</p>
+<ul>
+<li><p><strong>过渡句</strong></p>
+<ul>
+<li><p>设问式</p>
+<ul>
+<li>药品是用来治病的，为何存在无效却广泛使用的药品？</li>
+<li>一部主旋律记录电影，赢得市场和口碑“双丰收”，形成了不一般的传播声势，秘诀何在？</li>
+<li>类似谣言文章存在不少破绽，为何却能得到“银发族”的青睐？仔细推究……</li>
+</ul>
+</li>
+<li><p>总分式（先概括原因，再具体分析）</p>
+<ul>
+<li>“套路贷”之所以能让受害者越陷越深，终至不可自拔，症结就在于其处心积虑设计的一整套“法律陷阱”。</li>
+<li>造成客服乱象的一个重要原因，在于许多企业将客服中心视为“成本部门”。</li>
+</ul>
+</li>
+<li><p>万能式</p>
+<p><strong>XXX有着复杂的原因，XXX是一方面，更为根本的原因在于……</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>具体分析</strong></p>
+<p>分析原因最好<strong>有主次</strong>，<strong>层次分明</strong>，且要结合对策来写，对策好写的就当主要原因，多分析一些。</p>
+<blockquote>
+<p>客观来说，青少年沉迷网络有着复杂的原因。好奇心强、自制力弱、渴望得到认同等心理特点是一方面，规范管理、合理引导、预防治疗不够也是重要原因。其中，一些企业诱导青少年网络成瘾的做法难辞其咎。就拿网络游戏来说，一些游戏开发商为了赚孩子的钱，专门研发门槛低、互动性强、奖励诱惑多的网游；为了把少年儿童培养成“忠实玩家”，新角色、新道具、新玩法层出不穷；更有甚者在游戏中添加淫秽、赌博的成分，引诱腐蚀自制力不强的青少年。再比如一些网络视频平台，不仅缺乏针对青少年的内容分级，更是通过“算法推荐”“奖赏反馈”等成瘾机制的设计，让一些青少年“根本停不下来”。这些诱导成瘾的企业行为，需要得到有效的治理。</p>
+<p>—-《人民日报人民时评：预防青少年网络沉迷刻不容缓》</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-6-对策"><a href="#2-6-对策" class="headerlink" title="2.6 对策"></a>2.6 对策</h4><p>一般而言，这部分就是重点，根据材料，一般写2-3段。</p>
+<ul>
+<li><strong>常见结构</strong><ul>
+<li><strong>主旨句+分析论证</strong>，我一般喜欢用这种，因为观点鲜明，阅卷老师一眼就能看到。</li>
+<li>设问式。与2.5相似</li>
+</ul>
+</li>
+<li>论证方式<ul>
+<li>讲道理（正/反面论证）</li>
+<li>举例子</li>
+<li>对比</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>解决互联网时代的新问题，需要运用互联网思维和现代治理手段。</strong>面对互联网违法虚假广告，传统的突击整治、消费者投诉、相关单位自纠自查等方式难有长效，需将立法、行政和执法三条途径有机结合，综合施治。一方面，完善立法，在广告法和行政许可法的基础上，建立更为严格的互联网广告许可制度；另一方面，充分运用行政和执法手段，加强监管，严厉查处社会影响恶劣、公众反映强烈、危害人民群众财产安全的虚假违法互联网广告。与此同时，有必要建立黑名单制度，完善公安、网信等部门间的协同机制，形成“组合拳”。今年6月，国家市场监管总局等8部门联合发布《2018网络市场监管专项行动（网剑行动）方案》，重点打击网络虚假违法广告等违法行为，正体现了综合施治的治理思路。</p>
+<p><strong>清除互联网违法虚假广告，既要击碎欺骗者发财的迷梦，遏制愈演愈烈的趋势；又要净化互联网，营造良好的广告市场环境。</strong>其中的关键之一，就是引导广大互联网平台主动承担社会责任，重点监督覆盖面广、影响力大的门户网站、搜索引擎、微博、微信公众号、客户端等，充分将人工审核与技术审核相结合，及时清除对公众具有误导性的广告。同时，支持鼓励互联网企业开发辨认违法虚假广告人工智能系统，在技术上取得新突破，用以对抗虚假产品评论、评分，打击水军、刷单等行为。</p>
+<p>—-《人民日报人民时评：综合施治，清除互联网虚假广告》</p>
+</blockquote>
+<h4 id="2-7-结尾"><a href="#2-7-结尾" class="headerlink" title="2.7 结尾"></a>2.7 结尾</h4><ul>
+<li><p><strong>名人名言（引出）</strong></p>
+<p>万能：</p>
+<blockquote>
+<p>路漫漫其修远兮，吾将上下而求索。</p>
+</blockquote>
+</li>
+<li><p><strong>复述措施+展望未来</strong></p>
+<ul>
+<li>随着…..</li>
+<li>必将…..</li>
+</ul>
+<blockquote>
+<p>内容产业勃兴的源泉，在于群众日益增长的精神文化需求。走出“唯流量”的误区，努力供给更多更优质的内容产品，方能满足人们日益分众化、多元化的需要，也才能真正赢得市场。<strong>随着</strong>治理力度的加大、行业规范的明确、平台监管的强化，我国内容产业<strong>必将</strong>迎来进一步发展，以更多精品力作标注时代。</p>
+<p>—-《人民日报人民时评：破除“唯流量”的行业顽疾》</p>
+</blockquote>
+</li>
+</ul>
+<p>总结：</p>
+<p>路漫漫其修远兮，吾将上下而求索。随着XXX，我们必将XXXX。</p>
+<hr>
+<h3 id="3-另一种形式的作文"><a href="#3-另一种形式的作文" class="headerlink" title="3.另一种形式的作文"></a>3.另一种形式的作文</h3><p>​        今天在做2015广东申论真题的时候，发现了另一种形式。并非所有的原因/危害、对策都要分开写，有时候通过材料提取的论点较多的时候，可以每条论点都以“是什么？为什么？怎么做”展开</p>
+<ul>
+<li>开头</li>
+<li>论点1（是什么？为什么？怎么做）</li>
+<li>论点2（是什么？为什么？怎么做）</li>
+<li>论点3（是什么？为什么？怎么做）</li>
+<li>结尾</li>
+</ul>
+<p>这种适用于当你无法把多条论点联合在一起说理的时候，采用此种形式，节省时间。</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>申论</tag>
+        <tag>作文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测--常识百科</title>
+    <url>/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</url>
+    <content><![CDATA[<p>本篇用以积累常识</p>
+<a id="more"></a>
+
+<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><ol>
+<li>《孙子兵法》作者是孙武；《孙膑兵法》作者是孙膑。</li>
+<li></li>
+</ol>
+<h3 id="地理"><a href="#地理" class="headerlink" title="地理"></a>地理</h3><ul>
+<li><p>1.万山之祖，昆仑山脉。</p>
+</li>
+<li><p>2.<strong>时区</strong></p>
+<ul>
+<li><p>全球以<strong>格林尼治本初子午线（英国）</strong>为基础划分为<strong>24个时区</strong>（东、西各12个时区），<strong>不是</strong>两小时一个时区。</p>
+</li>
+<li><p><strong>国际日期变更线</strong>：太平洋中的180°经线上，俄罗斯东部<strong>白令海峡</strong>与美国的<a href="https://baike.baidu.com/item/阿拉斯加" target="_blank" rel="noopener">阿拉斯加</a>地区之间</p>
+<p>从东向西越过这条界线时，日期要加一天；从西向东越过这条界线时，日期要减去一天。即国际日期变更线的<strong>西边</strong>要比<strong>东边早一天</strong>。</p>
+</li>
+<li><p><strong>夏时制</strong>：“夏令时间”。一般在天亮早的夏季人为将时间<strong>调快一小时</strong>，<strong>为节约能源</strong></p>
+</li>
+</ul>
+</li>
+<li><p>3.世界陆地的<strong>最低处</strong>位于<strong>死海</strong></p>
+</li>
+</ul>
+<h3 id="生物"><a href="#生物" class="headerlink" title="生物"></a>生物</h3><ul>
+<li><p>1.血浆呈<strong>淡黄色</strong>。</p>
+</li>
+<li><p>2.<strong>角蛋白</strong></p>
+<p>角蛋白是<strong>硬蛋白</strong>之一，是一类具有结缔和保护功能的纤维状蛋白质，来源于外胚层分化而来的细胞。它是外胚层细胞的结构蛋白，包括毛发、指甲、羽毛等，它还是一种不能直接为畜禽所吸收利用的硬蛋白，主要存在于动物的鳞片、毛发、羽毛和蹄中。在人体的皮肤中，角蛋白主要分布在<strong>表皮层</strong></p>
+</li>
+<li><p>3.<strong>影响听力下降的原因</strong></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>太多的噪音</strong>会导致内耳的微细血管经常处于痉挛状态，内耳供血减少，听力急剧减退。</li>
+</ul>
+</li>
+<li><input checked="" disabled="" type="checkbox"> <p><strong>精神压力过大</strong>导致内耳供血障碍</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>听觉中枢受损</strong>容易导致中枢性耳聋。</li>
+<li><input disabled="" type="checkbox"> 经常用耳勺掏挖耳朵碰伤了耳道，<strong>碰伤耳道并不会引起听力下降</strong>、听力减退；如果洁耳过度导致破坏鼓膜，则会引起听力下降、听力减退。</li>
+</ul>
+</li>
+<li><p><strong>4.</strong>在我国，树木<strong>南面</strong>的<strong>年轮较稀疏</strong>、<strong>北面</strong>的<strong>较密集</strong></p>
+</li>
+</ul>
+<h3 id="物理"><a href="#物理" class="headerlink" title="物理"></a>物理</h3><ul>
+<li><p>1.<strong>光波</strong></p>
+<p>在所有的可见光中，<strong>红光</strong>的<strong>波长</strong>是<strong>最长</strong>的，<strong>频率最小</strong>，因此红光的<strong>穿透力最强</strong>，折射角度小，<strong>不容易被散射</strong>。</p>
+</li>
+<li><p><strong>2.水的热传递性比空气好</strong></p>
+<blockquote>
+<p>冰冻的肉类在水中比在同温度的空气中解冻得快</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="化学"><a href="#化学" class="headerlink" title="化学"></a>化学</h3><ul>
+<li><p>1.硬度</p>
+<p><strong>金刚石</strong>是<strong>最硬</strong>的矿石，是已知的世界上最硬的物质。</p>
+<p><strong>滑石</strong>是世界上<strong>最软</strong>的矿石，任何一种矿物都能在滑石上划出痕迹；</p>
+</li>
+<li><p><strong>2.碳酸镁</strong>具有很强的<strong>吸湿作用</strong>。</p>
+<blockquote>
+<p><strong>举重运动员</strong>、体操运动员在比赛时，手掌心常会冒汗，而湿滑的掌心会使摩擦力减少，因此在赛前涂抹些碳酸镁，能够吸去掌心汗水，从而增加掌心与器械之间的摩擦力，使运动员能握紧器械，提高动作质量。</p>
+</blockquote>
+</li>
+<li><p><strong>3.铁制容器盛放浓硫酸</strong></p>
+<blockquote>
+<p>浓硫酸具有强氧化性，常温下能够使铁钝化形成致密氧化膜阻止反应继续进行，所以可以用铁制容器盛放浓硫酸</p>
+</blockquote>
+</li>
+<li><p>4.</p>
+</li>
+<li><p>5.</p>
+</li>
+<li><p>6.</p>
+</li>
+<li><p>7.</p>
+</li>
+</ul>
+<h3 id="时政"><a href="#时政" class="headerlink" title="时政"></a>时政</h3><ul>
+<li><p>1.保障性安居工程不得占用<strong>基本农田</strong>，而国家能源、交通、水利、军事设施等重点建设项目确实需占用基本农田的，经国务院批准，可占用。</p>
+</li>
+<li><p>2.<strong>习近平新时代中国特色社会主义思想</strong></p>
+<ul>
+<li><strong>核心要义</strong>，就是<strong>坚持和发展中国特色社会主义</strong></li>
+<li>习近平总书记在党的<strong>十九大报告</strong>中指出，<strong>坚持以人民为中心</strong>。</li>
+<li><strong>总任务</strong>是<strong>实现社会主义现代化和中华民族伟大复兴</strong></li>
+<li><strong>我国发展新的历史方位</strong>：<strong>中国特色社会主义进入了新时代</strong></li>
+</ul>
+</li>
+<li><p><strong>3.建设生态文明是中华民族永续发展的千年大计</strong></p>
+</li>
+<li><p>4.<strong>没有农户的书面委托</strong>，农村基层组织<strong>无权以任何方式决定流转农户的承包地</strong>，更不能以少数服从多数的名义，将整村整组农户承包地集中对外招商经营。</p>
+</li>
+<li><p>5.<strong>国民收入</strong>是指物质生产部门劳动者在一定时期所创造的价值，是一国生产要素（包括土地、劳动、资本、企业家才能等）所有者在一定时期内提供生产要素所得的报酬，即<strong>工资</strong>、<strong>利息</strong>、<strong>租金</strong>和<strong>利润</strong>等的<strong>总和</strong>。退休人员的退休金在经济中属于政府转移支付的范畴，属于政府支出，<strong>不属于国民收入</strong></p>
+</li>
+</ul>
+<h3 id="文化"><a href="#文化" class="headerlink" title="文化"></a>文化</h3><ul>
+<li><p><strong>1.京剧</strong></p>
+<ul>
+<li><strong>白色</strong>：一般表示<strong>阴险奸诈</strong>，如曹操、赵高。</li>
+<li><strong>红色</strong>：一般表示<strong>忠勇侠义</strong>，如关羽、姜维、常遇春；</li>
+<li><strong>黑色</strong>：一般表示<strong>刚烈正直</strong>，如包拯、张飞、李逵等</li>
+<li>蓝色或绿色：一般表示粗豪暴躁</li>
+</ul>
+</li>
+<li><p><strong>2.重阳节</strong></p>
+<ul>
+<li><p><strong>插茱萸–对亲朋好友的思念之情</strong></p>
+<p>特别注意：并不是敬老爱老</p>
+<blockquote>
+<p>独在异乡为异客，每逢佳节倍思亲。遥知兄弟登高处，遍插茱萸少一人。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>【2015广东行测】83.下列选项中，用热水比用冷水洗涤效果更好的是：</p>
+<ul>
+<li>A有油渍的碗筷</li>
+<li>B有汗渍的衣服</li>
+<li>C有血渍的衣服</li>
+<li>D有农药残留的蔬菜</li>
+</ul>
+<p>A项正确，油渍不溶于水，用冷水难以去掉，而热水温度高，可以加快分子运动，使油渍更快软化，因此用热水来洗涤有油渍的碗筷，效果要比用冷水洗好。</p>
+<p>B项中的汗渍和C项中的血渍中都含有蛋白质，用热水洗容易导致蛋白质凝固，附着在衣服上，更难清洗。</p>
+<p>D项，去除有农药残留的蔬菜，通常是用清水多冲洗几遍，用热水洗，水温过高的话，容易导致蔬菜中的营养物质流失，洗涤效果不比冷水好。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+        <tag>常识</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>行测-易错成语积累</title>
+    <url>/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</url>
+    <content><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这篇博客用以加深行测的词汇积累!</p>
+<a id="more"></a>
+
+<h3 id="高频成语"><a href="#高频成语" class="headerlink" title="高频成语"></a>高频成语</h3><ul>
+<li><p><strong>等量齐观/相提并论</strong></p>
+<ul>
+<li><p><strong>相提并论</strong>：指把不同的人或不同的事放在一起谈论或看待，多用否定句式<strong>侧重强调差距大</strong></p>
+</li>
+<li><p><strong>等量齐观</strong>：指对有差别的事物同等看待，置于否定句中表达两者不一样</p>
+</li>
+</ul>
+</li>
+<li><p><strong>责无旁贷/义不容辞</strong></p>
+<ul>
+<li><p><strong>责无旁贷</strong>：自己应尽的责任，不能推卸给别人，通常<strong>不做定语</strong>，经常<strong>放在句子结尾</strong></p>
+<blockquote>
+<p>e.g 实现祖国的繁荣和富强我们每个人都<strong>责无旁贷</strong></p>
+</blockquote>
+</li>
+<li><p><strong>义不容辞</strong>：指道义上不允许推辞。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>千头万绪</strong></p>
+<p>比喻事情的<strong>开端</strong>，头绪非常多，也形容<strong>事情复杂纷乱</strong></p>
+</li>
+<li><p><strong>浮光掠影/浅尝辄止/走马观花</strong></p>
+<ul>
+<li><p><strong>浮光掠影</strong>：意思是水面上的反光和一闪而过的影子。</p>
+<p>比喻<strong>观察不细致</strong>,没有深的印象;又指<strong>文章言论的肤浅</strong>,无真知实学。</p>
+</li>
+<li><p><strong>浅尝辄止</strong>：意思是略微尝试一下就停下来。</p>
+<p>强调不深入研究，<strong>通常</strong>用于<strong>做学问</strong>、搞研究。</p>
+</li>
+<li><p><strong>走马观花</strong>：意思是指骑在奔跑的马上看花。</p>
+<p>原形容事情如意，心情愉快。后多指粗略地观察一下，<strong>强调观察这个动作</strong>。</p>
+</li>
+</ul>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E6%9B%B2%E7%AA%81%E5%BE%99%E8%96%AA](https://baike.baidu.com/item/曲突徙薪)">曲突徙薪</a></strong></p>
+<p>意思是把烟囱改建成弯的，把灶旁的柴草搬走。</p>
+<p>比喻<strong>事先采取措施，才能防止灾祸。</strong></p>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E6%89%AC%E6%B1%A4%E6%AD%A2%E6%B2%B8](https://baike.baidu.com/item/扬汤止沸)">洋洋止沸</a></strong></p>
+<p>意思是把锅里开着的水舀起来再倒回去，使它凉下来不沸腾。</p>
+<p>比喻<strong>办法不彻底</strong>，<strong>不能从根本上解决问题。</strong></p>
+<blockquote>
+<p>汉·枚乘《上书谏吴王》：“欲汤之沧，一人炊之，百人扬之，无益也；不如绝薪止火而已。”《三国志·魏书·刘廙传》：“扬汤止沸，使不焦烂。”</p>
+</blockquote>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E5%A4%A7%E4%B9%89%E5%87%9B%E7%84%B6](https://baike.baidu.com/item/大义凛然)">大义凛然</a></strong></p>
+<p>意思是由于胸怀正义而神态庄严，令人敬畏。</p>
+<p>常形容<strong>英勇无畏</strong>，而<strong>不是壮烈</strong>！</p>
+<blockquote>
+<p>宋·曹辅《唐颜文忠公新庙记》：“大义凛然，奋裙首倡。”</p>
+</blockquote>
+</li>
+<li><p><strong>一成不变</strong>（偏<strong>贬义</strong>）</p>
+<p>指一经形成，不再改变。亦泛指墨守成规，不知变通。</p>
+<blockquote>
+<p>《礼记·王制》：“一成而不可变，故君子尽心焉。”</p>
+</blockquote>
+</li>
+<li><p><strong>潜移默化/耳濡目染</strong></p>
+<ul>
+<li><p><strong>潜移默化</strong></p>
+<p>对象可以是 <strong>人/物</strong></p>
+<p><strong>定语、状语</strong></p>
+</li>
+<li><p><strong>耳濡目染</strong></p>
+<p>对象只能是<strong>人</strong></p>
+<p><strong>谓语、定语</strong></p>
+<p>强调<strong>看、听</strong></p>
+</li>
+<li><p>大多数情况下选 <strong>潜移默化</strong></p>
+</li>
+</ul>
+</li>
+<li><p><strong>缘木求鱼/饮鸠止渴/抱薪救火/杀鸡取卵/竭泽而渔</strong></p>
+<ul>
+<li><p><strong>缘木求鱼(贬义)</strong></p>
+<p>字面解读为爬到树上去找鱼。比喻方向或办法不对，不可能达到目的。<strong>并不强调使后果更严重</strong>。</p>
+<blockquote>
+<p>“以若所为，求若所欲，犹缘木而求鱼也。”——《孟子·梁惠王章句上》</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>饮鸠止渴</strong></p>
+<p>比喻用错误的办法来解决<strong>眼前的</strong>困难而<strong>不顾严重后果</strong>。</p>
+<blockquote>
+<p>《后汉书·霍谞传》：“譬犹疗饥于附子，止渴于鸩毒，未入肠胃，已绝咽喉。”</p>
+</blockquote>
+</li>
+<li><p><strong>抱薪救火</strong></p>
+<p>抱着柴草去救火。比喻用错误的方法去消除灾祸，结果反而<strong>使灾祸扩大</strong>。</p>
+<blockquote>
+<p>西汉·司马迁《史记·魏世家》：且夫以地事秦，譬犹抱薪救火，薪不尽，火不灭</p>
+</blockquote>
+<hr>
+</li>
+<li><p><strong>杀鸡取卵</strong></p>
+<p>为了要得到鸡蛋，不惜把鸡杀了。比喻贪图眼前利益而不顾长远利益。</p>
+<blockquote>
+<p>希腊《伊索寓言·生金蛋的鸡》</p>
+</blockquote>
+</li>
+<li><p><strong>竭泽而渔</strong></p>
+<p>排尽湖中或池中的水来捕鱼。比喻目光短浅，只顾眼前利益，不顾长远打算。</p>
+<blockquote>
+<p>竭泽而渔，岂不获得？而来年无鱼；焚薮(sǒu)而田，岂不获得？而来年无兽。诈伪之道，虽今偷可，后将无复，非长术也。——《吕氏春秋·义赏》</p>
+</blockquote>
+<ul>
+<li>成语辨析：饮鸩止渴和“杀鸡取卵”；都指只顾眼前需要。但“杀鸡取卵”偏重利的取舍，指为了眼前利益，而放弃长远利益；而饮鸩止渴则在于害的轻重，指为了弥补或减少当前的损害，而不计严重后果。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>泥沙俱下/鱼龙混杂/鱼目混珠（3 Times）</strong></p>
+<ul>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>指在江河的急流中泥土和沙子随着水一起冲下。比喻好坏性质不同的人或者事物混杂在一起。</p>
+<blockquote>
+<p>“人称才大者，如万里黄河，与泥沙俱下。余以为，此粗才，非大才也。”</p>
+<p>——《随园诗话》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼龙混杂</strong></p>
+<p>是形容好人和坏人混在一起，现也可形容事物好的坏的混在一起</p>
+<blockquote>
+<p>“风搅长空浪搅风，鱼龙混杂一川中。”</p>
+<p>——唐·张志和《和渔夫词》</p>
+</blockquote>
+</li>
+<li><p><strong>鱼目混珠</strong></p>
+<p>指拿鱼眼睛冒充珍珠，比喻用假的冒充真的。</p>
+<blockquote>
+<p>“鱼目岂为珠？蓬蒿不成槚。”</p>
+<p>——汉·魏伯阳《参同契》</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>背道而驰/分道扬镳</strong></p>
+<ul>
+<li><p><strong>背道而驰</strong></p>
+<p>比喻方向和目的完全相反，<strong>背离正确的道路</strong>，通常用在<strong>消极</strong>的对象身上</p>
+<blockquote>
+<p>唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《〈杨评事文集〉后序》：“其余各探一隅，相与背驰于道者，其去弥远。”</p>
+</blockquote>
+</li>
+<li><p><strong>分道扬镳</strong></p>
+<p>比喻目标不同，各走各的路或各干各的事。</p>
+<blockquote>
+<p>《魏书·河间公齐传》：“洛阳我之丰沛，自应分路扬镳。自今以后，可分路而行。”</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><strong>汗牛充栋(5 Times)</strong> </p>
+<p>指用牛运书，牛要累得出汗；用屋子放书，要放满整个屋子。<strong>形容藏书很多</strong>。</p>
+<blockquote>
+<p>“其为书，处则充<a href="https://baike.baidu.com/item/栋宇" target="_blank" rel="noopener">栋宇</a>，出则汗牛马。”</p>
+<p>——唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《文通先生陆给事墓表》</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
+<li><p><strong>产生/唤醒/触发</strong></p>
+<p>“产生”指由<strong>已有的事物</strong>中生出新的事物</p>
+<p>“唤醒”表示使之觉醒，也是指<strong>原来有</strong>，现在重新使之苏醒</p>
+<p>“触发”指触动引发</p>
+</li>
+<li><p><strong>呵护/爱护（3 Times）</strong></p>
+<p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
+<p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
+<blockquote>
+<p>家风是具有鲜明特征的家庭文化，良好家风是一个家庭最宝贵的精神财富，也是每个家庭成员形成正确世界观、人生观、价值观的(    )。家庭是人生的第一所学校，良好家风是人生幸福生活的“第一组密码”。“积善之家，必有余庆；积不善之家，必有余殃。”只有守住和(    )好温暖的家庭，才能有人生的成功。</p>
+<p>依次填入划横线部分最恰当的一项是：</p>
+<ul>
+<li>A 基点 庇护</li>
+<li>B 基准 保护</li>
+<li>C 基础 爱护</li>
+<li>D 基石 呵护</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
+<li><p><strong>过犹不及</strong></p>
+<p>指事情做得过头，就跟做得不够一样，都是不合适的；</p>
+</li>
+<li><p><strong>穷经皓首</strong></p>
+<p>指直到年老头白还在钻研经书和古籍，形容勤勉好学，至老不倦；</p>
+</li>
+<li><p><strong>老调重弹</strong></p>
+<p>比喻把说过多次的理论、主张重新搬出来</p>
+</li>
+<li><p><strong>推波助澜</strong>（<strong>==无贬义==</strong>）</p>
+<p>比喻从旁鼓动、助长事物（多指坏的事物）的声势和发展，扩大影响。</p>
+</li>
+<li><p><strong>买椟还珠</strong></p>
+<p>指买来装珍珠的木匣退还了珍珠；比喻<strong>取舍不当</strong>，<strong>次要</strong>的东西<strong>比主要</strong>的还要<strong>好</strong></p>
+</li>
+<li><p><strong>以讹传讹</strong></p>
+<p>指把本来就不正确或不符合实际情况的话又不正确地传出去，越传越错。</p>
+</li>
+<li><p><strong>却之不恭</strong>（近义词：<strong>盛情难却</strong>）</p>
+<p>指对别人的邀请、赠与等，如果拒绝接受，就显得不恭敬。</p>
+</li>
+<li><p><strong>三人成虎</strong></p>
+<p>比喻说的人多了，就能使人们把谣言当作事实；含贬义，一般做分句。</p>
+</li>
+<li><p><strong>言不由衷/口是心非</strong></p>
+<p><strong>[释义]</strong>  由：从；<strong>衷：内心</strong>。</p>
+<p>话不是从内心发出来的；即说的话不是出于真心实意；指心口不一。</p>
+<p><strong>衷</strong>不是苦衷，多含<strong>贬义</strong></p>
+</li>
+<li><p><strong>邯郸学步/鹦鹉学舌/<a href="https://baike.baidu.com/item/东施效颦/232075" target="_blank" rel="noopener">东施效颦</a>/数典忘祖</strong></p>
+<p>比喻一味地模仿别人，不仅没学到本事，反而把原来的本事也丢了。</p>
+<blockquote>
+<p>《<a href="https://baike.baidu.com/item/庄子·秋水" target="_blank" rel="noopener">庄子·秋水</a>》：“子往呼！且子独不闻夫寿陵余子之学行于<a href="https://baike.baidu.com/item/邯郸/334665" target="_blank" rel="noopener">邯郸</a>与？未得国能，又失其故行矣，直匍匐而归耳。今子不去，将忘子之故，失子之业。”</p>
+</blockquote>
+</li>
+<li><p><strong>细枝末节</strong></p>
+<p><strong>==不等于细节！！！==</strong>比喻事情或问题的<strong>细小</strong>而<strong>无关紧要的部分</strong></p>
+<blockquote>
+<p>《礼记·乐记》：“铺筵席，陈尊俎，列笾豆，以升降为礼者，礼之末节也。”</p>
+</blockquote>
+</li>
+<li><p><strong>雪泥鸿爪</strong></p>
+<p>意思是大雁在雪泥上踏过留下的爪印。比喻<strong>往事遗留的痕迹</strong>。</p>
+<blockquote>
+<p>宋·苏轼《和子由渑池怀旧》诗：“人生到处知何似，应似飞鸿踏雪泥。泥上偶然留指爪，鸿飞那复计东西。”</p>
+</blockquote>
+</li>
+<li><p><strong>吉光片羽</strong></p>
+<p>比喻残存的珍贵文物。吉光：古代神话中的神兽名；片羽：一片毛。</p>
+<blockquote>
+<p>“武帝时西域献吉光裘，入水不濡。</p>
+<p>汉·刘歆《西京杂记》卷一</p>
+</blockquote>
+</li>
+<li><p><strong>闻过则喜</strong></p>
+<p>听到别人批评自己的缺点或错误，表示欢迎和高兴；指虚心接受意见。</p>
+<blockquote>
+<p>《<a href="https://baike.baidu.com/item/孟子/126" target="_blank" rel="noopener">孟子</a>·公孙丑上》：“子路人告之以有过则喜。</p>
+</blockquote>
+</li>
+<li><p><strong><a href="https://baike.baidu.com/item/杳如黄鹤" target="_blank" rel="noopener">杳如黄鹤</a></strong></p>
+<p>原指传说中仙人骑着黄鹤飞去，从此不再回来；现比喻<strong>无影无踪</strong>或<strong>下落不明</strong>。</p>
+</li>
+<li><p><strong><a href="[https://baike.baidu.com/item/%E7%A6%8F%E6%97%A0%E5%8F%8C%E8%87%B3](https://baike.baidu.com/item/福无双至)">福无双至</a></strong></p>
+<p>指幸运的事不会接连到来，常与“<a href="https://baike.baidu.com/item/祸不单行" target="_blank" rel="noopener">祸不单行</a>”连用。</p>
+<blockquote>
+<p>汉·刘向《说苑·权谋》：“此所谓<a href="https://baike.baidu.com/item/福不重至，祸必重来" target="_blank" rel="noopener">福不重至，祸必重来</a>者也。”</p>
+</blockquote>
+</li>
+<li><p><strong><a href="https://baike.baidu.com/item/厝火积薪" target="_blank" rel="noopener">厝火积薪</a></strong></p>
+<p>拼音cuò huǒ jī xīn，把火放到柴堆下面，<strong>比喻潜伏着很大危险。</strong></p>
+</li>
+</ul>
+<h3 id="词语积累"><a href="#词语积累" class="headerlink" title="词语积累"></a>词语积累</h3><ul>
+<li><p><strong>昭示</strong></p>
+<p>明白地表示或宣布</p>
+<p>跟<strong>昭然若揭</strong>没有关系，<strong>不是贬义词</strong>！</p>
+</li>
+<li><p><strong>保持、维持</strong></p>
+<p>“保持”指维持某种状态使不消失或减弱</p>
+<p>“维持”指维系使继续存在，通常<strong>搭配</strong>生命、关系等，且倾向于较为<strong>被动</strong>勉强的维持</p>
+</li>
+</ul>
+<blockquote>
+<p>【2018 湖南 14】总的来讲，“社会”在处理与国家的关系过程中强调其自主性的成长与释放，并  <strong><strong><strong>____</strong></strong></strong>  了各种形式的自我保护运动。而且，“社会”也在改变其生存与发展策略，它不仅仅满足在国家为其 <strong><strong><strong>__</strong></strong></strong>   的范围内行动，而且还通过与国家的主动接触与互动，<strong><strong><strong><strong>__</strong></strong></strong></strong> 与政府的相关性，并以协作或合作的方式参与社会问题的解决。</p>
+<ul>
+<li>A 展开 规定 保持</li>
+<li>B 拓展 制定 保护</li>
+<li>C 开展 划定 维持</li>
+<li>D 发展 制订 保障</li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>观照</strong></p>
+<p>指仔细观察，审视</p>
+<ol>
+<li>佛家哲学。指静观世界以智慧而照见事理。</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li>显示；反映。<ol start="3">
+<li>原为美学术语，现也指仔细观察，审视的思考比较。</li>
+</ol>
+</li>
+<li>用心光向心中看，向心中照，是道家一种修道的方法。<ol start="5">
+<li>关心照顾关怀之意，是客气的委婉语气</li>
+</ol>
+</li>
+</ol>
+<ul>
+<li><p><strong>感叹/感慨</strong></p>
+<ul>
+<li><p>感叹：侧重强调因内心感触而<strong>发出的声音或语言</strong></p>
+</li>
+<li><p>感慨：侧重强调内心的感触</p>
+</li>
+</ul>
+</li>
+<li><p><strong>蚕食/鲸吞</strong></p>
+<ul>
+<li>蚕食：强调逐步侵占，有不断的意思</li>
+<li>鲸吞：强调食量特别大</li>
+</ul>
+<blockquote>
+<p>(2019 武汉 C类)洞庭湖国家级自然保护区违规采砂问题突出，采砂作业不断(   )侵占湿地洲滩。洞庭湖水已不能作为饮用水源，“静影沉璧”更是远矣。如果说，游人尚能因(   )名篇而(   )洞庭，没有“文心”的虾蟹却不会买账，娇弱的江豚更会因此退却。这正是至柔之水至刚的一面。思接千载，范仲淹的忧乐精神，在本质上是一种忧患意识。先忧后乐，正是其价值呈现。(   )长江生态，如今已不是居安思危，长江脆弱性展露无遗。老问题已没时间一拖再拖，看起来尚可的同样要建立健全监测预警长效机制，做到“治未病”。</p>
+<p>依次填入横线处最合适的一组是（ ）。</p>
+<ul>
+<li>A 鲸吞 沉湎 喜欢 思量</li>
+<li>B 蚕食 沉湎 溺爱 把脉</li>
+<li>C 蚕食 溺爱 沉湎 把脉</li>
+<li>D 鲸吞 溺爱 敬畏 惊叹</li>
+</ul>
+</blockquote>
+</li>
+<li><blockquote>
+<p>(2019 武汉 C类)全党同志的(  ) ，全国各族人民的(  ) ，是对我们做好工作的(    )鼓舞，(   )我们肩上的重大责任。</p>
+<p>依次填入横线中最合适的一组是（ ）。</p>
+<ul>
+<li>A 期望 重托 巨大 更是</li>
+<li>B 重托 期望 巨大 也是</li>
+<li>C 期望 重托 重大 更是</li>
+<li>D 重托 期待 重大 也是</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>老实/木讷</strong></p>
+<p>老实指忠厚诚实，循规蹈矩，木讷指反应迟钝、呆头呆脑，二者不是近义关系</p>
+<blockquote>
+<p>普通：平常</p>
+<p>A喜庆：愉悦</p>
+<p>B相似：类似</p>
+<p>C凶狠：残忍</p>
+<p>D老实：木讷</p>
+</blockquote>
+</li>
+<li><p><strong>活跃/剧烈</strong></p>
+<p><strong>活跃</strong>：表示频繁</p>
+<p><strong>剧烈</strong>：表示激烈、强烈程度，一般表示力度</p>
+</li>
+</ul>
+<blockquote>
+<p>【2018国考副省级26】黄河三角洲是中国大河三角洲中海陆变迁最<strong>__ 的地区，特别是黄河口地区造陆速率之快、尾闾迁徙之频繁，更为世界罕见。黄河三角洲的__</strong>受黄河水沙条件和海洋动力作用的制约，黄河来沙使海岸堆积向海洋推进，海洋动力作用又使海岸侵蚀向陆地推进。</p>
+<p>依次填入画横线部分最恰当的一项是：</p>
+<ul>
+<li>A 壮观 形成</li>
+<li>B 复杂 形态</li>
+<li>C 剧烈 演化</li>
+<li>D 活跃 演变</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
+        <tag>成语</tag>
+        <tag>词语</tag>
       </tags>
   </entry>
   <entry>
@@ -2269,993 +3656,6 @@
       </tags>
   </entry>
   <entry>
-    <title>申论-大作文积累</title>
-    <url>/2020/07/15/%E7%94%B3%E8%AE%BA-%E5%A4%A7%E4%BD%9C%E6%96%87%E7%A7%AF%E7%B4%AF/</url>
-    <content><![CDATA[<h3 id="零、万能句"><a href="#零、万能句" class="headerlink" title="零、万能句"></a>零、万能句</h3><p><strong>一是让奋斗因梦想而激扬。</strong>心中有阳光，脚下就有力量。人生的最大的资本不是经验丰富、胸有成竹，而是敢于做梦、勇于试错。不因一时挫折而灰心丧志，不因身处逆境而放弃前行，不让享受和偷安在我们内心扎根。</p>
-<p><strong>二是让奋斗因拼搏而精彩。</strong>通过各种方法让我们拥有有更扎实的知识，更开阔的视野，更宽广的舞台，更深厚的坚韧精神，多经历一点摔打、挫折、考验，走好一生的路，努力在时代的舞台创造无限的可能。</p>
-<p><strong>三是让奋斗因奉献而厚重。</strong>“只有把人生理想融入国家和民族的事业中，才能最终成就一番事业。”时代也需要我们用坚实的肩膀扛起民族复兴的重任。不管是身处象牙塔的年轻大学生，还是扎根基层的青年村官，或是穿行于大街小巷的快递小哥，只要尽心做好本职工作，不断的奉献与人民，都是在为国为家添砖加瓦！</p>
-<h3 id="一、生态"><a href="#一、生态" class="headerlink" title="一、生态"></a>一、生态</h3><ul>
-<li><p>人与自然是生命共同体，人类必须尊重自然、顺应自然、保护自然。</p>
-</li>
-<li><p>人法地、地法天、天法德、道法自然。</p>
-</li>
-<li><p>生态破坏是尚未远离的历史，生态修复则是正在进行的当下。</p>
-</li>
-<li><p>农村生态建设：望得见山，看得见水，记得住乡愁。</p>
-</li>
-<li><p>不负青山，方得金山。</p>
-</li>
-<li><p>习近平总书记曾指出：“纵观世界发展史，保护生态环境就是保护生产力，改善生态环境就是发展生产力，要更加自觉地推动绿色发展、循环发展、低碳发展，绝不以牺牲环境为代价去换取一时的经济增长。”</p>
-</li>
-</ul>
-<a id="more"></a>
-
-<ul>
-<li><p>结尾</p>
-<p>对于（绿色发展/保护生态），要本着强烈的忧患意识和责任意识，（对策），切实保护好、建设好我们的青山绿水，切实保障社会的可持续发展。</p>
-</li>
-</ul>
-<h3 id="二、经济"><a href="#二、经济" class="headerlink" title="二、经济"></a>二、经济</h3><ul>
-<li><strong>发展</strong>是解决我国一切问题的基础和关键，发展必须是<strong>科学发展</strong>，必须坚定不移贯彻<strong>创新、协调、绿色、开放、共享</strong>的发展理念。</li>
-<li><strong>创新</strong>是引领发展的第一动力，是建设现代化经济体系的战略支撑。</li>
-<li><strong>开放</strong>带来进步，封闭必然落后。中国开放的大门不会关闭，只会越开越大。</li>
-</ul>
-<h3 id="三、社会"><a href="#三、社会" class="headerlink" title="三、社会"></a>三、社会</h3><ul>
-<li><strong>不忘初心，方得始终</strong>。(中国共产党人的初心和使命，就是为中国人民谋幸福，为中华民族谋复兴)</li>
-</ul>
-<h4 id="3-1农业-扶贫"><a href="#3-1农业-扶贫" class="headerlink" title="3.1农业/扶贫"></a>3.1农业/扶贫</h4><ul>
-<li>农业的出路在现代化，农业现代化的关键在科技进步。我们必须比以往任何时候都更加重视和依靠农业科技进步。</li>
-</ul>
-<blockquote>
-<p>习近平总书记</p>
-</blockquote>
-<ul>
-<li><p>让农业成为有奔头的产业，让农民成为体面的职业，让农村成为安居乐业的家园。</p>
-</li>
-<li><p>扶贫先扶志，扶贫必扶智。</p>
-</li>
-</ul>
-<blockquote>
-<p>释义：</p>
-<p>志：思想、观念、信心，有摆脱困境的素质</p>
-<p>智：知识、技术、思路，有摆脱困境的能力</p>
-</blockquote>
-<p>扶贫是头等大事，第一民生工程，中国共产党人的初心和使命，就是为中国人民谋幸福，为中华民族谋复兴。</p>
-<h4 id="3-2-教育"><a href="#3-2-教育" class="headerlink" title="3.2 教育"></a>3.2 教育</h4><p>十年树木，百年树人。</p>
-<p>高考，国以选贤，教以树人，民以求进。</p>
-<p>君子博学而日参省乎已，则知明而行无过矣。</p>
-<blockquote>
-<p>荀子《劝学》</p>
-</blockquote>
-<p>梦想从学习开始，事业从时间起步。</p>
-<p>以学固本，以学立德，以学增智，以学兴业。</p>
-<h4 id="3-4-法治"><a href="#3-4-法治" class="headerlink" title="3.4 法治"></a>3.4 法治</h4><p>国无常强，无常弱，奉法者强则国强，奉法者弱则国弱。</p>
-<p>一个富强民主和谐的中国，首先是法治的中国；一个自由平等公正的社会，首先是法治的社会；法治建设是一个国家兴旺发达的重要保障。</p>
-<p>法治是公民意识自觉的清醒剂，是社会持续和谐的助推器，是政治清明的指南针。</p>
-<h4 id="3-5-民生"><a href="#3-5-民生" class="headerlink" title="3.5 民生"></a>3.5 民生</h4><ul>
-<li><strong>人民健康</strong>是民族昌盛和国家富强的重要标志。要完善国民健康政策，为人民群众提供全方位全周期健康服务。</li>
-<li><strong>就业</strong>是最大的民生。要坚持就业优先战略和积极就业政策，实现更高质量和更充分就业。</li>
-<li>践行全心全意为人民服务的根本宗旨，把<strong>党的群众路线</strong>贯彻到治国理政全部活动之中，把人民对美好生活的向往作为奋斗目标，<strong>依靠人民</strong>创造历史伟业。</li>
-</ul>
-<h3 id="四、文化"><a href="#四、文化" class="headerlink" title="四、文化"></a>四、文化</h3><ul>
-<li>文化自信是一个国家、一个民族发展中更基本、更深沉、更持久的力量。</li>
-<li>文化是一个国家、一个民族的灵魂。文化兴国运兴，文化强民族强。没有高度的文化自信，没有文化的繁荣兴盛，就没有中华民族伟大复兴。</li>
-<li>不忘本来、吸收外来、面向未来，更好构筑中国精神、中国价值、中国力量，为人民提供精神指引。</li>
-</ul>
-<h4 id="4-1-青年人有理想、有本领、有担当"><a href="#4-1-青年人有理想、有本领、有担当" class="headerlink" title="4.1 青年人有理想、有本领、有担当"></a>4.1 青年人有理想、有本领、有担当</h4><ul>
-<li><p>有理想</p>
-<blockquote>
-<p>罗曼罗兰：理想，是一种力量。</p>
-</blockquote>
-<p>树立何种人生理想、选择那种奋斗方向，决定着我们青春的去处。站在新时代的起点。当青春踏上壮阔的征程，需要理想信念的支撑，需要思想的力量领航。</p>
-<p>而习近平新时代中国特色社会主义思想就是指南针，用以武装头脑、指导实践，必定能够更好地实现价值，收获更有意义的人生。</p>
-</li>
-<li><p>有本领</p>
-<p>打铁还需自身硬。</p>
-<p>空谈误国，实干兴邦。</p>
-<p>新矛盾需要广大青年在党的领导下同全国人民一道去应对、化解；新理论需要广大青年同全国人民一道去领会、贯彻落实；新征程需要广大青年在党的领导下继往开来、继续奋斗。</p>
-</li>
-<li><p>有担当</p>
-<p>先天下之忧而忧，后天下之乐而乐。</p>
-<blockquote>
-<p>范仲淹</p>
-</blockquote>
-<p>苟利国家生死以，岂因祸福避趋之。</p>
-<blockquote>
-<p>林则徐</p>
-</blockquote>
-<p>鞠躬精粹，死而后已（是诸葛亮心中的责任）</p>
-<p>杨振宁先生、黄大年—毅然放弃国外优越条件，回到祖国刻苦钻研。</p>
-</li>
-</ul>
-<p>青年的人生之路很长，前进途中，有平川也有高山，有缓流也有险滩，有丽日也有风雨，有喜悦也有哀伤。<strong>心中有阳光，脚下有力量，为了理想能坚持、不懈怠，才能创造无愧于时代的人生。</strong></p>
-<p>结尾：中国梦是我们这一代的，更是青年一代的。中华民族伟大复兴的中国梦终将在一代代青年的接力奋斗中变成现实。</p>
-<h4 id="4-2-诚信"><a href="#4-2-诚信" class="headerlink" title="4.2 诚信"></a>4.2 诚信</h4><ul>
-<li>君子养心，莫善于诚。</li>
-</ul>
-<h3 id="五、政治"><a href="#五、政治" class="headerlink" title="五、政治"></a>五、政治</h3><ul>
-<li>行百里者半九十。中华民族伟大复兴，绝不是轻轻松松、敲锣打鼓就能实现的。</li>
-</ul>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>申论</tag>
-        <tag>作文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>申论作文怎么写</title>
-    <url>/2020/07/21/%E7%94%B3%E8%AE%BA%E4%BD%9C%E6%96%87%E6%80%8E%E4%B9%88%E5%86%99/</url>
-    <content><![CDATA[<p> <strong>大作文怎么写？</strong></p>
-<a id="more"></a>
-
-<h3 id="1-论点立意"><a href="#1-论点立意" class="headerlink" title="1.论点立意"></a>1.论点立意</h3><h3 id="2-形式包装"><a href="#2-形式包装" class="headerlink" title="2.形式包装"></a>2.形式包装</h3><h4 id="2-1-标题（有就可以了，没必要思考太长时间，20s）"><a href="#2-1-标题（有就可以了，没必要思考太长时间，20s）" class="headerlink" title="2.1 标题（有就可以了，没必要思考太长时间，20s）"></a>2.1 标题（有就可以了，没必要思考太长时间，20s）</h4><ul>
-<li><p><strong>常规</strong></p>
-<ul>
-<li><p>引申（常用，我一般时间紧急就用这个）</p>
-<p><strong>由XXX说开去</strong>、XXX的启示、<strong>对XXX的思考</strong></p>
-<p>例子：从“礼”说开去</p>
-</li>
-<li><p>点睛（直接写文章的主题（对策、意义））</p>
-<p>…关键在于…、是XX之基/源、应以XXX为中心、应着眼于XXX</p>
-<p>例子：治理网络污染要制度建设和文化建设并重</p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><strong>比喻</strong></p>
-<p>常用：呵护、捍卫、托起、唤醒；见真功、挑大梁、打好样、聚能量</p>
-<p>例子：用文化铸造新农村“脊梁”、以创新奏出“最强音”</p>
-</li>
-</ul>
-<ul>
-<li><p><strong>警醒</strong></p>
-<p>勿、莫让、不</p>
-</li>
-</ul>
-<ul>
-<li><p><strong>对称</strong></p>
-<p>动词+主题词</p>
-<p>改善、涵养、弘扬、树立、践行、兜底、共话、筑牢</p>
-<p>例子：盘活老品牌，焕发新生命</p>
-</li>
-</ul>
-<h4 id="2-2-文章结构"><a href="#2-2-文章结构" class="headerlink" title="2.2 文章结构"></a>2.2 文章结构</h4><p><strong>开头—–&gt;意义/问题——-&gt;原因——–&gt;对策—–&gt;结尾</strong></p>
-<h4 id="2-3-开头"><a href="#2-3-开头" class="headerlink" title="2.3 开头"></a>2.3 开头</h4><ul>
-<li><p>列举事件+总论点</p>
-<p>总论点万能句：</p>
-<ul>
-<li><p>这提醒我们；</p>
-</li>
-<li><p>如何处理某某问题，成为亟待破解（制约高质量发展、影响人民幸福感）的难题。</p>
-</li>
-</ul>
-</li>
-<li><p>列数字+总论点</p>
-</li>
-<li><p>引言+事件+总论点</p>
-</li>
-</ul>
-<blockquote>
-<p><strong>*12岁小学生打赏网络主播，花掉环卫工母亲4万元积蓄</strong>；<strong>一青少年沉迷互联网赌博，走上盗窃之路</strong>；<strong>13岁少年沉迷某款网络游戏，疑似模仿游戏中翻墙跳楼动作而身亡</strong>……近段时间来出现的一些相关案件，背后都有网络沉迷的因素，<strong>这提醒人们</strong>：预防青少年沉迷网络，刻不容缓。*</p>
-<p><em>《预防青少年网络沉迷刻不容缓》</em></p>
-</blockquote>
-<h4 id="2-4-意义-问题、危害"><a href="#2-4-意义-问题、危害" class="headerlink" title="2.4 意义/问题、危害"></a>2.4 意义/问题、危害</h4><p>这一段主要是说理，不管是它好就说意义，它不好就说危害。</p>
-<p>议论文常见的论证方法有5种：举例论证、道理论证、对比论证、比喻论证和引用论证。</p>
-<p>举例论证方面，巧妙使用<strong>“从…到…”句式，“当…”句式</strong>来举例，可以让成绩、历史背景更加的有冲击力，这些例子都可以从给定材料里面找。</p>
-<ul>
-<li><p><strong>通用过渡句</strong>（适用于承上启下，欲抑先扬）</p>
-<ul>
-<li><strong>然而也要看到</strong>，旅游业转型升级过程中，旧的问题虽然得到有效克服，但一些新问题、新苗头值得警惕。</li>
-<li><strong>当然，也要看到</strong>，全民健身的管理问题和认识误区依然存在。</li>
-<li>然而，实习过程中出现的一些新情况、新问题，也值得警惕。</li>
-<li>如今文化事业蓬勃发展，然而文化遗产能否得到科学合理的保障，<strong>依然要画个问号。</strong></li>
-<li><strong>行百里者半九十</strong>。今天，我国扶贫事业取得了历史性的成就，但也要看到，越往后遇到的越是难啃的硬骨头，任务十分艰巨。</li>
-<li><strong>但也应看到</strong>，目前我国自然灾害防治能力总体还比较弱。</li>
-<li>但是，当前的“互联网+政务”，还处于“摸着石头过河”的探索阶段，<strong>存在许多不成熟、不规范之处。</strong></li>
-<li>但由于底子薄、欠账多，目前学前教育仍是整个教育体系的短板，发展不平衡不充分问题十分突出。</li>
-<li><strong>然而，一枚硬币有两面</strong>。老年人一旦过度依赖甚至上网成瘾，则有诸多弊端。</li>
-</ul>
-</li>
-<li><p><strong>举例论证</strong></p>
-<ul>
-<li><p><strong>从</strong>…<strong>到</strong>…;</p>
-</li>
-<li><p><strong>曾几何时</strong>…<strong>现如今</strong>…</p>
-</li>
-<li><p><strong>有的.</strong>…有的…;</p>
-</li>
-<li><p><strong>一些</strong>…一些…还有些…;</p>
-</li>
-</ul>
-</li>
-<li><p><strong>概括，总结</strong></p>
-<ul>
-<li><strong>凡此种种</strong>…..</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><strong>但在</strong>以往雷霆万钧的治污行动中，<strong>也存在一些问题</strong>。一个突出表现就是在执法过程中出现过激和偏差，在特定时段把企业简单地一关了之。比如说，<strong>一些地方</strong>平时不作为、临时乱作为，平时对一些排污企业睁一只眼闭一只眼，监管紧一阵松一阵、有一搭没一搭，等到环保督察来了，又慌不择路地搞突击，用一律关停来应付检查。这种不分青红皂白、没有轻重缓解的运动式执法，不仅扭曲了环境治理的本义，损害了环保督察的公信力，更误伤了那些积极配合治污的企业，给经济发展和群众生活带来了负面影响。</p>
-<p>—-《人民日报人民时评：“雷霆手段”要经得起法治推敲》</p>
-</blockquote>
-<h4 id="2-5-原因分析"><a href="#2-5-原因分析" class="headerlink" title="2.5 原因分析"></a>2.5 原因分析</h4><p>本段其实可以和上一段合并，特别是些策论文的时候。</p>
-<ul>
-<li><p><strong>过渡句</strong></p>
-<ul>
-<li><p>设问式</p>
-<ul>
-<li>药品是用来治病的，为何存在无效却广泛使用的药品？</li>
-<li>一部主旋律记录电影，赢得市场和口碑“双丰收”，形成了不一般的传播声势，秘诀何在？</li>
-<li>类似谣言文章存在不少破绽，为何却能得到“银发族”的青睐？仔细推究……</li>
-</ul>
-</li>
-<li><p>总分式（先概括原因，再具体分析）</p>
-<ul>
-<li>“套路贷”之所以能让受害者越陷越深，终至不可自拔，症结就在于其处心积虑设计的一整套“法律陷阱”。</li>
-<li>造成客服乱象的一个重要原因，在于许多企业将客服中心视为“成本部门”。</li>
-</ul>
-</li>
-<li><p>万能式</p>
-<p><strong>XXX有着复杂的原因，XXX是一方面，更为根本的原因在于……</strong></p>
-</li>
-</ul>
-</li>
-<li><p><strong>具体分析</strong></p>
-<p>分析原因最好<strong>有主次</strong>，<strong>层次分明</strong>，且要结合对策来写，对策好写的就当主要原因，多分析一些。</p>
-<blockquote>
-<p>客观来说，青少年沉迷网络有着复杂的原因。好奇心强、自制力弱、渴望得到认同等心理特点是一方面，规范管理、合理引导、预防治疗不够也是重要原因。其中，一些企业诱导青少年网络成瘾的做法难辞其咎。就拿网络游戏来说，一些游戏开发商为了赚孩子的钱，专门研发门槛低、互动性强、奖励诱惑多的网游；为了把少年儿童培养成“忠实玩家”，新角色、新道具、新玩法层出不穷；更有甚者在游戏中添加淫秽、赌博的成分，引诱腐蚀自制力不强的青少年。再比如一些网络视频平台，不仅缺乏针对青少年的内容分级，更是通过“算法推荐”“奖赏反馈”等成瘾机制的设计，让一些青少年“根本停不下来”。这些诱导成瘾的企业行为，需要得到有效的治理。</p>
-<p>—-《人民日报人民时评：预防青少年网络沉迷刻不容缓》</p>
-</blockquote>
-</li>
-</ul>
-<h4 id="2-6-对策"><a href="#2-6-对策" class="headerlink" title="2.6 对策"></a>2.6 对策</h4><p>一般而言，这部分就是重点，根据材料，一般写2-3段。</p>
-<ul>
-<li><strong>常见结构</strong><ul>
-<li><strong>主旨句+分析论证</strong>，我一般喜欢用这种，因为观点鲜明，阅卷老师一眼就能看到。</li>
-<li>设问式。与2.5相似</li>
-</ul>
-</li>
-<li>论证方式<ul>
-<li>讲道理（正/反面论证）</li>
-<li>举例子</li>
-<li>对比</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p><strong>解决互联网时代的新问题，需要运用互联网思维和现代治理手段。</strong>面对互联网违法虚假广告，传统的突击整治、消费者投诉、相关单位自纠自查等方式难有长效，需将立法、行政和执法三条途径有机结合，综合施治。一方面，完善立法，在广告法和行政许可法的基础上，建立更为严格的互联网广告许可制度；另一方面，充分运用行政和执法手段，加强监管，严厉查处社会影响恶劣、公众反映强烈、危害人民群众财产安全的虚假违法互联网广告。与此同时，有必要建立黑名单制度，完善公安、网信等部门间的协同机制，形成“组合拳”。今年6月，国家市场监管总局等8部门联合发布《2018网络市场监管专项行动（网剑行动）方案》，重点打击网络虚假违法广告等违法行为，正体现了综合施治的治理思路。</p>
-<p><strong>清除互联网违法虚假广告，既要击碎欺骗者发财的迷梦，遏制愈演愈烈的趋势；又要净化互联网，营造良好的广告市场环境。</strong>其中的关键之一，就是引导广大互联网平台主动承担社会责任，重点监督覆盖面广、影响力大的门户网站、搜索引擎、微博、微信公众号、客户端等，充分将人工审核与技术审核相结合，及时清除对公众具有误导性的广告。同时，支持鼓励互联网企业开发辨认违法虚假广告人工智能系统，在技术上取得新突破，用以对抗虚假产品评论、评分，打击水军、刷单等行为。</p>
-<p>—-《人民日报人民时评：综合施治，清除互联网虚假广告》</p>
-</blockquote>
-<h4 id="2-7-结尾"><a href="#2-7-结尾" class="headerlink" title="2.7 结尾"></a>2.7 结尾</h4><ul>
-<li><p><strong>名人名言（引出）</strong></p>
-<p>万能：</p>
-<blockquote>
-<p>路漫漫其修远兮，吾将上下而求索。</p>
-</blockquote>
-</li>
-<li><p><strong>复述措施+展望未来</strong></p>
-<ul>
-<li>随着…..</li>
-<li>必将…..</li>
-</ul>
-<blockquote>
-<p>内容产业勃兴的源泉，在于群众日益增长的精神文化需求。走出“唯流量”的误区，努力供给更多更优质的内容产品，方能满足人们日益分众化、多元化的需要，也才能真正赢得市场。<strong>随着</strong>治理力度的加大、行业规范的明确、平台监管的强化，我国内容产业<strong>必将</strong>迎来进一步发展，以更多精品力作标注时代。</p>
-<p>—-《人民日报人民时评：破除“唯流量”的行业顽疾》</p>
-</blockquote>
-</li>
-</ul>
-<p>总结：</p>
-<p>路漫漫其修远兮，吾将上下而求索。随着XXX，我们必将XXXX。</p>
-<hr>
-<h3 id="3-另一种形式的作文"><a href="#3-另一种形式的作文" class="headerlink" title="3.另一种形式的作文"></a>3.另一种形式的作文</h3><p>​        今天在做2015广东申论真题的时候，发现了另一种形式。并非所有的原因/危害、对策都要分开写，有时候通过材料提取的论点较多的时候，可以每条论点都以“是什么？为什么？怎么做”展开</p>
-<ul>
-<li>开头</li>
-<li>论点1（是什么？为什么？怎么做）</li>
-<li>论点2（是什么？为什么？怎么做）</li>
-<li>论点3（是什么？为什么？怎么做）</li>
-<li>结尾</li>
-</ul>
-<p>这种适用于当你无法把多条论点联合在一起说理的时候，采用此种形式，节省时间。</p>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>申论</tag>
-        <tag>作文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测-易错成语积累</title>
-    <url>/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</url>
-    <content><![CDATA[<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>这篇博客用以加深行测的词汇积累!</p>
-<a id="more"></a>
-
-<h3 id="高频成语"><a href="#高频成语" class="headerlink" title="高频成语"></a>高频成语</h3><ul>
-<li><p><strong>等量齐观/相提并论</strong></p>
-<ul>
-<li><p><strong>相提并论</strong>：指把不同的人或不同的事放在一起谈论或看待，多用否定句式<strong>侧重强调差距大</strong></p>
-</li>
-<li><p><strong>等量齐观</strong>：指对有差别的事物同等看待，置于否定句中表达两者不一样</p>
-</li>
-</ul>
-</li>
-<li><p><strong>责无旁贷/义不容辞</strong></p>
-<ul>
-<li><p><strong>责无旁贷</strong>：自己应尽的责任，不能推卸给别人，通常<strong>不做定语</strong>，经常<strong>放在句子结尾</strong></p>
-<blockquote>
-<p>e.g 实现祖国的繁荣和富强我们每个人都<strong>责无旁贷</strong></p>
-</blockquote>
-</li>
-<li><p><strong>义不容辞</strong>：指道义上不允许推辞。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>千头万绪</strong></p>
-<p>比喻事情的<strong>开端</strong>，头绪非常多，也形容<strong>事情复杂纷乱</strong></p>
-</li>
-<li><p><strong>浮光掠影/浅尝辄止/走马观花</strong></p>
-<ul>
-<li><p><strong>浮光掠影</strong>：意思是水面上的反光和一闪而过的影子。</p>
-<p>比喻<strong>观察不细致</strong>,没有深的印象;又指<strong>文章言论的肤浅</strong>,无真知实学。</p>
-</li>
-<li><p><strong>浅尝辄止</strong>：意思是略微尝试一下就停下来。</p>
-<p>强调不深入研究，<strong>通常</strong>用于<strong>做学问</strong>、搞研究。</p>
-</li>
-<li><p><strong>走马观花</strong>：意思是指骑在奔跑的马上看花。</p>
-<p>原形容事情如意，心情愉快。后多指粗略地观察一下，<strong>强调观察这个动作</strong>。</p>
-</li>
-</ul>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E6%9B%B2%E7%AA%81%E5%BE%99%E8%96%AA](https://baike.baidu.com/item/曲突徙薪)">曲突徙薪</a></strong></p>
-<p>意思是把烟囱改建成弯的，把灶旁的柴草搬走。</p>
-<p>比喻<strong>事先采取措施，才能防止灾祸。</strong></p>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E6%89%AC%E6%B1%A4%E6%AD%A2%E6%B2%B8](https://baike.baidu.com/item/扬汤止沸)">洋洋止沸</a></strong></p>
-<p>意思是把锅里开着的水舀起来再倒回去，使它凉下来不沸腾。</p>
-<p>比喻<strong>办法不彻底</strong>，<strong>不能从根本上解决问题。</strong></p>
-<blockquote>
-<p>汉·枚乘《上书谏吴王》：“欲汤之沧，一人炊之，百人扬之，无益也；不如绝薪止火而已。”《三国志·魏书·刘廙传》：“扬汤止沸，使不焦烂。”</p>
-</blockquote>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E5%A4%A7%E4%B9%89%E5%87%9B%E7%84%B6](https://baike.baidu.com/item/大义凛然)">大义凛然</a></strong></p>
-<p>意思是由于胸怀正义而神态庄严，令人敬畏。</p>
-<p>常形容<strong>英勇无畏</strong>，而<strong>不是壮烈</strong>！</p>
-<blockquote>
-<p>宋·曹辅《唐颜文忠公新庙记》：“大义凛然，奋裙首倡。”</p>
-</blockquote>
-</li>
-<li><p><strong>一成不变</strong>（偏<strong>贬义</strong>）</p>
-<p>指一经形成，不再改变。亦泛指墨守成规，不知变通。</p>
-<blockquote>
-<p>《礼记·王制》：“一成而不可变，故君子尽心焉。”</p>
-</blockquote>
-</li>
-<li><p><strong>潜移默化/耳濡目染</strong></p>
-<ul>
-<li><p><strong>潜移默化</strong></p>
-<p>对象可以是 <strong>人/物</strong></p>
-<p><strong>定语、状语</strong></p>
-</li>
-<li><p><strong>耳濡目染</strong></p>
-<p>对象只能是<strong>人</strong></p>
-<p><strong>谓语、定语</strong></p>
-<p>强调<strong>看、听</strong></p>
-</li>
-<li><p>大多数情况下选 <strong>潜移默化</strong></p>
-</li>
-</ul>
-</li>
-<li><p><strong>缘木求鱼/饮鸠止渴/抱薪救火/杀鸡取卵/竭泽而渔</strong></p>
-<ul>
-<li><p><strong>缘木求鱼(贬义)</strong></p>
-<p>字面解读为爬到树上去找鱼。比喻方向或办法不对，不可能达到目的。<strong>并不强调使后果更严重</strong>。</p>
-<blockquote>
-<p>“以若所为，求若所欲，犹缘木而求鱼也。”——《孟子·梁惠王章句上》</p>
-</blockquote>
-<hr>
-</li>
-<li><p><strong>饮鸠止渴</strong></p>
-<p>比喻用错误的办法来解决<strong>眼前的</strong>困难而<strong>不顾严重后果</strong>。</p>
-<blockquote>
-<p>《后汉书·霍谞传》：“譬犹疗饥于附子，止渴于鸩毒，未入肠胃，已绝咽喉。”</p>
-</blockquote>
-</li>
-<li><p><strong>抱薪救火</strong></p>
-<p>抱着柴草去救火。比喻用错误的方法去消除灾祸，结果反而<strong>使灾祸扩大</strong>。</p>
-<blockquote>
-<p>西汉·司马迁《史记·魏世家》：且夫以地事秦，譬犹抱薪救火，薪不尽，火不灭</p>
-</blockquote>
-<hr>
-</li>
-<li><p><strong>杀鸡取卵</strong></p>
-<p>为了要得到鸡蛋，不惜把鸡杀了。比喻贪图眼前利益而不顾长远利益。</p>
-<blockquote>
-<p>希腊《伊索寓言·生金蛋的鸡》</p>
-</blockquote>
-</li>
-<li><p><strong>竭泽而渔</strong></p>
-<p>排尽湖中或池中的水来捕鱼。比喻目光短浅，只顾眼前利益，不顾长远打算。</p>
-<blockquote>
-<p>竭泽而渔，岂不获得？而来年无鱼；焚薮(sǒu)而田，岂不获得？而来年无兽。诈伪之道，虽今偷可，后将无复，非长术也。——《吕氏春秋·义赏》</p>
-</blockquote>
-<ul>
-<li>成语辨析：饮鸩止渴和“杀鸡取卵”；都指只顾眼前需要。但“杀鸡取卵”偏重利的取舍，指为了眼前利益，而放弃长远利益；而饮鸩止渴则在于害的轻重，指为了弥补或减少当前的损害，而不计严重后果。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><strong>泥沙俱下/鱼龙混杂/鱼目混珠（3 Times）</strong></p>
-<ul>
-<li><p><strong>鱼龙混杂</strong></p>
-<p>指在江河的急流中泥土和沙子随着水一起冲下。比喻好坏性质不同的人或者事物混杂在一起。</p>
-<blockquote>
-<p>“人称才大者，如万里黄河，与泥沙俱下。余以为，此粗才，非大才也。”</p>
-<p>——《随园诗话》</p>
-</blockquote>
-</li>
-<li><p><strong>鱼龙混杂</strong></p>
-<p>是形容好人和坏人混在一起，现也可形容事物好的坏的混在一起</p>
-<blockquote>
-<p>“风搅长空浪搅风，鱼龙混杂一川中。”</p>
-<p>——唐·张志和《和渔夫词》</p>
-</blockquote>
-</li>
-<li><p><strong>鱼目混珠</strong></p>
-<p>指拿鱼眼睛冒充珍珠，比喻用假的冒充真的。</p>
-<blockquote>
-<p>“鱼目岂为珠？蓬蒿不成槚。”</p>
-<p>——汉·魏伯阳《参同契》</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>背道而驰/分道扬镳</strong></p>
-<ul>
-<li><p><strong>背道而驰</strong></p>
-<p>比喻方向和目的完全相反，<strong>背离正确的道路</strong>，通常用在<strong>消极</strong>的对象身上</p>
-<blockquote>
-<p>唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《〈杨评事文集〉后序》：“其余各探一隅，相与背驰于道者，其去弥远。”</p>
-</blockquote>
-</li>
-<li><p><strong>分道扬镳</strong></p>
-<p>比喻目标不同，各走各的路或各干各的事。</p>
-<blockquote>
-<p>《魏书·河间公齐传》：“洛阳我之丰沛，自应分路扬镳。自今以后，可分路而行。”</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><strong>汗牛充栋(5 Times)</strong> </p>
-<p>指用牛运书，牛要累得出汗；用屋子放书，要放满整个屋子。<strong>形容藏书很多</strong>。</p>
-<blockquote>
-<p>“其为书，处则充<a href="https://baike.baidu.com/item/栋宇" target="_blank" rel="noopener">栋宇</a>，出则汗牛马。”</p>
-<p>——唐·<a href="https://baike.baidu.com/item/柳宗元/127462" target="_blank" rel="noopener">柳宗元</a>《文通先生陆给事墓表》</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="高频词语"><a href="#高频词语" class="headerlink" title="高频词语"></a>高频词语</h3><ul>
-<li><p><strong>产生/唤醒/触发</strong></p>
-<p>“产生”指由<strong>已有的事物</strong>中生出新的事物</p>
-<p>“唤醒”表示使之觉醒，也是指<strong>原来有</strong>，现在重新使之苏醒</p>
-<p>“触发”指触动引发</p>
-</li>
-<li><p><strong>呵护/爱护（3 Times）</strong></p>
-<p>“爱护”：指爱惜并保护，常用作爱护公物、爱护花草，一般不与“家庭”搭配，</p>
-<p>“呵护”：指对某人、某物很在意，用心照顾、保护常搭配朋友、家人、家庭。</p>
-<blockquote>
-<p>家风是具有鲜明特征的家庭文化，良好家风是一个家庭最宝贵的精神财富，也是每个家庭成员形成正确世界观、人生观、价值观的(    )。家庭是人生的第一所学校，良好家风是人生幸福生活的“第一组密码”。“积善之家，必有余庆；积不善之家，必有余殃。”只有守住和(    )好温暖的家庭，才能有人生的成功。</p>
-<p>依次填入划横线部分最恰当的一项是：</p>
-<ul>
-<li>A 基点 庇护</li>
-<li>B 基准 保护</li>
-<li>C 基础 爱护</li>
-<li>D 基石 呵护</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="成语积累"><a href="#成语积累" class="headerlink" title="成语积累"></a>成语积累</h3><ul>
-<li><p><strong>过犹不及</strong></p>
-<p>指事情做得过头，就跟做得不够一样，都是不合适的；</p>
-</li>
-<li><p><strong>穷经皓首</strong></p>
-<p>指直到年老头白还在钻研经书和古籍，形容勤勉好学，至老不倦；</p>
-</li>
-<li><p><strong>老调重弹</strong></p>
-<p>比喻把说过多次的理论、主张重新搬出来</p>
-</li>
-<li><p><strong>推波助澜</strong>（<strong>==无贬义==</strong>）</p>
-<p>比喻从旁鼓动、助长事物（多指坏的事物）的声势和发展，扩大影响。</p>
-</li>
-<li><p><strong>买椟还珠</strong></p>
-<p>指买来装珍珠的木匣退还了珍珠；比喻<strong>取舍不当</strong>，<strong>次要</strong>的东西<strong>比主要</strong>的还要<strong>好</strong></p>
-</li>
-<li><p><strong>以讹传讹</strong></p>
-<p>指把本来就不正确或不符合实际情况的话又不正确地传出去，越传越错。</p>
-</li>
-<li><p><strong>却之不恭</strong>（近义词：<strong>盛情难却</strong>）</p>
-<p>指对别人的邀请、赠与等，如果拒绝接受，就显得不恭敬。</p>
-</li>
-<li><p><strong>三人成虎</strong></p>
-<p>比喻说的人多了，就能使人们把谣言当作事实；含贬义，一般做分句。</p>
-</li>
-<li><p><strong>言不由衷/口是心非</strong></p>
-<p><strong>[释义]</strong>  由：从；<strong>衷：内心</strong>。</p>
-<p>话不是从内心发出来的；即说的话不是出于真心实意；指心口不一。</p>
-<p><strong>衷</strong>不是苦衷，多含<strong>贬义</strong></p>
-</li>
-<li><p><strong>邯郸学步/鹦鹉学舌/<a href="https://baike.baidu.com/item/东施效颦/232075" target="_blank" rel="noopener">东施效颦</a>/数典忘祖</strong></p>
-<p>比喻一味地模仿别人，不仅没学到本事，反而把原来的本事也丢了。</p>
-<blockquote>
-<p>《<a href="https://baike.baidu.com/item/庄子·秋水" target="_blank" rel="noopener">庄子·秋水</a>》：“子往呼！且子独不闻夫寿陵余子之学行于<a href="https://baike.baidu.com/item/邯郸/334665" target="_blank" rel="noopener">邯郸</a>与？未得国能，又失其故行矣，直匍匐而归耳。今子不去，将忘子之故，失子之业。”</p>
-</blockquote>
-</li>
-<li><p><strong>细枝末节</strong></p>
-<p><strong>==不等于细节！！！==</strong>比喻事情或问题的<strong>细小</strong>而<strong>无关紧要的部分</strong></p>
-<blockquote>
-<p>《礼记·乐记》：“铺筵席，陈尊俎，列笾豆，以升降为礼者，礼之末节也。”</p>
-</blockquote>
-</li>
-<li><p><strong>雪泥鸿爪</strong></p>
-<p>意思是大雁在雪泥上踏过留下的爪印。比喻<strong>往事遗留的痕迹</strong>。</p>
-<blockquote>
-<p>宋·苏轼《和子由渑池怀旧》诗：“人生到处知何似，应似飞鸿踏雪泥。泥上偶然留指爪，鸿飞那复计东西。”</p>
-</blockquote>
-</li>
-<li><p><strong>吉光片羽</strong></p>
-<p>比喻残存的珍贵文物。吉光：古代神话中的神兽名；片羽：一片毛。</p>
-<blockquote>
-<p>“武帝时西域献吉光裘，入水不濡。</p>
-<p>汉·刘歆《西京杂记》卷一</p>
-</blockquote>
-</li>
-<li><p><strong>闻过则喜</strong></p>
-<p>听到别人批评自己的缺点或错误，表示欢迎和高兴；指虚心接受意见。</p>
-<blockquote>
-<p>《<a href="https://baike.baidu.com/item/孟子/126" target="_blank" rel="noopener">孟子</a>·公孙丑上》：“子路人告之以有过则喜。</p>
-</blockquote>
-</li>
-<li><p><strong><a href="https://baike.baidu.com/item/杳如黄鹤" target="_blank" rel="noopener">杳如黄鹤</a></strong></p>
-<p>原指传说中仙人骑着黄鹤飞去，从此不再回来；现比喻<strong>无影无踪</strong>或<strong>下落不明</strong>。</p>
-</li>
-<li><p><strong><a href="[https://baike.baidu.com/item/%E7%A6%8F%E6%97%A0%E5%8F%8C%E8%87%B3](https://baike.baidu.com/item/福无双至)">福无双至</a></strong></p>
-<p>指幸运的事不会接连到来，常与“<a href="https://baike.baidu.com/item/祸不单行" target="_blank" rel="noopener">祸不单行</a>”连用。</p>
-<blockquote>
-<p>汉·刘向《说苑·权谋》：“此所谓<a href="https://baike.baidu.com/item/福不重至，祸必重来" target="_blank" rel="noopener">福不重至，祸必重来</a>者也。”</p>
-</blockquote>
-</li>
-<li><p><strong><a href="https://baike.baidu.com/item/厝火积薪" target="_blank" rel="noopener">厝火积薪</a></strong></p>
-<p>拼音cuò huǒ jī xīn，把火放到柴堆下面，<strong>比喻潜伏着很大危险。</strong></p>
-</li>
-</ul>
-<h3 id="词语积累"><a href="#词语积累" class="headerlink" title="词语积累"></a>词语积累</h3><ul>
-<li><p><strong>昭示</strong></p>
-<p>明白地表示或宣布</p>
-<p>跟<strong>昭然若揭</strong>没有关系，<strong>不是贬义词</strong>！</p>
-</li>
-<li><p><strong>保持、维持</strong></p>
-<p>“保持”指维持某种状态使不消失或减弱</p>
-<p>“维持”指维系使继续存在，通常<strong>搭配</strong>生命、关系等，且倾向于较为<strong>被动</strong>勉强的维持</p>
-</li>
-</ul>
-<blockquote>
-<p>【2018 湖南 14】总的来讲，“社会”在处理与国家的关系过程中强调其自主性的成长与释放，并  <strong><strong><strong>____</strong></strong></strong>  了各种形式的自我保护运动。而且，“社会”也在改变其生存与发展策略，它不仅仅满足在国家为其 <strong><strong><strong>__</strong></strong></strong>   的范围内行动，而且还通过与国家的主动接触与互动，<strong><strong><strong><strong>__</strong></strong></strong></strong> 与政府的相关性，并以协作或合作的方式参与社会问题的解决。</p>
-<ul>
-<li>A 展开 规定 保持</li>
-<li>B 拓展 制定 保护</li>
-<li>C 开展 划定 维持</li>
-<li>D 发展 制订 保障</li>
-</ul>
-</blockquote>
-<ul>
-<li><p><strong>观照</strong></p>
-<p>指仔细观察，审视</p>
-<ol>
-<li>佛家哲学。指静观世界以智慧而照见事理。</li>
-</ol>
-</li>
-</ul>
-<ol start="2">
-<li>显示；反映。<ol start="3">
-<li>原为美学术语，现也指仔细观察，审视的思考比较。</li>
-</ol>
-</li>
-<li>用心光向心中看，向心中照，是道家一种修道的方法。<ol start="5">
-<li>关心照顾关怀之意，是客气的委婉语气</li>
-</ol>
-</li>
-</ol>
-<ul>
-<li><p><strong>感叹/感慨</strong></p>
-<ul>
-<li><p>感叹：侧重强调因内心感触而<strong>发出的声音或语言</strong></p>
-</li>
-<li><p>感慨：侧重强调内心的感触</p>
-</li>
-</ul>
-</li>
-<li><p><strong>蚕食/鲸吞</strong></p>
-<ul>
-<li>蚕食：强调逐步侵占，有不断的意思</li>
-<li>鲸吞：强调食量特别大</li>
-</ul>
-<blockquote>
-<p>(2019 武汉 C类)洞庭湖国家级自然保护区违规采砂问题突出，采砂作业不断(   )侵占湿地洲滩。洞庭湖水已不能作为饮用水源，“静影沉璧”更是远矣。如果说，游人尚能因(   )名篇而(   )洞庭，没有“文心”的虾蟹却不会买账，娇弱的江豚更会因此退却。这正是至柔之水至刚的一面。思接千载，范仲淹的忧乐精神，在本质上是一种忧患意识。先忧后乐，正是其价值呈现。(   )长江生态，如今已不是居安思危，长江脆弱性展露无遗。老问题已没时间一拖再拖，看起来尚可的同样要建立健全监测预警长效机制，做到“治未病”。</p>
-<p>依次填入横线处最合适的一组是（ ）。</p>
-<ul>
-<li>A 鲸吞 沉湎 喜欢 思量</li>
-<li>B 蚕食 沉湎 溺爱 把脉</li>
-<li>C 蚕食 溺爱 沉湎 把脉</li>
-<li>D 鲸吞 溺爱 敬畏 惊叹</li>
-</ul>
-</blockquote>
-</li>
-<li><blockquote>
-<p>(2019 武汉 C类)全党同志的(  ) ，全国各族人民的(  ) ，是对我们做好工作的(    )鼓舞，(   )我们肩上的重大责任。</p>
-<p>依次填入横线中最合适的一组是（ ）。</p>
-<ul>
-<li>A 期望 重托 巨大 更是</li>
-<li>B 重托 期望 巨大 也是</li>
-<li>C 期望 重托 重大 更是</li>
-<li>D 重托 期待 重大 也是</li>
-</ul>
-</blockquote>
-</li>
-<li><p><strong>老实/木讷</strong></p>
-<p>老实指忠厚诚实，循规蹈矩，木讷指反应迟钝、呆头呆脑，二者不是近义关系</p>
-<blockquote>
-<p>普通：平常</p>
-<p>A喜庆：愉悦</p>
-<p>B相似：类似</p>
-<p>C凶狠：残忍</p>
-<p>D老实：木讷</p>
-</blockquote>
-</li>
-<li><p><strong>活跃/剧烈</strong></p>
-<p><strong>活跃</strong>：表示频繁</p>
-<p><strong>剧烈</strong>：表示激烈、强烈程度，一般表示力度</p>
-</li>
-</ul>
-<blockquote>
-<p>【2018国考副省级26】黄河三角洲是中国大河三角洲中海陆变迁最<strong>__ 的地区，特别是黄河口地区造陆速率之快、尾闾迁徙之频繁，更为世界罕见。黄河三角洲的__</strong>受黄河水沙条件和海洋动力作用的制约，黄河来沙使海岸堆积向海洋推进，海洋动力作用又使海岸侵蚀向陆地推进。</p>
-<p>依次填入画横线部分最恰当的一项是：</p>
-<ul>
-<li>A 壮观 形成</li>
-<li>B 复杂 形态</li>
-<li>C 剧烈 演化</li>
-<li>D 活跃 演变</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-        <tag>成语</tag>
-        <tag>词语</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测--常识百科</title>
-    <url>/2020/07/12/%E8%A1%8C%E6%B5%8B-%E5%B8%B8%E8%AF%86%E7%99%BE%E7%A7%91/</url>
-    <content><![CDATA[<p>本篇用以积累常识</p>
-<a id="more"></a>
-
-<h3 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h3><ol>
-<li>《孙子兵法》作者是孙武；《孙膑兵法》作者是孙膑。</li>
-<li></li>
-</ol>
-<h3 id="地理"><a href="#地理" class="headerlink" title="地理"></a>地理</h3><ul>
-<li><p>1.万山之祖，昆仑山脉。</p>
-</li>
-<li><p>2.<strong>时区</strong></p>
-<ul>
-<li><p>全球以<strong>格林尼治本初子午线（英国）</strong>为基础划分为<strong>24个时区</strong>（东、西各12个时区），<strong>不是</strong>两小时一个时区。</p>
-</li>
-<li><p><strong>国际日期变更线</strong>：太平洋中的180°经线上，俄罗斯东部<strong>白令海峡</strong>与美国的<a href="https://baike.baidu.com/item/阿拉斯加" target="_blank" rel="noopener">阿拉斯加</a>地区之间</p>
-<p>从东向西越过这条界线时，日期要加一天；从西向东越过这条界线时，日期要减去一天。即国际日期变更线的<strong>西边</strong>要比<strong>东边早一天</strong>。</p>
-</li>
-<li><p><strong>夏时制</strong>：“夏令时间”。一般在天亮早的夏季人为将时间<strong>调快一小时</strong>，<strong>为节约能源</strong></p>
-</li>
-</ul>
-</li>
-<li><p>3.世界陆地的<strong>最低处</strong>位于<strong>死海</strong></p>
-</li>
-</ul>
-<h3 id="生物"><a href="#生物" class="headerlink" title="生物"></a>生物</h3><ul>
-<li><p>1.血浆呈<strong>淡黄色</strong>。</p>
-</li>
-<li><p>2.<strong>角蛋白</strong></p>
-<p>角蛋白是<strong>硬蛋白</strong>之一，是一类具有结缔和保护功能的纤维状蛋白质，来源于外胚层分化而来的细胞。它是外胚层细胞的结构蛋白，包括毛发、指甲、羽毛等，它还是一种不能直接为畜禽所吸收利用的硬蛋白，主要存在于动物的鳞片、毛发、羽毛和蹄中。在人体的皮肤中，角蛋白主要分布在<strong>表皮层</strong></p>
-</li>
-<li><p>3.<strong>影响听力下降的原因</strong></p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>太多的噪音</strong>会导致内耳的微细血管经常处于痉挛状态，内耳供血减少，听力急剧减退。</li>
-</ul>
-</li>
-<li><input checked="" disabled="" type="checkbox"> <p><strong>精神压力过大</strong>导致内耳供血障碍</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>听觉中枢受损</strong>容易导致中枢性耳聋。</li>
-<li><input disabled="" type="checkbox"> 经常用耳勺掏挖耳朵碰伤了耳道，<strong>碰伤耳道并不会引起听力下降</strong>、听力减退；如果洁耳过度导致破坏鼓膜，则会引起听力下降、听力减退。</li>
-</ul>
-</li>
-<li><p><strong>4.</strong>在我国，树木<strong>南面</strong>的<strong>年轮较稀疏</strong>、<strong>北面</strong>的<strong>较密集</strong></p>
-</li>
-</ul>
-<h3 id="物理"><a href="#物理" class="headerlink" title="物理"></a>物理</h3><ul>
-<li><p>1.<strong>光波</strong></p>
-<p>在所有的可见光中，<strong>红光</strong>的<strong>波长</strong>是<strong>最长</strong>的，<strong>频率最小</strong>，因此红光的<strong>穿透力最强</strong>，折射角度小，<strong>不容易被散射</strong>。</p>
-</li>
-<li><p><strong>2.水的热传递性比空气好</strong></p>
-<blockquote>
-<p>冰冻的肉类在水中比在同温度的空气中解冻得快</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="化学"><a href="#化学" class="headerlink" title="化学"></a>化学</h3><ul>
-<li><p>1.硬度</p>
-<p><strong>金刚石</strong>是<strong>最硬</strong>的矿石，是已知的世界上最硬的物质。</p>
-<p><strong>滑石</strong>是世界上<strong>最软</strong>的矿石，任何一种矿物都能在滑石上划出痕迹；</p>
-</li>
-<li><p><strong>2.碳酸镁</strong>具有很强的<strong>吸湿作用</strong>。</p>
-<blockquote>
-<p><strong>举重运动员</strong>、体操运动员在比赛时，手掌心常会冒汗，而湿滑的掌心会使摩擦力减少，因此在赛前涂抹些碳酸镁，能够吸去掌心汗水，从而增加掌心与器械之间的摩擦力，使运动员能握紧器械，提高动作质量。</p>
-</blockquote>
-</li>
-<li><p><strong>3.铁制容器盛放浓硫酸</strong></p>
-<blockquote>
-<p>浓硫酸具有强氧化性，常温下能够使铁钝化形成致密氧化膜阻止反应继续进行，所以可以用铁制容器盛放浓硫酸</p>
-</blockquote>
-</li>
-<li><p>4.</p>
-</li>
-<li><p>5.</p>
-</li>
-<li><p>6.</p>
-</li>
-<li><p>7.</p>
-</li>
-</ul>
-<h3 id="时政"><a href="#时政" class="headerlink" title="时政"></a>时政</h3><ul>
-<li><p>1.保障性安居工程不得占用<strong>基本农田</strong>，而国家能源、交通、水利、军事设施等重点建设项目确实需占用基本农田的，经国务院批准，可占用。</p>
-</li>
-<li><p>2.<strong>习近平新时代中国特色社会主义思想</strong></p>
-<ul>
-<li><strong>核心要义</strong>，就是<strong>坚持和发展中国特色社会主义</strong></li>
-<li>习近平总书记在党的<strong>十九大报告</strong>中指出，<strong>坚持以人民为中心</strong>。</li>
-<li><strong>总任务</strong>是<strong>实现社会主义现代化和中华民族伟大复兴</strong></li>
-<li><strong>我国发展新的历史方位</strong>：<strong>中国特色社会主义进入了新时代</strong></li>
-</ul>
-</li>
-<li><p><strong>3.建设生态文明是中华民族永续发展的千年大计</strong></p>
-</li>
-<li><p>4.<strong>没有农户的书面委托</strong>，农村基层组织<strong>无权以任何方式决定流转农户的承包地</strong>，更不能以少数服从多数的名义，将整村整组农户承包地集中对外招商经营。</p>
-</li>
-<li><p>5.<strong>国民收入</strong>是指物质生产部门劳动者在一定时期所创造的价值，是一国生产要素（包括土地、劳动、资本、企业家才能等）所有者在一定时期内提供生产要素所得的报酬，即<strong>工资</strong>、<strong>利息</strong>、<strong>租金</strong>和<strong>利润</strong>等的<strong>总和</strong>。退休人员的退休金在经济中属于政府转移支付的范畴，属于政府支出，<strong>不属于国民收入</strong></p>
-</li>
-</ul>
-<h3 id="文化"><a href="#文化" class="headerlink" title="文化"></a>文化</h3><ul>
-<li><p><strong>1.京剧</strong></p>
-<ul>
-<li><strong>白色</strong>：一般表示<strong>阴险奸诈</strong>，如曹操、赵高。</li>
-<li><strong>红色</strong>：一般表示<strong>忠勇侠义</strong>，如关羽、姜维、常遇春；</li>
-<li><strong>黑色</strong>：一般表示<strong>刚烈正直</strong>，如包拯、张飞、李逵等</li>
-<li>蓝色或绿色：一般表示粗豪暴躁</li>
-</ul>
-</li>
-<li><p><strong>2.重阳节</strong></p>
-<ul>
-<li><p><strong>插茱萸–对亲朋好友的思念之情</strong></p>
-<p>特别注意：并不是敬老爱老</p>
-<blockquote>
-<p>独在异乡为异客，每逢佳节倍思亲。遥知兄弟登高处，遍插茱萸少一人。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p>【2015广东行测】83.下列选项中，用热水比用冷水洗涤效果更好的是：</p>
-<ul>
-<li>A有油渍的碗筷</li>
-<li>B有汗渍的衣服</li>
-<li>C有血渍的衣服</li>
-<li>D有农药残留的蔬菜</li>
-</ul>
-<p>A项正确，油渍不溶于水，用冷水难以去掉，而热水温度高，可以加快分子运动，使油渍更快软化，因此用热水来洗涤有油渍的碗筷，效果要比用冷水洗好。</p>
-<p>B项中的汗渍和C项中的血渍中都含有蛋白质，用热水洗容易导致蛋白质凝固，附着在衣服上，更难清洗。</p>
-<p>D项，去除有农药残留的蔬菜，通常是用清水多冲洗几遍，用热水洗，水温过高的话，容易导致蔬菜中的营养物质流失，洗涤效果不比冷水好。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-        <tag>常识</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测--资料分析</title>
-    <url>/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>资料分析一直是行测考试中较为重要的一个模块，个人认为是 <strong>得分稳</strong>、<strong>分值高</strong>、<strong>性价比高</strong>的模块。</p>
-<p>最近，由于复习进入<strong>“深水区”</strong>，特地重新梳理一下资料分析的知识点。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
-<ol>
-<li>如何快速查找数据？</li>
-<li>速算技巧</li>
-<li>考点整理</li>
-<li>易错知识点</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="1-如何快速查找数据？"><a href="#1-如何快速查找数据？" class="headerlink" title="1.如何快速查找数据？"></a>1.如何快速查找数据？</h3><p>资料分析分数取决于速度、正确率，你需要在单位时间内获得最高的分值。因此，数据查找至关重要。</p>
-<ul>
-<li><p>剖析题干</p>
-<p>你需要把握题干中的三个基本点：<strong>时间、主体、考点</strong></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【2019 联考】2016年山东、广东和河南三省出生人口之和占当年全国出生人口的比重约为：</span><br><span class="line"></span><br><span class="line">A 21%</span><br><span class="line">B 25%</span><br><span class="line">C 28%</span><br><span class="line">D 31%</span><br></pre></td></tr></table></figure>
-
-<p>你可以圈出 <strong><em>2016年</em></strong>、 <strong><em>广东和河南三省出生人口之和</em></strong>、<strong><em>占（比重问题）</em></strong></p>
-</li>
-<li><p>在题目中查找</p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> <strong>文字材料</strong>：预留10s-20s来略读一下全文，了解每段在讲些什么东西，比如第一段讲去年往年、第二段将省份之类的。</li>
-<li><input checked="" disabled="" type="checkbox"> <strong>图形材料</strong>：需特别注意标题、单位、图例、注释，（扇形图，一般是从0度向360度方向顺时针排列）</li>
-<li><input checked="" disabled="" type="checkbox"> <strong>表格材料</strong>：需特别注意标题、时间、单位、横纵目录</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-速算技巧"><a href="#2-速算技巧" class="headerlink" title="2.速算技巧"></a>2.速算技巧</h3><ul>
-<li><p>截位直除</p>
-</li>
-<li><p>分子分母比较法</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;(1+r)&#x3D;A*(1+r) # 当r&lt;5%</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>A * a%  </p>
-<p>将a% 拆分称常用的1/2 ,1/4之类的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">945 * 44.2% &#x3D; 945 * 40% + 945 * 4% + 945 * 0.2%</span><br><span class="line"></span><br><span class="line">或者 &#x3D;945 * 4&#x2F;9</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>多位数求和</p>
-<ul>
-<li>四舍五入（取前两位）</li>
-<li>基准法（找一个基准数）适用于数据波动较小</li>
-<li>尾数法（适用于精确计算）</li>
-</ul>
-</li>
-<li><p>比重计算（特殊）</p>
-<p>比重靠近100%时，用1-a来计算</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3927&#x2F;4041 &#x3D; 1 -110&#x2F;4041 &#x3D; 1 - 2.x% &#x3D; 97.x% 选A</span><br><span class="line"></span><br><span class="line">A 97%</span><br><span class="line">B 99%</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>特殊题型 <code>A * a% - B * b%</code>当A与B非常大的时候</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">134735 * 9.1% - 134091 * 8.9%</span><br><span class="line"></span><br><span class="line">A 124</span><br><span class="line">B 249</span><br><span class="line">C 327</span><br><span class="line">D 467</span><br><span class="line"></span><br><span class="line">&#x3D; 134735 * (9.1% - 8.9%) - (134091 - 134735) * 8.9%</span><br><span class="line">&#x3D; 134735 * 0.2% + 644 * 8.9%</span><br><span class="line">&#x3D; 269.x + 57.x &#x3D; 326.x  选C</span><br></pre></td></tr></table></figure>
-
-<p>不能直接化成分数计算，不然结果误差很大</p>
-</li>
-</ul>
-<h3 id="3-知识点汇总"><a href="#3-知识点汇总" class="headerlink" title="3.知识点汇总"></a>3.知识点汇总</h3><ul>
-<li><p>隔年增长率</p>
-<ul>
-<li>隔年倍数</li>
-<li>隔年基期量</li>
-<li>逆向运用</li>
-</ul>
-</li>
-<li><p>合成增长率</p>
-<p>十字交叉法：值得注意的是，十字交叉法本来得到的是基期，只不过我们经常用近似值，现期量来替代。</p>
-</li>
-<li><p>年均增长率</p>
-<ul>
-<li><p>编数法</p>
-<blockquote>
-<p>编造每一年的值，尽量分布得均匀一些、方便自己计算，然后计算每一年的增长率，最后再求平均值</p>
-<p>—–公考齐麟</p>
-</blockquote>
-<p>例如：已知2010的基期产量为1000亿，2015年的现期产量为2000亿，求这五年的年均增长率。</p>
-<p>此时假设2011-2014每年的产量如下表所示：</p>
-<table>
-<thead>
-<tr>
-<th>2010</th>
-<th>2011</th>
-<th>2012</th>
-<th>2013</th>
-<th>2014</th>
-<th>2015</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1000</td>
-<td>1200</td>
-<td>1400</td>
-<td>1600</td>
-<td>1800</td>
-<td>2000</td>
-</tr>
-</tbody></table>
-<p>计算每一年的增长率，以A表示</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A2011&#x3D;(1200-1000)&#x2F;1000&#x3D;0.2</span><br><span class="line">A2012&#x3D;(1400-1200)&#x2F;1200&#x3D;0.167</span><br><span class="line">A2013&#x3D;0.143</span><br><span class="line">A2014&#x3D;0.125</span><br><span class="line">A2015&#x3D;0.111</span><br></pre></td></tr></table></figure>
-
-<p>那么年均增长率</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x3D;(0.2+0.167+0.143+0.125+0.111)&#x2F;5&#x3D;15.6%</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>平均增长率</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(a-b)&#x2F;(1-b)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p>比重增长率</p>
-<p>常用公式：<strong>现期比重-基期比重</strong><br>$$<br>=\frac{A}{B} * \frac{a-b}{1+a}<br>$$<br>⚠️：上述公式是：<strong>现期比重-基期比重</strong>的值</p>
-<p>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体倍数</strong>？<br>$$<br>\frac{A}{B} / \frac{A}{B} * \frac{1+b}{1+a}=\frac{1+a}{1+b}<br>$$<br>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体增长率</strong>？其实也就是平均增长率。<br>$$<br>\frac{1+a}{1+b}-1=\frac{a-b}{1+b}<br>$$<br>⚠️<strong>要清楚的知道公式是怎么来的，而不能随意套用！</strong></p>
-<p><strong>只要能推清楚这几个公式，比重、平均增长率的本质就搞清楚了</strong></p>
-</li>
-</ul>
-<ul>
-<li><p>a&gt;b ，比重比上年⬆️</p>
-</li>
-<li><p>a&lt;b，比重比上年⬇️</p>
-</li>
-<li><p>逆向运用</p>
-</li>
-<li><p>通常比重的变化量&lt;&lt; (a-b)</p>
-</li>
-<li><p>注意与基期公式结合<code>A/B * (1+b)/(1+a)</code></p>
-</li>
-</ul>
-<ul>
-<li><p>综合分析错略</p>
-<ul>
-<li>倒序验证</li>
-<li>某个选项太难直接跳过（其实可以优先考虑题干短的、现期的）</li>
-<li>确定某个选项对了直接跳过</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-易错知识点"><a href="#4-易错知识点" class="headerlink" title="4.易错知识点"></a>4.易错知识点</h3><ul>
-<li>增幅、降幅、变化幅度</li>
-<li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
-<li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
-<li>不到、约、近、超过、XX多（XX余）</li>
-<li>量级 （特别是综合分析中）</li>
-</ul>
-<h3 id="5-特殊题型"><a href="#5-特殊题型" class="headerlink" title="5.特殊题型"></a>5.特殊题型</h3><ul>
-<li><p>某月和月均比大小</p>
-<p><strong>e.g.</strong>      已知7月的量，1-6月的量或1-7月的量，求7月与上半年的平均值之类的题型<br>$$<br>V_7&gt;? \frac{V_{1-6}}{6}=====&gt;V_7<em>6&gt;?(\frac{V_{1-6}}{6}</em>6=V_{1-6})=====&gt;<br>$$</p>
-<p>$$<br>V_7<em>6+V_7&gt;?V_{1-6}+V_7=====&gt;V_7</em>7&gt;?V_{1-7}<br>$$</p>
-<p>一般我们比较7月的单期量和1-7或1-6月的总量即可</p>
-</li>
-</ul>
-<hr>
-<p>先写这么多吧，以后错题有补充的再添加！</p>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>行测-言语理解</title>
     <url>/2020/07/14/%E8%A1%8C%E6%B5%8B-%E8%A8%80%E8%AF%AD%E7%90%86%E8%A7%A3/</url>
     <content><![CDATA[<ul>
@@ -3462,47 +3862,173 @@
       </tags>
   </entry>
   <entry>
-    <title>错题集-逻辑推理</title>
-    <url>/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/</url>
-    <content><![CDATA[<h3 id="加强-削弱"><a href="#加强-削弱" class="headerlink" title="加强/削弱"></a>加强/削弱</h3><blockquote>
-<p>【2018国考副省级114】.自上世纪50年代以来，全球每年平均爆发的大型龙卷风的次数从10次左右上升至15次。与此同时，人类活动激增，全球气候明显变暖，有人据此认为，气候变暖导致龙卷风爆发次数增加。  以下哪项如果为真，不能削弱上述结论？  </p>
-<p>A 龙卷风的类型多样，全球变暖后，小型龙卷风出现的次数并没有明显的变化  </p>
-<p>B 气候温暖是龙卷风形成的一个必要条件，几乎所有龙卷风的形成都与当地较高的温度有关  </p>
-<p>C 尽管全球变暖，龙卷风依然最多地发生在美国的中西部地区，其他地区的龙卷风现象并不多见  </p>
-<p>D 龙卷风是雷暴天气（即伴有雷击和闪电的局地对流性天气）的产物，只要在雷雨天气下出现极强的空气对流，就容易发生龙卷风.</p>
+    <title>行测--资料分析</title>
+    <url>/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>资料分析一直是行测考试中较为重要的一个模块，个人认为是 <strong>得分稳</strong>、<strong>分值高</strong>、<strong>性价比高</strong>的模块。</p>
+<p>最近，由于复习进入<strong>“深水区”</strong>，特地重新梳理一下资料分析的知识点。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><blockquote>
+<ol>
+<li>如何快速查找数据？</li>
+<li>速算技巧</li>
+<li>考点整理</li>
+<li>易错知识点</li>
+</ol>
 </blockquote>
-<p><strong>错因：</strong>当时认为：B气候温暖是龙卷风形成的一个必要条件，那么<strong>龙卷风–》气候温暖</strong>。而题目论点：气候变暖导致龙卷风爆发次数增加即：<strong>气候变暖–》龙卷风爆发次数增加</strong>，二者因果倒置</p>
-<p>​        实际上： 错误有两点</p>
-<p>​        第一，把<strong>因果关系和条件关系混为一谈</strong>。题干是因果关系（气温升高是因、龙卷风增加是果），选项是条件关系（高气温是形成龙卷风的必要条件），而<strong>因果关系和条件关系没有必然联系</strong>。  B项根本就没出现因果表述，而你想当然的把必要条件作为果，那肯定就错了。如果把B改成“龙卷风导致气温升高”，这才是因果倒置。  </p>
-<p>​        第二，<strong>没理解必要条件到底什么意思</strong>。根据B高气温是形成龙卷风的必要条件，可以得出形成龙卷风→高气温，这种条件关系仅代表后者是前者的必要条件。换句同义替换就是“要形成龙卷风，必须要有高气温”，再换句话就是“如果形成了龙卷风，那么一定有高气温”或者也可以说“如果有龙卷风，那么可以推出有高气温”。但是不能说龙卷风这个原因导致了高气温这个结果。  B项的意思就是高气温是形成龙卷风的必要条件。而当气温升高，导致气候温暖，给形成更多龙卷风创造了条件，那B如果成立的话，很可能气温升高就会导致龙卷风增多，这是个加强项。</p>
+<a id="more"></a>
+
+<h3 id="1-如何快速查找数据？"><a href="#1-如何快速查找数据？" class="headerlink" title="1.如何快速查找数据？"></a>1.如何快速查找数据？</h3><p>资料分析分数取决于速度、正确率，你需要在单位时间内获得最高的分值。因此，数据查找至关重要。</p>
+<ul>
+<li><p>剖析题干</p>
+<p>你需要把握题干中的三个基本点：<strong>时间、主体、考点</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">【2019 联考】2016年山东、广东和河南三省出生人口之和占当年全国出生人口的比重约为：</span><br><span class="line"></span><br><span class="line">A 21%</span><br><span class="line">B 25%</span><br><span class="line">C 28%</span><br><span class="line">D 31%</span><br></pre></td></tr></table></figure>
+
+<p>你可以圈出 <strong><em>2016年</em></strong>、 <strong><em>广东和河南三省出生人口之和</em></strong>、<strong><em>占（比重问题）</em></strong></p>
+</li>
+<li><p>在题目中查找</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <strong>文字材料</strong>：预留10s-20s来略读一下全文，了解每段在讲些什么东西，比如第一段讲去年往年、第二段将省份之类的。</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>图形材料</strong>：需特别注意标题、单位、图例、注释，（扇形图，一般是从0度向360度方向顺时针排列）</li>
+<li><input checked="" disabled="" type="checkbox"> <strong>表格材料</strong>：需特别注意标题、时间、单位、横纵目录</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-速算技巧"><a href="#2-速算技巧" class="headerlink" title="2.速算技巧"></a>2.速算技巧</h3><ul>
+<li><p>截位直除</p>
+</li>
+<li><p>分子分母比较法</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x2F;(1+r)&#x3D;A*(1+r) # 当r&lt;5%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>A * a%  </p>
+<p>将a% 拆分称常用的1/2 ,1/4之类的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">945 * 44.2% &#x3D; 945 * 40% + 945 * 4% + 945 * 0.2%</span><br><span class="line"></span><br><span class="line">或者 &#x3D;945 * 4&#x2F;9</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>多位数求和</p>
+<ul>
+<li>四舍五入（取前两位）</li>
+<li>基准法（找一个基准数）适用于数据波动较小</li>
+<li>尾数法（适用于精确计算）</li>
+</ul>
+</li>
+<li><p>比重计算（特殊）</p>
+<p>比重靠近100%时，用1-a来计算</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">3927&#x2F;4041 &#x3D; 1 -110&#x2F;4041 &#x3D; 1 - 2.x% &#x3D; 97.x% 选A</span><br><span class="line"></span><br><span class="line">A 97%</span><br><span class="line">B 99%</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>特殊题型 <code>A * a% - B * b%</code>当A与B非常大的时候</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">134735 * 9.1% - 134091 * 8.9%</span><br><span class="line"></span><br><span class="line">A 124</span><br><span class="line">B 249</span><br><span class="line">C 327</span><br><span class="line">D 467</span><br><span class="line"></span><br><span class="line">&#x3D; 134735 * (9.1% - 8.9%) - (134091 - 134735) * 8.9%</span><br><span class="line">&#x3D; 134735 * 0.2% + 644 * 8.9%</span><br><span class="line">&#x3D; 269.x + 57.x &#x3D; 326.x  选C</span><br></pre></td></tr></table></figure>
+
+<p>不能直接化成分数计算，不然结果误差很大</p>
+</li>
+</ul>
+<h3 id="3-知识点汇总"><a href="#3-知识点汇总" class="headerlink" title="3.知识点汇总"></a>3.知识点汇总</h3><ul>
+<li><p>隔年增长率</p>
+<ul>
+<li>隔年倍数</li>
+<li>隔年基期量</li>
+<li>逆向运用</li>
+</ul>
+</li>
+<li><p>合成增长率</p>
+<p>十字交叉法：值得注意的是，十字交叉法本来得到的是基期，只不过我们经常用近似值，现期量来替代。</p>
+</li>
+<li><p>年均增长率</p>
+<ul>
+<li><p>编数法</p>
+<blockquote>
+<p>编造每一年的值，尽量分布得均匀一些、方便自己计算，然后计算每一年的增长率，最后再求平均值</p>
+<p>—–公考齐麟</p>
+</blockquote>
+<p>例如：已知2010的基期产量为1000亿，2015年的现期产量为2000亿，求这五年的年均增长率。</p>
+<p>此时假设2011-2014每年的产量如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>2010</th>
+<th>2011</th>
+<th>2012</th>
+<th>2013</th>
+<th>2014</th>
+<th>2015</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1000</td>
+<td>1200</td>
+<td>1400</td>
+<td>1600</td>
+<td>1800</td>
+<td>2000</td>
+</tr>
+</tbody></table>
+<p>计算每一年的增长率，以A表示</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A2011&#x3D;(1200-1000)&#x2F;1000&#x3D;0.2</span><br><span class="line">A2012&#x3D;(1400-1200)&#x2F;1200&#x3D;0.167</span><br><span class="line">A2013&#x3D;0.143</span><br><span class="line">A2014&#x3D;0.125</span><br><span class="line">A2015&#x3D;0.111</span><br></pre></td></tr></table></figure>
+
+<p>那么年均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">A&#x3D;(0.2+0.167+0.143+0.125+0.111)&#x2F;5&#x3D;15.6%</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>平均增长率</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(a-b)&#x2F;(1-b)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>比重增长率</p>
+<p>常用公式：<strong>现期比重-基期比重</strong><br>$$<br>=\frac{A}{B} * \frac{a-b}{1+a}<br>$$<br>⚠️：上述公式是：<strong>现期比重-基期比重</strong>的值</p>
+<p>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体倍数</strong>？<br>$$<br>\frac{A}{B} / \frac{A}{B} * \frac{1+b}{1+a}=\frac{1+a}{1+b}<br>$$<br>如果问<strong>现期比重</strong>比<strong>上年比重</strong>的<strong>具体增长率</strong>？其实也就是平均增长率。<br>$$<br>\frac{1+a}{1+b}-1=\frac{a-b}{1+b}<br>$$<br>⚠️<strong>要清楚的知道公式是怎么来的，而不能随意套用！</strong></p>
+<p><strong>只要能推清楚这几个公式，比重、平均增长率的本质就搞清楚了</strong></p>
+</li>
+</ul>
+<ul>
+<li><p>a&gt;b ，比重比上年⬆️</p>
+</li>
+<li><p>a&lt;b，比重比上年⬇️</p>
+</li>
+<li><p>逆向运用</p>
+</li>
+<li><p>通常比重的变化量&lt;&lt; (a-b)</p>
+</li>
+<li><p>注意与基期公式结合<code>A/B * (1+b)/(1+a)</code></p>
+</li>
+</ul>
+<ul>
+<li><p>综合分析错略</p>
+<ul>
+<li>倒序验证</li>
+<li>某个选项太难直接跳过（其实可以优先考虑题干短的、现期的）</li>
+<li>确定某个选项对了直接跳过</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-易错知识点"><a href="#4-易错知识点" class="headerlink" title="4.易错知识点"></a>4.易错知识点</h3><ul>
+<li>增幅、降幅、变化幅度</li>
+<li>A是B的多少倍 ，A 比B 高、多、增长多少倍（-1）</li>
+<li>时间段不完全一致 （例如：图表比题干的时间段多几个月）</li>
+<li>不到、约、近、超过、XX多（XX余）</li>
+<li>量级 （特别是综合分析中）</li>
+</ul>
+<h3 id="5-特殊题型"><a href="#5-特殊题型" class="headerlink" title="5.特殊题型"></a>5.特殊题型</h3><ul>
+<li><p>某月和月均比大小</p>
+<p><strong>e.g.</strong>      已知7月的量，1-6月的量或1-7月的量，求7月与上半年的平均值之类的题型<br>$$<br>V_7&gt;? \frac{V_{1-6}}{6}=====&gt;V_7<em>6&gt;?(\frac{V_{1-6}}{6}</em>6=V_{1-6})=====&gt;<br>$$</p>
+<p>$$<br>V_7<em>6+V_7&gt;?V_{1-6}+V_7=====&gt;V_7</em>7&gt;?V_{1-7}<br>$$</p>
+<p>一般我们比较7月的单期量和1-7或1-6月的总量即可</p>
+</li>
+</ul>
 <hr>
-<blockquote>
-<p>【2015广东行测】62.某项科学研究发现：经常使用左手能更好地锻炼右脑，使得人的形象思维能力增强，更利于促进创造性思维的发展。但事实证明：发明家中左撇子的比例并不高。因此，这个科学研究的结论不可信。以下最能削弱上述结论的是：</p>
-<ul>
-<li>A用右手也可以达到锻炼右脑的效果</li>
-<li>B用右手的人数大大超过用左手的人数</li>
-<li>C发明创造主要依靠天赋，而非后天锻炼</li>
-<li>D发明创造不依靠形象思维能力</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>看清题干，论点到底是什么？</p>
-<blockquote>
-<p>【2015广东行测】59.有甲、乙两家公司，甲公司售后服务部门接到的产品投诉电话是乙公司的3倍。因此，甲公司产品的质量没有乙公司的好。以下最能反驳上述结论的是：</p>
-<ul>
-<li>A乙公司的产品操作相对来说更为简单</li>
-<li>B甲公司接到电话大多数是咨询电话</li>
-<li>C甲公司的咨询电话机数量比乙公司多</li>
-<li>D甲公司产品的市场占有率达到76%</li>
-</ul>
-</blockquote>
-<p><strong>错因：</strong>题干已经明确说明，是产品投诉数量多–》产品<strong>质量不如乙</strong>。所以这个<strong>论点是存在比较的</strong>，而B项大多数是咨询电话并不能说明什么，就算你甲产品咨询电话占99%，那只能说明确实投诉率不高，但题干说的是要和乙产品比，人家来个99.1%就比你好了，所以B选项错在没有能够形成与乙产品进行对比。</p>
+<p>先写这么多吧，以后错题有补充的再添加！</p>
 ]]></content>
       <categories>
         <category>公考</category>
       </categories>
       <tags>
         <tag>行测</tag>
-        <tag>错题</tag>
       </tags>
   </entry>
   <entry>
@@ -3860,7 +4386,51 @@
       </categories>
       <tags>
         <tag>行测</tag>
+        <tag>错题</tag>
         <tag>言语</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>错题集-逻辑推理</title>
+    <url>/2020/07/31/%E9%94%99%E9%A2%98%E9%9B%86-%E9%80%BB%E8%BE%91%E6%8E%A8%E7%90%86/</url>
+    <content><![CDATA[<h3 id="加强-削弱"><a href="#加强-削弱" class="headerlink" title="加强/削弱"></a>加强/削弱</h3><blockquote>
+<p>【2018国考副省级114】.自上世纪50年代以来，全球每年平均爆发的大型龙卷风的次数从10次左右上升至15次。与此同时，人类活动激增，全球气候明显变暖，有人据此认为，气候变暖导致龙卷风爆发次数增加。  以下哪项如果为真，不能削弱上述结论？  </p>
+<p>A 龙卷风的类型多样，全球变暖后，小型龙卷风出现的次数并没有明显的变化  </p>
+<p>B 气候温暖是龙卷风形成的一个必要条件，几乎所有龙卷风的形成都与当地较高的温度有关  </p>
+<p>C 尽管全球变暖，龙卷风依然最多地发生在美国的中西部地区，其他地区的龙卷风现象并不多见  </p>
+<p>D 龙卷风是雷暴天气（即伴有雷击和闪电的局地对流性天气）的产物，只要在雷雨天气下出现极强的空气对流，就容易发生龙卷风.</p>
+</blockquote>
+<p><strong>错因：</strong>当时认为：B气候温暖是龙卷风形成的一个必要条件，那么<strong>龙卷风–》气候温暖</strong>。而题目论点：气候变暖导致龙卷风爆发次数增加即：<strong>气候变暖–》龙卷风爆发次数增加</strong>，二者因果倒置</p>
+<p>​        实际上： 错误有两点</p>
+<p>​        第一，把<strong>因果关系和条件关系混为一谈</strong>。题干是因果关系（气温升高是因、龙卷风增加是果），选项是条件关系（高气温是形成龙卷风的必要条件），而<strong>因果关系和条件关系没有必然联系</strong>。  B项根本就没出现因果表述，而你想当然的把必要条件作为果，那肯定就错了。如果把B改成“龙卷风导致气温升高”，这才是因果倒置。  </p>
+<p>​        第二，<strong>没理解必要条件到底什么意思</strong>。根据B高气温是形成龙卷风的必要条件，可以得出形成龙卷风→高气温，这种条件关系仅代表后者是前者的必要条件。换句同义替换就是“要形成龙卷风，必须要有高气温”，再换句话就是“如果形成了龙卷风，那么一定有高气温”或者也可以说“如果有龙卷风，那么可以推出有高气温”。但是不能说龙卷风这个原因导致了高气温这个结果。  B项的意思就是高气温是形成龙卷风的必要条件。而当气温升高，导致气候温暖，给形成更多龙卷风创造了条件，那B如果成立的话，很可能气温升高就会导致龙卷风增多，这是个加强项。</p>
+<hr>
+<blockquote>
+<p>【2015广东行测】62.某项科学研究发现：经常使用左手能更好地锻炼右脑，使得人的形象思维能力增强，更利于促进创造性思维的发展。但事实证明：发明家中左撇子的比例并不高。因此，这个科学研究的结论不可信。以下最能削弱上述结论的是：</p>
+<ul>
+<li>A用右手也可以达到锻炼右脑的效果</li>
+<li>B用右手的人数大大超过用左手的人数</li>
+<li>C发明创造主要依靠天赋，而非后天锻炼</li>
+<li>D发明创造不依靠形象思维能力</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>看清题干，论点到底是什么？</p>
+<blockquote>
+<p>【2015广东行测】59.有甲、乙两家公司，甲公司售后服务部门接到的产品投诉电话是乙公司的3倍。因此，甲公司产品的质量没有乙公司的好。以下最能反驳上述结论的是：</p>
+<ul>
+<li>A乙公司的产品操作相对来说更为简单</li>
+<li>B甲公司接到电话大多数是咨询电话</li>
+<li>C甲公司的咨询电话机数量比乙公司多</li>
+<li>D甲公司产品的市场占有率达到76%</li>
+</ul>
+</blockquote>
+<p><strong>错因：</strong>题干已经明确说明，是产品投诉数量多–》产品<strong>质量不如乙</strong>。所以这个<strong>论点是存在比较的</strong>，而B项大多数是咨询电话并不能说明什么，就算你甲产品咨询电话占99%，那只能说明确实投诉率不高，但题干说的是要和乙产品比，人家来个99.1%就比你好了，所以B选项错在没有能够形成与乙产品进行对比。</p>
+]]></content>
+      <categories>
+        <category>公考</category>
+      </categories>
+      <tags>
+        <tag>行测</tag>
         <tag>错题</tag>
       </tags>
   </entry>
@@ -4071,346 +4641,6 @@
       </tags>
   </entry>
   <entry>
-    <title>结构化面试</title>
-    <url>/2020/08/29/%E3%80%90%E5%85%AC%E8%80%83%E3%80%91%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文用来记录在公务员面试中所遇到的结构化面试，梳理面试知识点。</p>
-<ul>
-<li>常用语句</li>
-</ul>
-<blockquote>
-<p> 1、要<strong>严格执法</strong>，推进决定的全面实施。担起主体责任，加强协调配合，以霹雳手段开展雷霆行动，从严、从重、从快查处违反本决定的行为。</p>
-<p> 2、要坚守底线和原则，<strong>推进后续的高质量立法</strong>。立法涉及不同利益的抉择与定夺，无论利益群体博弈多么剧烈，必须坚守XXX的底线，坚决维护最大多数人的根本利益，坚定构筑公共卫生安全的法律屏障。</p>
-<p>3、<strong>完善公众监督和举报反馈机制</strong>，防止恶意低价中标，建立排污企业黑名单制度，设立国家绿色发展基金。</p>
-<p>4、推进环境治理体系和治理能力现代化，既要抓改革，也要抓落实。一方面，<strong>须加快制度创新、增加制度供给，解决体制机制不健全、法律法规不严密</strong>等问题；另一方面，<strong>须强化制度执行、确保制度落地</strong>，让制度成为不可触碰的“带电高压线”。</p>
-<p>5、传承优秀文化和价值，绝不是简单复古，也不是盲目排外，而是根植于文化自信当中的辩证取舍、推陈出新，实现中华文化、中国价值的创造性转化和创新性发展，激励中国人民创造出新的、更大的中国奇迹。</p>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="1-人际关系题"><a href="#1-人际关系题" class="headerlink" title="1.人际关系题"></a>1.人际关系题</h3><p><strong>心态展示+解决问题+总结提高</strong></p>
-<p>人际关系题一定要多从自身角度分析，<strong>多找自己的原因</strong>，列提纲的时候，按照“<strong>换位思考</strong>、<strong>自我反思</strong>、<strong>主动沟通</strong>、<strong>工作为主</strong>”的思路分店答题。</p>
-<blockquote>
-<p>有群众打来咨询电话了解政策，但是不在你的职权范围，你也如实说明了情况，但是她的情绪很激动，依然要投诉你，请问你怎么办？</p>
-</blockquote>
-<ul>
-<li>1、换位思考。对群众表示理解，并安抚情绪</li>
-<li>2、主动沟通。及时帮助他联系负责该事的同事</li>
-<li>3、自我反思。是不是存在语气、态度存在问题</li>
-<li>4、强调以工作为主。</li>
-</ul>
-<blockquote>
-<p>考生开始作答。</p>
-<p>首先，我会啊，换位思考啊，群众既然打电话过来咨询政策，那么他必然是希望得到一个满意的回复的，同时呢，他可能遇到的情况比较急切啊，那么我不能因群众激动而影响到我的工作情绪，并且要积极地安抚对方的情绪。</p>
-<p>第二呢。我们要主动与群众进行沟通啊，我想最关键的还是要解决群众的问题和他所想知道的政策规定，既然该政策不在我的职权范围内啊，我对该政策了解的可能也不够清晰，那么我们可以帮他联系专门负责该政策的同事啊，尽快能给他一个满意的答复。如果问题较为复杂，一时难以答复，那么就要做好解释工作，详细记录好问题，留下联系方式，保证在向领导汇报后第一时间做出反馈。 </p>
-<p>第三呢，我们要进行自我反思，我既然已经向群众反映了该政策不在我的职权范围内，群众依然很激动要投诉，那么是不是我的语气、态度上存在问题，给群众造成了一种推皮球、推卸责任的印象。在今后的工作中呢，一定要啊注意自己的态度问题以及沟通技巧方面的问题。</p>
-<p>最后呢，我不会因为在工作中出现类似问题，而影响我的工作热情和积极性，会一如既往 地做好本职工作，同时也要提升自己的业务水平和沟通能力，争取在今后的工作中有更出色 的表现，能够更好地服务群众。</p>
-<p>考生作答完毕。</p>
-</blockquote>
-<blockquote>
-<p>刚进新单位，你做的事太多，有人说你太爱表现；你做的事太少，有人说你懒不作为。对此，你怎么办？</p>
-<p>1.调整心态，这是同时在关心我</p>
-<p>2.工作中存在不足，对于量的把握</p>
-<p>3.自我检查</p>
-<p>作为初入职场的新人，必然要有个适应工作环境的过程，在此期间遇到这样或那样的问题也是不可避免的。遇到题目当中的这种情况，我会这样去做。<br>首先，要调整好自己的心态。如果有人对我的日常工作产生了以上评论，一方面说明同事在日常中关注着我的发展和成长，这是集体和团队关心同事的体现，也是我的荣幸；另一方面也说明我个人在工作中存在不足，缺少对量的把握，缺少与同事的交流。我会认识到作为一个新人出现这样的问题是正常的，我会调整好我的心态，尽最大可能做好自己的本职工作，避免今后出现不必要的误解。<br>其次，要认真进行自我检查。查看一下是否在工作日常当中存在一些疏漏，第一，如果是我日常工作心态存在偏差，过于冒进或者行事拖沓，我今后就要时刻提醒自己在工作上要更加严谨、稳重，事前做好每日工作计划，确保按质按量完成任务；第二，如果是对自己工作内容认知不清，涉及到越权办事影响了其他同事的正常工作，我会主动的反省自己工作当中存在的问题，在今后工作当中，尽快明确自己工作权限，在范畴之内灵活机动地去学习，提升自己的综合素质，不干扰其他同事的工作，不影响团队的整体发展；第三，如果是对自己工作职责不够明确导致了工作主动性不够，参与工作较少的情况，我会多与同事和领导进行交流，多参与团队协作、多参加技术研讨，多请教前辈指导工作，并且认真学习、总结他们的工作经验，以此来逐步改善自己的工作方式方法尽快适应工作需求。<br>最后，做好后续完善提升工作。我会本着“有则改之，无则加勉”的心态，时常自省，做好经验总结，尽快提升自己，尽快适应新环境，融入新团体。我相信“路遥知马力”，时间长了之后，大家一定能够给予我客观、公正的评判。</p>
-</blockquote>
-<h3 id="2-漫画题"><a href="#2-漫画题" class="headerlink" title="2.漫画题"></a>2.漫画题</h3><ul>
-<li><p>2.1是什么？<strong>提出论点立意</strong></p>
-</li>
-<li><p>2.2为什么？</p>
-<ul>
-<li><strong>举例说明意义</strong></li>
-<li><strong>国家+政府+企业+个人</strong>不同角度</li>
-</ul>
-</li>
-<li><p>2.3怎么办？</p>
-<ul>
-<li><strong>具体！</strong>不能假大空！</li>
-<li><strong>基层公务员视角</strong></li>
-</ul>
-</li>
-</ul>
-<h3 id="3-组织计划题"><a href="#3-组织计划题" class="headerlink" title="3.组织计划题"></a>3.组织计划题</h3><p>传统思路：</p>
-<ul>
-<li>前期计划（人、财（大活动）、物、地、时）</li>
-<li>中期实施</li>
-<li>后期总结</li>
-</ul>
-<p>具体一些：</p>
-<ul>
-<li><p>1、调查了解，学习经验；（主体、兄弟单位、文献调研（法律支持））</p>
-</li>
-<li><p>2、宣传发动；（宣传）</p>
-</li>
-<li><p>3、具体活动内容；（人员培训、机制考核、监督）</p>
-</li>
-<li><p>4、事后造势；</p>
-</li>
-<li><p>5、形成长效机制。（制度保障）</p>
-</li>
-</ul>
-<blockquote>
-<p> 你是某镇副镇长，针对返乡下岗农民工，领导让你组织一次职业技能培训，你会 怎么组织？     </p>
-</blockquote>
-<blockquote>
-<p>第一点应该做调查，并可以向有经验的同事请教，我会先了解下这次返乡农民工的数量、以前从事的工作、收入情况、家庭结构和负担情况，以及他们未来的打算等。可以向单位里组织过类似活动的同事请教，在网上搜集 相关政策法规等信息、市场上急需哪些技能。   </p>
-<p>第二点要做好动员工作。任何一次活动没有广泛地参与是不可能成功的，我会组织人员到 村里发传单和张贴海报，也可以和村委会、社区或通过广播电台等方式宣传，让辖区内农民 工知道这次培训，并强调是免费公益性的。 </p>
-<p>第三点，谈具体的活动内容，如找老师来讲课，做一些技能培训，可以与企业联系，开展实操训练等等，根据自己的发挥分点作答即可。     </p>
-<p>第四点，要主要活动开展过程中的造势，可对该项工作进行全程资料信息搜集，整理出照片、VCR等，可以通过微信微博或互联网等平台进行广泛宣传，也可以联系当地广播电台、电视台等进行宣传，营造良好社会氛围。     </p>
-<p>最后应说长效机制，一次培训仅是开始，类似的活动要经常举办，也要对这次培训进行宣传以引起更多的社会关注，让农民工得到更多的帮助。</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>随着互联网+技术越来越重要，你局准备在网上开建网上工作室，领导让你来做，请问你准备怎么做？</p>
-</blockquote>
-<p><strong>复杂活动题：专项建设</strong>的<strong>一般流程</strong></p>
-<ul>
-<li>1.<strong>前期调研</strong>——兄弟单位、群众、同事等</li>
-<li>2.<strong>建设内容</strong>——决策、审批事项、政务活动、网络办事</li>
-<li>3.<strong>团队组建</strong>——选拔培训分工</li>
-<li>4.<strong>平台开发</strong></li>
-<li>5.<strong>宣传指导</strong></li>
-<li>6.<strong>制度保障</strong>——工作流程、监督、激励、责任机制</li>
-</ul>
-<blockquote>
-<p>某地旅游资源丰富，为宣传和推广当地的旅游文化，旅游部门决定成立一支由当地群众组成的志愿者导游队伍，利用业余时间，在旅游区为游客免费讲解。如果由你负责组建志愿者导游队伍，你会怎么做？</p>
-</blockquote>
-<p>一揽子解决方案：</p>
-<ul>
-<li>1、开展调研——供应、需求、同业者</li>
-<li>2、宣传招募——渠道、内容</li>
-<li>3、展开选拔——标准、方式</li>
-<li>4、培训考核——主题、内容</li>
-<li>5、制度建设——激励、监督</li>
-<li>6、工作计划——排班</li>
-</ul>
-<h4 id="3-1接待"><a href="#3-1接待" class="headerlink" title="3.1接待"></a>3.1接待</h4><blockquote>
-<p>本市智慧社区搞得不错，有外界媒体想过来采访了解，领导让你接待，你如何接待？</p>
-</blockquote>
-<p><strong>常用思路：前期对接、制定方案、行程安排、效果保障</strong></p>
-<ul>
-<li>1.前期对接——目的、时间、信息、行程</li>
-<li>2.制定方案——接站、食宿、采访对象等</li>
-<li>3.接待流程——参观、采访、交流会</li>
-<li>4.效果保障——稿件预审</li>
-</ul>
-<h4 id="3-2调研"><a href="#3-2调研" class="headerlink" title="3.2调研"></a>3.2调研</h4><ul>
-<li><p>事前：调研目的、调研人员、调研方案</p>
-</li>
-<li><p>事中：调研对象+调研方式+调研内容</p>
-<p>主体供应端（企业）</p>
-<p>其他行政部门</p>
-</li>
-<li><p>事后：撰写调研报告</p>
-</li>
-</ul>
-<h3 id="4-沟通协调题"><a href="#4-沟通协调题" class="headerlink" title="4.沟通协调题"></a>4.沟通协调题</h3><h4 id="4-1情景模拟题"><a href="#4-1情景模拟题" class="headerlink" title="4.1情景模拟题"></a>4.1情景模拟题</h4><p>这类试题应注意语态仪表，真心诚意的沟通，换位思考，站在对方立场考虑问题。</p>
-<p>答题思路是先套近乎，给予对方肯定，然后说明来意，最后给出激励方式。</p>
-<blockquote>
-<p>根据工作需要，单位决定让家住市区的李老师到近郊的农村小学支教一年，请你现场模拟一下，如何说服李老师愉快接受工作安排。    </p>
-<hr>
-<p>刘老师您好，今天看您课表没课，过来和您交流一下，好久没和您好好聊了，记得当年刚来学校，还是个应届大学生，一转眼七八年过去了，已经成为我们的骨干教师了。（拉近距离）     </p>
-<p>第一，您每年带的班级学生都很优秀，家长满意。很多家长点名要把孩子送到您所带的班级，您也连续三年被评为县级优秀教师，确实是非常不容易，管理班级也很有经验，我代表校方也对您的工作表示充分的肯定。（充分肯定）    </p>
-<p> 第二，这次我们根据中央政策要求，结合我校实际，安排支教老师，支教是重要工作，我们学校今年有两个指标，我认为您是不二人选，准备派您到近郊支持教育一年。（说明真相）     </p>
-<p>第三，这次支教有偏远上百公里远的地方，郊区有一所学校，有一二十公里，相对还比较方便。所以在这方面来讲，您不要有太多地顾虑和担忧。（动机激励）     </p>
-<p>第四，支教期间，您的工作关系保留在单位不动，到那边去还有相关的车补、餐补、课时津贴等，待遇肯定比现在要高。并且工作经历，包括基层考核结果都会记入档案，对于以后您的晋升、评职称，甚至中层干部选拔，在同等条件下组织都会优先考虑的。您看，我们的李校长以前还到西藏支教过三年，后面成长的比较快。（动机激励）     </p>
-<p>第五，我觉得像您这么优秀的教师，基层是很需要的。您能带去新的教学理念思路，对 郊区孩子们的成长有帮助，也是您奉献精神淋漓尽致的一次体现。（动机激励）     </p>
-<p>第六，我知道您家里现在有点困难，上有老下有小，也比较有压力。所以，我希望您能 回去跟您家人好好商量一下。把我们校方的想法带回去，如果您还有什么疑问，回头向我们 校方反映，我们一定会全力以赴去解决。（动机激励）     </p>
-<p>最后，希望您能支持校方的决定，愉快地接受任务，把工作做好，好不好。谢谢您，今 天耽误您时间了，我们先聊到这啦。（收尾）</p>
-</blockquote>
-<hr>
-<blockquote>
-<p>你的辖区内经常有12岁左右的学生违规骑行共享单车，局领导很重视派你去解决。你多次找到共享单车负责人他都多次推脱，今天你又来了你准备怎么做。请现场模拟。</p>
-</blockquote>
-<p>传统思路：情景模拟逻辑层次不足，内容缺少说服力</p>
-<p><strong>一般流程</strong>：</p>
-<ul>
-<li><strong>安抚情绪</strong>——体谅困难</li>
-<li><strong>威逼利诱</strong>——危险现状（举出案例）、公司责任（讲法理）、这样的好处（树立形象、帮助处理不当使用）</li>
-<li><strong>建议鼓励</strong>——开锁验证、协同宣传</li>
-</ul>
-<blockquote>
-<p>你单位组织开展职业道德培训，可是单位人员普遍不积极，认为这个培训对实际工作没什么用，你该怎么<strong>动员</strong>？</p>
-</blockquote>
-<p>本题和组织计划题有些相似，可以：<strong>先调研，再分析，后解决</strong>。</p>
-<p>分析原因：培训内容、宣传不足、自身惰性</p>
-<ul>
-<li>1、调研</li>
-<li>2、更新培训内容——理实结合</li>
-<li>3、宣传号召——宣传栏、动员会</li>
-<li>4、行政推动</li>
-<li>5、典型带动</li>
-<li>6、个别沟通</li>
-</ul>
-<blockquote>
-<p>经验交流会上，两个同事就工作的开展方式各抒己见，认为对方的不科学，僵持不下，其他同事也热烈讨论，导致会议难以进入下一环节，作为会议的负责人，你怎么办？</p>
-</blockquote>
-<p>明确需要解决的问题：<strong>混乱、争吵、意见不统一</strong>。</p>
-<ul>
-<li><strong>肃清会场</strong></li>
-<li><strong>安抚情绪</strong>——会议宗旨、相互理解、争吵后果</li>
-<li><strong>制定会议规则</strong>——辩论赛规则、控制时间</li>
-<li><strong>民主投票+会议记录</strong></li>
-<li><strong>继续主持会议</strong></li>
-</ul>
-<p>模拟作答：</p>
-<blockquote>
-<p>考生开始作答：</p>
-<p><strong>首先呢</strong>，我会<strong>肃清会场</strong>，制止会议现场混乱。因为一个安静的一个会场啊，有利于我们的一个问题的解决啊，支持我们会议的一个有序进行。</p>
-<p><strong>其次呢</strong>，我会<strong>安抚双方的情绪</strong>，我会从以下几点开始展开：</p>
-<p>1.向双方阐明会议的宗旨，我们的会议的宗旨是讨论出一个科学的工作开展的一个方式。他并不是说需要，就是双方争论出一个你对我错出来。</p>
-<p>2.双方也需需要相互的一个理解，因为在我们的一个经验交流会上呢，双方可能来自不同的一个学科背景，然后看待问题的一个方式可能不一样，但是呢，并不是说必须就是有一个就是你正确他不正确，其实在实际生活中呢，很可能情况是啊，你的方法也具有合理性，它们也具有合理性。</p>
-<p>3.我会向双方阐明，我们这样争吵的后果。我们争吵与我们会议的宗旨是不相符，让我们的领导知道，以后呢就是我们都将会受到批评。</p>
-<p><strong>之后呢</strong>，我会<strong>制定会议规则</strong>，通过设置辩论赛的一个规则，以及民主投票的方式啊，来使双方的一个意见达成统一。因为辩论赛规则，它首先不会使双方发生言语争吵，这样也有利于达成一个意见的统一。同时我会做好相关的一个<strong>会议记录</strong>，然后上报给上级。</p>
-<p><strong>最后呢</strong>，我会<strong>继续主持会议</strong>，主导会议的一个发言顺序，使会议有序的进行到下一环节。</p>
-<p>考生作答完毕。</p>
-</blockquote>
-<h3 id="5-应急应变题"><a href="#5-应急应变题" class="headerlink" title="5.应急应变题"></a>5.应急应变题</h3><blockquote>
-<p>高考期间，有家长在高考考场附近拉起人墙，防止过往车辆干扰考生。家长与国王司机发生冲突，你是附近的民警，你怎么解决？</p>
-</blockquote>
-<p><strong>传统思路：表态、解决冲突、事后反思</strong></p>
-<p><strong>审题不清、定位不准、处理简单、假设过多</strong></p>
-<ul>
-<li>意义切题</li>
-<li>制止冲突、隔离双方</li>
-<li>联络人员、疏散人群</li>
-<li>了解缘由、处理矛盾</li>
-<li>联系交警、处理路况</li>
-<li>上报情况、宣传教育</li>
-</ul>
-<blockquote>
-<p>老王去税务服务厅办事，发现工作人员态度有问题，拍了照发上网，作为该税务服务厅的负责人，你怎么处理？</p>
-</blockquote>
-<p>列出需要解决的问题：媒体、当事工作人员、老王、单位</p>
-<p>处理：</p>
-<ul>
-<li>1、迅速回应媒体</li>
-<li>2、调研</li>
-<li>3、批评教育当事工作人员</li>
-<li>4、老王：登门道歉</li>
-<li>5、单位：规范服务态度建设——人员培训、监督平台、考核机制</li>
-<li>6、媒体：公示整改方案</li>
-</ul>
-<h4 id="5-1整改的一般方案"><a href="#5-1整改的一般方案" class="headerlink" title="5.1整改的一般方案"></a>5.1整改的一般方案</h4><ul>
-<li>人员培训</li>
-<li>监督平台</li>
-<li>考核机制</li>
-</ul>
-<h3 id="6-社会现象题"><a href="#6-社会现象题" class="headerlink" title="6.社会现象题"></a>6.社会现象题</h3><blockquote>
-<p>国家旅游局整治了景区乱象，取缔了一批景区的评级，但是游客反映乱象仍然存在，你怎么看？</p>
-</blockquote>
-<p>传统思路：辩证看待，有作用——仍不足——找原因——提对策</p>
-<p>可能存在：原因分析表面化、对策松散、缺少可行性</p>
-<ul>
-<li>1、谈意义：<ul>
-<li>政府角度：重拳震慑</li>
-<li>游客角度：评价引导</li>
-</ul>
-</li>
-<li>2、看问题：景区管理不足、游客需求上升</li>
-<li>3、析原因：<ul>
-<li>观念：一次性买卖（景区、政府、游客）</li>
-<li>机制：力度不够（违法成本过低）、责任主体多元、社会监督不足</li>
-</ul>
-</li>
-<li>4、提对策：<ul>
-<li>提高问题认识：问题的复杂性、长期性、影响（政府）</li>
-<li>治理体系建设：执法必严、旅游警察、联合执法</li>
-<li>监督平台建设：官方暗访评价、游客曝光平台、景区定期评级</li>
-<li>媒体宣传曝光：树立典型，带动一片</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>交警春节向司机发有交通知识的贺年片，对此，你怎么看？</p>
-</blockquote>
-<p>正面的社会现象谈完意义后，可以谈谈扩展完善，一是横向补充，二是纵向贯彻，三是自我号召</p>
-<ul>
-<li>谈意义：<ul>
-<li>1、创新交规宣传方式；</li>
-<li>2、构建和谐警民关系；</li>
-<li>3、树立服务型政府形象</li>
-</ul>
-</li>
-<li>谈完善：<ul>
-<li>1、持续创新，丰富宣 实，贺年片更要注重类容</li>
-<li>3、从我做起，不忘初心牢记使命</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>某机关为了加强廉政文化建设，向党员干部家属征集“廉政亲情寄语”，并悬挂在办公室最醒目的地方。如“吃菜根蛋中有味，守清廉梦里不惊” “公家的钱不能动，平安就是最大的福”。请谈谈对上述举措的看法。</p>
-</blockquote>
-<ul>
-<li>谈意义：<ul>
-<li>1、家属：腐败通常是从家人开始，也给家庭带来灾难</li>
-<li>2、干部：家庭关怀及督促</li>
-<li>3、群众：提升政府形象</li>
-<li>4、标语的内容：接地气、谈实在</li>
-<li>5、国家：家风-党风-国风</li>
-<li>6、廉政文化建设：根源治理腐败</li>
-</ul>
-</li>
-<li>谈完善：<ul>
-<li>横向扩展：影视文化、定期学习、政治巡视、源头净化</li>
-<li>纵向贯彻落实/长效机制：实践教育（井冈山）</li>
-</ul>
-</li>
-</ul>
-<h3 id="7-综合分析题"><a href="#7-综合分析题" class="headerlink" title="7.综合分析题"></a>7.综合分析题</h3><blockquote>
-<p>尽管现在高校的人才越来越多，但是乡村的教师人数正在不断流失，如果你作为负责人，<strong>你打算怎么解决</strong>乡村教师流失的现象？</p>
-</blockquote>
-<p>先调研，再分析，再解决。</p>
-<p>分析原因（换位思考）：生活条件、工作环境、职业荣誉感、职业前景、新生力量</p>
-<ul>
-<li>1、开展调研——教师群体、相关部门（政策制定部门，如人社部）、成功经验</li>
-<li>2、提升待遇——住房、办公条件、社会保障</li>
-<li>3、改善环境——尊师重道的氛围</li>
-<li>4、关怀激励——社会力量的号召</li>
-<li>5、交换学习——晋升平台</li>
-<li>6、扩大宣传——典型示范带动</li>
-</ul>
-<p>模拟做答</p>
-<blockquote>
-<p>考生开始作答，如果我作为解决乡村教师流失的负责人，我会按如下几点展开工作：</p>
-<p>第一，开展调研。首先，我会像首先向相关的教师群体调研，他们对于不愿意或者说不想去乡村当老师的原因。其次，我会向相关部门进行调研。比如说啊，当地的一些人社部之类的啊，到底是不是因为政策没有到位啊？比如落户、住房等等。最后，我也会对兄弟乡村里面的成功的一些乡村教师的经验来进行调研。</p>
-<p>第二，我会提升乡村教师的待遇。这个待遇不仅仅指工资，它还包括乡村教师的住房问题，比如说我们可以对于乡村教师提供免费的人才公寓，多少年限之后可以申请永久的福利房。同时，我们也要改善他的办公环境啊，硬件环境也是不可或缺的。比如说啊，像今年的陕西省某贫困县投资七个亿来建新校区，这就是一个很好的例子啊。最后呢，我们要提供相应的社会保障，比如子女入学、配偶工作等问题。</p>
-<p>第三，要改善环境，指的是要在乡村营造尊师重道的氛围，这样能给乡村教师带来职业荣誉感。比如说啊，可以与村支书联合开展一些尊师重道的一些宣传活动之类的。</p>
-<p>第四，给予乡村教师相应的关怀与激励，号召全社会的力量去给予他们关怀，提升他们的职业荣誉感啊。比如说啊，马云的微博ID就是乡村教师马云，他经常发一些与公益相关的微博，改善人们对于乡村教师的固有看法。</p>
-<p>第五，给予乡村教师相对可靠的晋升平台。比如说乡村教师可以与省城的一些学校来进行交换学习，能够给他们一个比较光明的职业前景。</p>
-<p>第六呢，要扩大宣传。一方面，需要宣传我们能够给予乡村教师的福利与保障。另一方面，我们要树立一个典型的、积极的乡村教师的一个例子，来发挥典范带头的作用，一个点带动一片。</p>
-<p>考生作答完毕。</p>
-</blockquote>
-<blockquote>
-<p>小商小贩占道经营严重，影响附近的居民和学校的正常生活，你是城管工作人员，联合了工商等很多部门一起进行联合整治。如果你是这个城管工作人员，你会如何开展工作？</p>
-</blockquote>
-<p><strong>联合整治</strong>思路：</p>
-<ul>
-<li>1、调研</li>
-<li>2、沟通协调会</li>
-<li>3、广泛宣传</li>
-<li>4、突击执法</li>
-<li>5、持续监督（平台）</li>
-</ul>
-<p>模拟作答：</p>
-<blockquote>
-<p>考生开始作答，如果我是证明城管工作人员，我会按照如下几点展开工作：</p>
-<p>第一，开展调研。首先我会向附近的居民和学校发放问卷调查啊，了解他们对于小芳小贩占道经营，对他们的一个影响程度啊，第二呢，我会采取文献调研的形式。查看是否有铭文的一个法律规定，对于这种占道经营进进行了明确规定。</p>
-<p>第二，我会开展沟通协调会啊，我会联合多个部门一起在会上进行沟通讨论。一方面呢，对于我以上的调研结果予以公布；另一方面呢，我们在会上也要商讨出一个一致的解决方案啊，并对每个部门进行分配工作。</p>
-<p>第三呢，就是广泛宣传。我们要让恶这些小商小贩认识到这个问题的严重性，首先我们可以采用啊海张贴海报、限制整改单的方式，向他们指出占道经营的影响；同时呢，我们要耐心地对他们进行劝导啊，向他们普及相应的法律知识。</p>
-<p>第四呢，是我们要进行执法，我们的执法要突击执法，要不定期的开展，要坚决与这种占道经营这种行为作斗争，不能做运动式执法。</p>
-<p>第五是我们要做好持续监督的工作。我们可以建设一些持续监督的一些平台，比如说把我们的监督邮箱、监督微信公众号、监督电话等予以公开，以广告牌的形式放置于占道经营的街道上。</p>
-<p>第六呢，我们只用于堵是不行的，我们要疏堵结合，我们要给予他们建议，因为毕竟他们在这里能够经营那证明这里还是有需求的。那么呢，我们可以联系啊周围的一些物业、街道办，看能不能划定一块区域来，专门用于小商小贩的一个经营工作，可以让他们交相应的物业费，进行合法经营，同时满足周边人民的需求。</p>
-<p>考生作答完毕。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>结构化面试</tag>
-        <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>2020-09-12初体验结构化面试</title>
     <url>/2020/09/14/2020-09-12%E5%88%9D%E4%BD%93%E9%AA%8C%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</url>
     <content><![CDATA[<h3 id="1-体验"><a href="#1-体验" class="headerlink" title="1.体验"></a>1.体验</h3><p>记录一下我的首次结构化面试。</p>
@@ -4480,116 +4710,6 @@
       <tags>
         <tag>结构化面试</tag>
         <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>行测--判断推理</title>
-    <url>/2020/07/11/%E8%A1%8C%E6%B5%8B-%E5%88%A4%E6%96%AD%E6%8E%A8%E7%90%86/</url>
-    <content><![CDATA[<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><blockquote>
-<ol>
-<li><p>图形推理</p>
-</li>
-<li><p>定义判断</p>
-</li>
-<li><p>类比推理</p>
-</li>
-<li><p>逻辑推理</p>
-</li>
-</ol>
-</blockquote>
-<a id="more"></a>
-
-<h3 id="1-图形推理"><a href="#1-图形推理" class="headerlink" title="1.图形推理"></a>1.图形推理</h3><p><img src="/../../../../../../../../images/image-20200711200625794.png" alt="image-20200711200625794"></p>
-<p><img src="/../../../../../../../../images/image-20200711200707743.png" alt="image-20200711200707743"></p>
-<h3 id="2-定义判断"><a href="#2-定义判断" class="headerlink" title="2.定义判断"></a>2.定义判断</h3><ul>
-<li><p><strong>看清题干</strong></p>
-<p>属于/不属于；单定义/多定义</p>
-</li>
-<li><p><strong>关键词</strong></p>
-<ul>
-<li>主/客体</li>
-<li>原因/条件 ：因为/由于…</li>
-<li>结果：导致/从而…</li>
-<li>方式：通过/利用…</li>
-<li>目的：以/达到…</li>
-<li>时间：当/在….阶段</li>
-</ul>
-</li>
-<li><p><strong>比较选项</strong></p>
-<p>同构选项排除</p>
-</li>
-<li><p><strong>Tips</strong></p>
-<ul>
-<li>优先看到  概念所在那句话的  <strong>句号</strong>；</li>
-<li>注意阅读的补充说明  <strong>“即”，“也就是说”</strong>…</li>
-<li>出题人<strong>讲故事</strong>，略过</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-类比推理"><a href="#3-类比推理" class="headerlink" title="3.类比推理"></a>3.类比推理</h3><p><img src="/../../../../../../../../images/image-20200711202834919.png" alt="image-20200711202834919"></p>
-<h3 id="4-逻辑推理"><a href="#4-逻辑推理" class="headerlink" title="4.逻辑推理"></a>4.逻辑推理</h3><h4 id="4-1-翻译"><a href="#4-1-翻译" class="headerlink" title="4.1 翻译"></a>4.1 翻译</h4><ul>
-<li><p><strong>充分条件</strong>        A-&gt;B</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只要A...就B</span><br><span class="line">如果A...那么B</span><br><span class="line">若A...则B</span><br><span class="line">**必须**</span><br><span class="line">所有的A是B</span><br><span class="line">一旦A，就B</span><br><span class="line">要想A，就需要B</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>必要条件</strong>       B-&gt;A</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">只有A，才B</span><br><span class="line">A是B的基础&#x2F;前提</span><br><span class="line">A对B不可或缺</span><br><span class="line">除非A，否则 非B #注意这个除非</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>矛盾命题</strong></p>
-</li>
-<li><p><strong>联言命题</strong></p>
-</li>
-<li><p><strong>Tips：</strong></p>
-<p>除非A，否则B  ——-》非A，则B  ———》-A —&gt;B</p>
-</li>
-</ul>
-<h4 id="4-2加强-削弱"><a href="#4-2加强-削弱" class="headerlink" title="4.2加强/削弱"></a>4.2加强/削弱</h4><ul>
-<li><strong>加强论证</strong></li>
-</ul>
-<p><img src="/../../../../../../../../images/image-20200711192836327.png" alt="image-20200711192836327"></p>
-<ul>
-<li><strong>削弱/质疑</strong></li>
-</ul>
-<p><img src="/../../../../../../../../images/image-20200711194140376.png" alt="image-20200711194140376"></p>
-<ul>
-<li><strong><em>论点与论据一致时，若要加强，优先考虑 直接补充论据；若要削弱，优先考虑直接否点论点。</em></strong></li>
-</ul>
-<h4 id="4-3日常结论题"><a href="#4-3日常结论题" class="headerlink" title="4.3日常结论题"></a>4.3日常结论题</h4><ul>
-<li>不选 ： 逻辑错误/偷换概念</li>
-<li>慎选：  一定/必定</li>
-<li>优选：  可能</li>
-</ul>
-]]></content>
-      <categories>
-        <category>公考</category>
-      </categories>
-      <tags>
-        <tag>行测</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文档处理的好助手--pandas的使用</title>
-    <url>/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1.前言"></a>1.前言</h3><p>​        回想了一下，我都好久没有用python来处理了文档了，记得最近一次是去年暑假用cpp处理csv文件。正好今天有个姐姐需要处理下文件，一个很简单的需求：将xls转换为xlsx，并添加一行和一列的index。正好发现pandas忘的一干二净了，重新学一学，记录一下。</p>
-<h3 id="2-处理过程"><a href="#2-处理过程" class="headerlink" title="2.处理过程"></a>2.处理过程</h3><ul>
-<li><p>构造Index等差数列</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hang &#x3D; list(range(220, 451, 5))</span><br><span class="line">lie &#x3D; [&#39;&#39;] + list(range(300, 551, 2))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加到首行、首列</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#添加行，对-1行赋值，然后将index+1，重新排序</span><br><span class="line">data.loc[-1] &#x3D; hang</span><br><span class="line">data.index &#x3D; data.index + 1</span><br><span class="line">data.sort_index(inplace&#x3D;True)</span><br><span class="line">#本方法在read_table时会报错，-1行无法赋值</span><br><span class="line"></span><br><span class="line">#以下方式均可适用</span><br><span class="line">df1&#x3D;pd.DataFrame(hang).T</span><br><span class="line">data&#x3D;df1.append(data)</span><br><span class="line"></span><br><span class="line">#添加列</span><br><span class="line">data.insert(0,&#39;newcol&#39;,lie)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>格式转换</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#格式转换</span><br><span class="line">data.to_excel(path + &#39;&#x2F;&#39; + file_name_be + &#39;_Transformat.xlsx&#39;,index &#x3D; False,header&#x3D;None)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="3-知识点总结"><a href="#3-知识点总结" class="headerlink" title="3.知识点总结"></a>3.知识点总结</h3>]]></content>
-      <categories>
-        <category>工具</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>pandas</tag>
-        <tag>文档处理</tag>
       </tags>
   </entry>
 </search>
