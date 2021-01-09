@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2020-12-30T11:00:03.452Z</updated>
+  <updated>2021-01-09T07:05:26.157Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux 开机自启服务</title>
+    <link href="http://blog.lovexmtx.icu/2021/01/09/Linux-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E6%9C%8D%E5%8A%A1/"/>
+    <id>http://blog.lovexmtx.icu/2021/01/09/Linux-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E6%9C%8D%E5%8A%A1/</id>
+    <published>2021-01-09T05:25:37.000Z</published>
+    <updated>2021-01-09T07:05:26.157Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="IT" scheme="http://blog.lovexmtx.icu/categories/IT/"/>
+    
+    
+      <category term="Linux" scheme="http://blog.lovexmtx.icu/tags/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>请回答2020</title>
+    <link href="http://blog.lovexmtx.icu/2020/12/31/%E8%AF%B7%E5%9B%9E%E7%AD%942020/"/>
+    <id>http://blog.lovexmtx.icu/2020/12/31/%E8%AF%B7%E5%9B%9E%E7%AD%942020/</id>
+    <published>2020-12-31T13:43:32.000Z</published>
+    <updated>2021-01-09T07:00:10.211Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-2020年都干了些什么？&quot;&gt;&lt;a href=&quot;#1-2020年都干了些什么？&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="http://blog.lovexmtx.icu/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="年度" scheme="http://blog.lovexmtx.icu/tags/%E5%B9%B4%E5%BA%A6/"/>
+    
+      <category term="总结" scheme="http://blog.lovexmtx.icu/tags/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>如何做雷达图</title>
@@ -88,7 +144,7 @@
     <link href="http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <id>http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
     <published>2020-09-18T10:32:02.000Z</published>
-    <updated>2020-09-22T08:00:27.000Z</updated>
+    <updated>2020-12-30T11:12:49.295Z</updated>
     
     <summary type="html">
     
@@ -561,65 +617,6 @@
       <category term="成语" scheme="http://blog.lovexmtx.icu/tags/%E6%88%90%E8%AF%AD/"/>
     
       <category term="词语" scheme="http://blog.lovexmtx.icu/tags/%E8%AF%8D%E8%AF%AD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>一种特别的百度云离线下载工具--bypy</title>
-    <link href="http://blog.lovexmtx.icu/2020/07/08/%E4%B8%80%E7%A7%8D%E7%89%B9%E5%88%AB%E7%9A%84%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7-bypy/"/>
-    <id>http://blog.lovexmtx.icu/2020/07/08/%E4%B8%80%E7%A7%8D%E7%89%B9%E5%88%AB%E7%9A%84%E7%99%BE%E5%BA%A6%E4%BA%91%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD%E5%B7%A5%E5%85%B7-bypy/</id>
-    <published>2020-07-08T05:01:24.000Z</published>
-    <updated>2020-09-01T14:19:30.557Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;相信大家经常会苦恼于百度云的下载速度，且随着PanDowmload、BaiduExporter等工具的被封，除非开通SVIP，否则就只能忍受万恶的100Kb/s的龟速。&lt;/p&gt;
-&lt;p&gt;于是我想到了之前所使用的bypy的这个工具，仅需要一台linux主机就可以开启属于你个人的离线下载。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Tips：bypy并没有破解百度云，不过搭配Aria2的&lt;strong&gt;下载速度&lt;/strong&gt;也能达到&lt;strong&gt;300kb/s+&lt;/strong&gt;了。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="实用工具" scheme="http://blog.lovexmtx.icu/categories/%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="离线下载" scheme="http://blog.lovexmtx.icu/tags/%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/"/>
-    
-      <category term="折腾" scheme="http://blog.lovexmtx.icu/tags/%E6%8A%98%E8%85%BE/"/>
-    
-      <category term="百度云" scheme="http://blog.lovexmtx.icu/tags/%E7%99%BE%E5%BA%A6%E4%BA%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>行测--资料分析</title>
-    <link href="http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/"/>
-    <id>http://blog.lovexmtx.icu/2020/07/07/%E8%A1%8C%E6%B5%8B-%E8%B5%84%E6%96%99%E5%88%86%E6%9E%90/</id>
-    <published>2020-07-07T08:44:50.000Z</published>
-    <updated>2020-09-15T03:55:15.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;资料分析一直是行测考试中较为重要的一个模块，个人认为是 &lt;strong&gt;得分稳&lt;/strong&gt;、&lt;strong&gt;分值高&lt;/strong&gt;、&lt;strong&gt;性价比高&lt;/strong&gt;的模块。&lt;/p&gt;
-&lt;p&gt;最近，由于复习进入&lt;strong&gt;“深水区”&lt;/strong&gt;，特地重新梳理一下资料分析的知识点。&lt;/p&gt;
-&lt;h3 id=&quot;目录&quot;&gt;&lt;a href=&quot;#目录&quot; class=&quot;headerlink&quot; title=&quot;目录&quot;&gt;&lt;/a&gt;目录&lt;/h3&gt;&lt;blockquote&gt;
-&lt;ol&gt;
-&lt;li&gt;如何快速查找数据？&lt;/li&gt;
-&lt;li&gt;速算技巧&lt;/li&gt;
-&lt;li&gt;考点整理&lt;/li&gt;
-&lt;li&gt;易错知识点&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
-    
-    
-      <category term="行测" scheme="http://blog.lovexmtx.icu/tags/%E8%A1%8C%E6%B5%8B/"/>
     
   </entry>
   
