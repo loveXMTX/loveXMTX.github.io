@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2021-01-09T07:05:26.157Z</updated>
+  <updated>2021-04-12T07:09:37.313Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>我（唔）有（系）理（咸）想（鱼）</title>
+    <link href="http://blog.lovexmtx.icu/2021/04/12/%E6%88%91%EF%BC%88%E5%90%BE%EF%BC%89%E6%9C%89%EF%BC%88%E7%B3%BB%EF%BC%89%E7%90%86%EF%BC%88%E5%92%B8%EF%BC%89%E6%83%B3%EF%BC%88%E9%B1%BC%EF%BC%89-%E9%80%90%E6%A2%A6%E5%BF%83%E8%B7%AF/"/>
+    <id>http://blog.lovexmtx.icu/2021/04/12/%E6%88%91%EF%BC%88%E5%90%BE%EF%BC%89%E6%9C%89%EF%BC%88%E7%B3%BB%EF%BC%89%E7%90%86%EF%BC%88%E5%92%B8%EF%BC%89%E6%83%B3%EF%BC%88%E9%B1%BC%EF%BC%89-%E9%80%90%E6%A2%A6%E5%BF%83%E8%B7%AF/</id>
+    <published>2021-04-12T00:30:13.000Z</published>
+    <updated>2021-04-12T07:09:37.313Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;​    Dream or saltfish，that is a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="杂谈" scheme="http://blog.lovexmtx.icu/categories/%E6%9D%82%E8%B0%88/"/>
+    
+    
+      <category term="随笔" scheme="http://blog.lovexmtx.icu/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="心路" scheme="http://blog.lovexmtx.icu/tags/%E5%BF%83%E8%B7%AF/"/>
+    
+      <category term="人生" scheme="http://blog.lovexmtx.icu/tags/%E4%BA%BA%E7%94%9F/"/>
+    
+      <category term="选择" scheme="http://blog.lovexmtx.icu/tags/%E9%80%89%E6%8B%A9/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux 开机自启服务</title>
@@ -593,31 +627,6 @@
     
     
       <category term="行测" scheme="http://blog.lovexmtx.icu/tags/%E8%A1%8C%E6%B5%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>行测-易错成语积累</title>
-    <link href="http://blog.lovexmtx.icu/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/"/>
-    <id>http://blog.lovexmtx.icu/2020/07/10/%E8%A1%8C%E6%B5%8B-%E6%98%93%E9%94%99%E6%88%90%E8%AF%AD%E7%A7%AF%E7%B4%AF/</id>
-    <published>2020-07-10T03:52:26.000Z</published>
-    <updated>2020-09-15T04:07:59.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h3&gt;&lt;p&gt;这篇博客用以加深行测的词汇积累!&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
-    
-    
-      <category term="行测" scheme="http://blog.lovexmtx.icu/tags/%E8%A1%8C%E6%B5%8B/"/>
-    
-      <category term="成语" scheme="http://blog.lovexmtx.icu/tags/%E6%88%90%E8%AF%AD/"/>
-    
-      <category term="词语" scheme="http://blog.lovexmtx.icu/tags/%E8%AF%8D%E8%AF%AD/"/>
     
   </entry>
   
