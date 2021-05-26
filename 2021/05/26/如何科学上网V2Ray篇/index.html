@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>如何科学上网V2Ray篇 | Welcome To Byp's Blog</title><meta name="description" content="注：本文只供研究学习网络技术使用，请阅读者在24小时内忘记本文内容，谢绝网监请喝茶。 This project is funded by 500hypl coins!!! Abstract科学上网旨在通过利用一些技术手段，来访问被GFW禁止&#x2F;过滤掉无法访问的网站&#x2F;网络，如Youtube、Netfix、Quora等英文学习网站。科学上网对于程序员、跨境电商等人员有着重要的意义。本文简单介绍了科学上网"><meta name="keywords" content="IT,梯子"><meta name="author" content="Bie Yongpan,bieyp6@foxmail.com"><meta name="copyright" content="Bie Yongpan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="/images/favicon.ico"><link rel="canonical" href="http://blog.lovexmtx.icu/2021/05/26/%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91V2Ray%E7%AF%87/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="如何科学上网V2Ray篇"><meta property="og:url" content="http://blog.lovexmtx.icu/2021/05/26/%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91V2Ray%E7%AF%87/"><meta property="og:site_name" content="Welcome To Byp's Blog"><meta property="og:description" content="注：本文只供研究学习网络技术使用，请阅读者在24小时内忘记本文内容，谢绝网监请喝茶。 This project is funded by 500hypl coins!!! Abstract科学上网旨在通过利用一些技术手段，来访问被GFW禁止&#x2F;过滤掉无法访问的网站&#x2F;网络，如Youtube、Netfix、Quora等英文学习网站。科学上网对于程序员、跨境电商等人员有着重要的意义。本文简单介绍了科学上网"><meta property="og:image" content="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526163421.png"><meta property="article:published_time" content="2021-05-26T11:03:59.000Z"><meta property="article:modified_time" content="2021-05-26T11:23:16.588Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?34c1e86498f6b84e5fb4c3f4aa00bd09";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '4.2.1',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: {"one_hour":"刚刚","hours":"小时前","day":"天前"},
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-05-26 19:23:16 19:23:16'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="Welcome To Byp's Blog" type="application/atom+xml">
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/logo.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">29</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">37</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">6</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-link"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/author/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="photo"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Abstract"><span class="toc-number">1.</span> <span class="toc-text">Abstract</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-number">2.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#V2Ray部署及使用指南"><span class="toc-number">3.</span> <span class="toc-text">V2Ray部署及使用指南</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526163421.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Welcome To Byp's Blog</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/photos/"><i class="fa-fw fas fa-link"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/author/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">如何科学上网V2Ray篇</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-05-26T11:03:59.000Z" title="发表于 2021-05-26 19:03:59 19:03:59">2021-05-26 19:03:59</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-05-26T11:23:16.588Z" title="更新于 2021-05-26 19:23:16 19:23:16">2021-05-26 19:23:16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><p><strong>注：本文只供研究学习网络技术使用，请阅读者在24小时内忘记本文内容，谢绝网监请喝茶。</strong></p>
+<p><strong><em>This project is funded by 500hypl coins!!!</em></strong></p>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>科学上网旨在通过利用一些技术手段，来访问被GFW禁止/过滤掉无法访问的网站/网络，如<em>Youtube、Netfix、Quora</em>等英文学习网站。科学上网对于程序员、跨境电商等人员有着重要的意义。本文简单介绍了科学上网的概念、以及常用的科学上网方式（<em>VPN、SS、V2Ray等英文学习帐号</em>），最后针对V2Ray这一技术进行了简单的配置介绍、以及简单的使用说明。</p>
+<p><strong><em>再次说明：本文只供研究学习网络技术使用，请阅读者在24小时内忘记本文内容，谢绝网监请喝茶。</em></strong></p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>本项目主要介绍科学上网的概念和主流的一些方法，仅作简单科普不涉及硬核网络知识，同时本项目不推荐亦不提供服务。</p>
+<ul>
+<li><p>什么是科学上网？</p>
+<p><strong>科学上网</strong>(<strong>翻墙</strong>)的本质是利用技术手段，能够访问在中国被GFW禁止/过滤掉无法访问的网站/网络。本文所讨论的主要是通过技术手段，可以访问国外的和政治无关的，主要是涉及到<strong>计算机技术开发</strong>相关的内容，比如google、github、Wikipedia、stackoverflow等等技术资源，用于<strong>技术学习等目的</strong>（当然偶尔也会用用Quora、Twitter、Youtube、Netfix等英文学习帐号）。</p>
+</li>
+<li><p>GFW是什么？</p>
+<blockquote>
+<p><strong>防火长城</strong><a href="https://zh.wikipedia.org/zh-sg/防火长城#cite_note-1" target="_blank" rel="noopener">[1]</a>（英语：<strong>Great Firewall</strong>，常用简称：<strong>GFW</strong>，中文也称<strong>中国国家防火墙</strong><a href="https://zh.wikipedia.org/zh-sg/防火长城#cite_note-fbx-2" target="_blank" rel="noopener">[2]</a>，中国大陆民众俗称<strong>墙</strong>、<strong>网络长城</strong>、<strong>功夫网</strong><a href="https://zh.wikipedia.org/zh-sg/防火长城#cite_note-3" target="_blank" rel="noopener">[3]</a>等等），是对<a href="https://zh.wikipedia.org/wiki/中华人民共和国政府" target="_blank" rel="noopener">中华人民共和国政府</a>对中国大陆境内的<a href="https://zh.wikipedia.org/wiki/互联网" target="_blank" rel="noopener">互联网</a>所创建的<a href="https://zh.wikipedia.org/wiki/互联网审查" target="_blank" rel="noopener">审查</a>系统（包括相关行政审查系统）的统称。</p>
+<p>—-WikiPedia</p>
+</blockquote>
+</li>
+<li><p>墙的作用以及意义</p>
+<p>我个人认为，GFW更多的作用是为了保护一些尚未有明确分辨能力的人被西方互联网所影响，。</p>
+<blockquote>
+<p>防火长城的作用是监控所有经过国际网关的通讯，对认为不符合中国共产党官方要求的传输内容，进行干扰、阻断、屏蔽。</p>
+<p>—-WikiPedia</p>
+</blockquote>
+</li>
+<li><p>翻墙的原理</p>
+<p>此处不作说明，<a href="http://allenn.cn/articles/2016-10/2016-10-20-learn-gfw/" target="_blank" rel="noopener">详细请参考这篇Blog</a></p>
+</li>
+<li><p>主流的翻墙方法</p>
+<p>目前主流的梯子分为三种：</p>
+<ul>
+<li><p><strong>VPN</strong></p>
+<blockquote>
+<p><strong>虚拟私人网络</strong>（英语：virtual private network，缩写：<strong>VPN</strong>）是常用于连接中、大型企业或团体间私人网络的通讯方法。它利用<a href="https://zh.wikipedia.org/wiki/隧道协议" target="_blank" rel="noopener">隧道协议</a>（Tunneling Protocol）来达到发送端认证、消息保密与准确性等功能。</p>
+<p>—-WikiPedia</p>
+</blockquote>
+<p>此类应该是最广为人知的翻墙工具了，可以理解为，<strong>加了密的专用的网络/专线</strong>，通过专线访问国外资源，从技术上保证不会被和谐掉。常用的有<strong>蓝灯</strong>、<strong>PandaVPN</strong>等</p>
+<ul>
+<li>优点：相对安全性还不错</li>
+<li>缺点：<ul>
+<li>开启了VPN -&gt; 所有网络请求都要走VPN -&gt; 对于国内网站，本来无需翻墙，就浪费了流量，可能会访问速度不理想</li>
+<li>关闭了VPN -&gt; 所有的都不走VPN -&gt; 有些需要翻墙的就没办法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ShadowSocks</strong></p>
+<p>ShadowSocks算是大名鼎鼎的转发工具了，被广泛用于突破<a href="https://zh.wikipedia.org/wiki/防火长城" target="_blank" rel="noopener">防火长城</a>（GFW），以浏览被封锁、遮蔽或干扰的内容。2015年8月22日，Shadowsocks原作者Clowwindy称受到了<a href="https://zh.wikipedia.org/wiki/中华人民共和国网络审查" target="_blank" rel="noopener">中华人民共和国政府的压力</a>，宣布停止维护此计划（项目）并移除其个人页面所存储的源代码。</p>
+<ul>
+<li><p>运行原理</p>
+<p>Shadowsocks的运行原理与其他代理工具基本相同，使用特定的中转服务器完成数据传输。例如，用户无法直接访问<a href="https://zh.wikipedia.org/wiki/Google" target="_blank" rel="noopener">Google</a>，但代理服务器可以访问，且用户可以直接连接代理服务器，那么用户就可以通过特定软件连接代理服务器，然后由代理服务器获取网站内容并回传给用户，从而实现代理上网的效果。服务器和客户端软件会要求提供密码和加密方式，双方一致后才能成功连接。连接到服务器后，客户端会在本机构建一个本地Socks5代理（或VPN、透明代理等）。浏览网络时，客户端通过这个Socks5（或其他形式）代理收集网络流量，然后再经混淆加密发送到服务器端，以防网络流量被识别和拦截，反之亦然。</p>
+</li>
+<li><p>使用感受</p>
+<p>曾经我也一直使用SS，但具有流量特征，易被运营商拦截；近几年SSR的隐蔽性也不太好，很容易被GFW所侦测，但SS易部署。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>V2Ray</strong></p>
+<p>V2Ray可以视为SS的升级版，其基本用法和思路，和ss一致，但效果比ss好，稳定抗干扰能力强，配合<a href="https://since1989.org/interserver/coupon-vps-locations.html" target="_blank" rel="noopener">破解版锐速</a>和<a href="https://since1989.org/interserver/coupon-vps-locations.html" target="_blank" rel="noopener">谷歌tcp bbr加速算法</a>，流畅观看youtube高清视频。<a href="https://github.com/v2ray/v2ray-core" target="_blank" rel="noopener">v2ray项目</a>是一个技术框架，安装v2ray后，你可直接配置vmess、ss及socks等类型英语学习账号，十分方便。并且vmess和ss能在一台vps服务器共存运行，彼此互不干扰。</p>
+<p>（本文主要介绍V2Ray的部署和使用方法。）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="V2Ray部署及使用指南"><a href="#V2Ray部署及使用指南" class="headerlink" title="V2Ray部署及使用指南"></a>V2Ray部署及使用指南</h3><ul>
+<li><p><strong>1、购买VPS</strong></p>
+<p>购买VPS主要还是<a href="https://www.vultr.com/?ref=6807264" target="_blank" rel="noopener">Vultr</a>、<a href="https://www.linode.com/?r=b7c730c924eec2a9ce5c775b7a53563bda58bcf3" target="_blank" rel="noopener">Linode</a>、<a href="https://m.do.co/c/b75839563221" target="_blank" rel="noopener">digitalocean</a>这些，其中<a href="https://www.vultr.com/?ref=6807264" target="_blank" rel="noopener">Vultr</a>性价比很高，月付最低2.5美元，足够个人用户使用。<a href="https://www.linode.com/?r=b7c730c924eec2a9ce5c775b7a53563bda58bcf3" target="_blank" rel="noopener">Linode</a>性能稳定，月付5美元，1G内存，1TB流量，支持信用卡和paypal付款。<a href="https://m.do.co/c/b75839563221" target="_blank" rel="noopener">digitalocean</a>中国用户少，线路稳定。当然你也可以选择阿里云香港轻量级应用服务器，仅需24RMB/月就可以啦，但具体稳定性我没有使用过。</p>
+<p>我使用的是DigitalOcean，Singapore地区，$5/month，使用起来还不错。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210525225025.png" alt=""></p>
+</li>
+<li><p><strong>2、部署V2Ray服务端</strong></p>
+<p>现在已经由很多成熟的一键脚本安装了，我使用的是<a href="https://github.com/loveXMTX/V2Ray_ws-tls_bash_onekey" target="_blank" rel="noopener">V2Ray 基于 Nginx 的 vmess+ws+tls 一键安装脚本</a>。</p>
+<ul>
+<li><p><strong>准备工作</strong></p>
+<ul>
+<li><p><strong>你需要准备一个域名，并将A记录添加好</strong></p>
+<p>其实图方便的话在阿里云买就好了，一般做活动可以买那种5块一年的icu、xyz等域名。</p>
+<p>但需要注意的是，在国内服务商购买域名需要实名认证，介意者建议选择国外的域名服务商，例如<a href="https://blog.sprov.xyz/go/godaddy-sg" target="_blank" rel="noopener">godaddy</a>是世界上最大的域名服务商，品质有保障，如何购买请参考<a href="https://blog.sprov.xyz/2019/03/11/cdn-v2ray-safe-proxy/#%E5%9B%9B%E3%80%81%E4%BD%BF%E7%94%A8_CloudFlare_CDN" target="_blank" rel="noopener">拯救被墙的IP，CDN + v2ray</a></p>
+</li>
+<li><p>事先阅读一下了解 ，<a href="https://www.v2ray.com/" target="_blank" rel="noopener">V2Ray官方说明</a>，TLS WebSocket 及 V2ray 相关信息</p>
+</li>
+<li><p><code>yum install wget</code></p>
+</li>
+</ul>
+</li>
+<li><p><strong>安装、更新方式</strong></p>
+<p><strong>Vmess+websocket+TLS+Nginx+Website</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate -q -O install.sh &quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wulabing&#x2F;V2Ray_ws-tls_bash_onekey&#x2F;master&#x2F;install.sh&quot; &amp;&amp; chmod +x install.sh &amp;&amp; bash install.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置完成后，访问你的域名，大概是这样子</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526163421.png" alt="3D元素周期表"></p>
+</li>
+<li><p><strong>注意事项</strong></p>
+<ul>
+<li>如果你不了解脚本中各项设置的具体含义，除域名外，请使用脚本提供的默认值</li>
+</ul>
+</li>
+<li><p>使用本脚本需要你拥有 Linux 基础及使用经验，了解计算机网络部分知识，计算机基础操作</p>
+<ul>
+<li>目前支持Debian 9+ / Ubuntu 18.04+ / Centos7+ ，部分Centos模板可能存在难以处理的编译问题，建议遇到编译问题时，请更换至其他系统模板</li>
+<li>群主仅提供极其有限的支持，如有问题可以询问群友</li>
+<li>每周日的凌晨3点，Nginx 会自动重启以配合证书的签发定时任务进行，在此期间，节点无法正常连接，预计持续时间为若干秒至两分钟</li>
+</ul>
+</li>
+<li><p><strong>相关命令说明</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#查看客户端配置</span><br><span class="line">  cat ~&#x2F;v2ray_info.txt</span><br><span class="line">  </span><br><span class="line">  #启动 V2ray</span><br><span class="line">  systemctl start v2ray</span><br><span class="line">  </span><br><span class="line">  #停止 V2ray</span><br><span class="line">  systemctl stop v2ray</span><br><span class="line">  </span><br><span class="line">  #启动 Nginx</span><br><span class="line">  systemctl start nginx</span><br><span class="line">  </span><br><span class="line">  #停止 Nginx</span><br><span class="line">  systemctl stop nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>相关目录</strong></p>
+<p>Web 目录：<code>/home/wwwroot/3DCEList</code></p>
+<p>V2ray 服务端配置：<code>/etc/v2ray/config.json</code></p>
+<p>V2ray 客户端配置: <code>~/v2ray_info.inf</code></p>
+<p>Nginx 目录： <code>/etc/nginx</code></p>
+<p>证书文件: <code>/data/v2ray.key 和 /data/v2ray.crt</code> 请注意证书权限设置</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>3、根据设备使用客户端</strong></p>
+<ul>
+<li><p>IOS</p>
+<p>IOS端建议登录美区ID，下载Shadowrocket小🚀。</p>
+</li>
+<li><p>Android</p>
+<ul>
+<li>BifrostV（Android），<a href="https://play.google.com/store/apps/details?id=com.github.dawndiy.bifrostv" target="_blank" rel="noopener">Play商店下载地址</a>、<a href="https://apkpure.com/bifrostv/com.github.dawndiy.bifrostv" target="_blank" rel="noopener">ApkPure下载地址</a></li>
+<li>V2RayNG（Android），<a href="https://play.google.com/store/apps/details?id=com.v2ray.ang" target="_blank" rel="noopener">Play商店下载地址</a>、<a href="https://github.com/2dust/v2rayNG/releases" target="_blank" rel="noopener">Github下载地址</a></li>
+</ul>
+</li>
+<li><p>Mac</p>
+<ul>
+<li>V2RayX:  <a href="https://github.com/Cenmrev/V2RayX/releases" target="_blank" rel="noopener">Github</a></li>
+<li>V2RayU:  <a href="https://github.com/yanue/V2rayU/releases" target="_blank" rel="noopener">Github</a></li>
+</ul>
+</li>
+<li><p>Windows</p>
+<ul>
+<li>V2RayN:  <a href="https://github.com/2dust/v2rayN/releases" target="_blank" rel="noopener">Github</a></li>
+<li>VwRayW:  <a href="https://github.com/Cenmrev/V2RayW/releases" target="_blank" rel="noopener">Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>  客户端配置基本大体相同，一般情况下仅仅只需要<strong>导入URL</strong>、<strong>扫描二维码</strong>（具体信息请在服务器查看<code>~/v2ray_info.inf</code>）即可添加Vmess服务器</p>
+<p>  以Windows V2RayN为例，添加Vmess 服务器后，你需要</p>
+<ul>
+<li><p>点击主界面上的“参数设置”（V2rayN 4.0开始变成“参数” ，右边下拉框中找到“参数设置”），在“Core:基础设置”中将“Http代理”选择“开启PAC，并自动配置PAC（PAC模式）”；需要隐藏真实ip，或者某些网站打不开，可使用全局模式（也可以右键托盘图标，在”Http代理“中选择）</p>
+<blockquote>
+<p>V2rayN 4.0开始移除了PAC模式，HTTP代理选项没有了，此步骤可略过</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526180356.png" alt=""></p>
+</li>
+<li><p>接着点击“Core：路由设置”，域名策略选“AsIS”，然后点击“一键设置默认自定义路由规则”，然后点击下方的“确定”完成设置：</p>
+<p><strong>最近好像需要选择IPIfNonMatch</strong></p>
+<blockquote>
+<p>V2rayN 4.0开始，此菜单在“设置”下拉菜单中的“路由设置”中</p>
+<p>最新版V2rayN没有一键设置默认自定义路由规则，请右键桌面右下角V2rayN的图标，选择“系统代理”-&gt;“自动配置系统代理”、“路由”-&gt;“绕过大陆”，等同于旧版的PAC模式</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526180704.png" alt=""></p>
+</li>
+<li><p>没问题的话，你就可以使用你的<em>FB、Ins、Twitter</em>等英语学习帐号啦~</p>
+</li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:bieyp6@foxmail.com">Bie Yongpan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.lovexmtx.icu/2021/05/26/%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91V2Ray%E7%AF%87/">http://blog.lovexmtx.icu/2021/05/26/%E5%A6%82%E4%BD%95%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91V2Ray%E7%AF%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.lovexmtx.icu" target="_blank">Welcome To Byp's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/IT/">IT</a><a class="post-meta__tags" href="/tags/%E6%A2%AF%E5%AD%90/">梯子</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526163421.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/photos/pay/WechatPay.png" target="_blank"><img class="post-qr-code-img" src="/photos/pay/WechatPay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/photos/pay/AliPay.png" target="_blank"><img class="post-qr-code-img" src="/photos/pay/AliPay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/04/27/%E5%AF%B9%E7%A7%91%E5%B9%BB%E7%9A%84%E4%B8%80%E7%82%B9%E7%82%B9%E6%80%9D%E8%80%83/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210427144634.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">对科幻的一点点思考</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></article></main><footer id="footer" style="background-image: url(https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/20210526163421.png)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Bie Yongpan</div><div class="framework-info"><span>框架 </span><a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener">Butterfly</a></div><div class="footer_custom_text">Welcome to byp's blog</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'CWg1JHXTDRRkRsrtzbJAPbUE-MdYXbMMI',
+      appKey: 'DxFxeWcDj5vUMw3cxdKdOzH5',
+      placeholder: 'Please leave your footprints',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'en',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="/js/third-party/click_heart.js" async="async"></script></div></body></html>
