@@ -1700,7 +1700,8 @@ def initDB(dbPath):
   <entry>
     <title>如何雅思备考</title>
     <url>/2021/09/23/%E5%A6%82%E4%BD%95%E9%9B%85%E6%80%9D%E5%A4%87%E8%80%83/</url>
-    <content><![CDATA[<h3 id="如何备考雅思"><a href="#如何备考雅思" class="headerlink" title="如何备考雅思"></a>如何备考雅思</h3><h3 id="词汇"><a href="#词汇" class="headerlink" title="词汇"></a>词汇</h3><h4 id="听力词汇"><a href="#听力词汇" class="headerlink" title="听力词汇"></a>听力词汇</h4><ul>
+    <content><![CDATA[<h3 id="如何备考雅思"><a href="#如何备考雅思" class="headerlink" title="如何备考雅思"></a>如何备考雅思</h3><h3 id="PLAN"><a href="#PLAN" class="headerlink" title="PLAN"></a>PLAN</h3><p>refer to <a href="https://www.bilibili.com/video/BV1PK4y197z6?from=search&amp;seid=6042391761764333530&amp;spm_id_from=333.337.0.0" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1PK4y197z6?from=search&amp;seid=6042391761764333530&amp;spm_id_from=333.337.0.0</a></p>
+<h3 id="词汇"><a href="#词汇" class="headerlink" title="词汇"></a>词汇</h3><h4 id="听力词汇"><a href="#听力词汇" class="headerlink" title="听力词汇"></a>听力词汇</h4><ul>
 <li>土豆雅思</li>
 <li>每日英语听力</li>
 </ul>
@@ -1727,13 +1728,13 @@ def initDB(dbPath):
  <br>
 
 <h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="作文"><a href="#作文" class="headerlink" title="作文"></a>作文</h3><p>写作的思维导图如下：</p>
-<p>![思维导图](<a href="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind</a> map.png)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/%E9%9B%85%E6%80%9D%E5%86%99%E4%BD%9Cmind%20map.png" alt="思维导图"></p>
 <p><strong>Source</strong></p>
 <p><strong>T1 33%</strong></p>
 <p><strong>T2 66%</strong></p>
 <h4 id="Task-1"><a href="#Task-1" class="headerlink" title="Task 1"></a>Task 1</h4><h5 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h5><ul>
 <li>150 words</li>
-<li>20min</li>
+<li>20 min</li>
 <li>Chart</li>
 <li>Be <strong>objective</strong>，no subjective</li>
 </ul>
