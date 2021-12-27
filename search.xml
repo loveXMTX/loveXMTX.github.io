@@ -1726,7 +1726,11 @@ def initDB(dbPath):
 </p>
  <br>
 
-<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="作文"><a href="#作文" class="headerlink" title="作文"></a>作文</h3><p>![思维导图](<a href="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind</a> map.png)</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h3 id="作文"><a href="#作文" class="headerlink" title="作文"></a>作文</h3><p>写作的思维导图如下：</p>
+<p>![思维导图](<a href="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind" target="_blank" rel="noopener">https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/雅思写作mind</a> map.png)</p>
+<p><strong>Source</strong></p>
+<p><strong>T1 33%</strong></p>
+<p><strong>T2 66%</strong></p>
 <h4 id="Task-1"><a href="#Task-1" class="headerlink" title="Task 1"></a>Task 1</h4><h5 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h5><ul>
 <li>150 words</li>
 <li>20min</li>
@@ -1772,6 +1776,62 @@ def initDB(dbPath):
 <li><p>背词汇/句式</p>
 <p><a href="https://blog.cutepepper.xyz/file/writing/%E5%B0%8F%E4%BD%9C%E6%96%87%20%E5%90%84%E5%9B%BE%E8%A1%A8%E5%8F%A5%E5%BC%8F.pdf" target="_blank" rel="noopener">小作文句式pdf</a></p>
 </li>
+</ul>
+<h4 id="Task2"><a href="#Task2" class="headerlink" title="Task2"></a>Task2</h4><p><strong>1、Task response</strong></p>
+<ul>
+<li>一定要address all issues</li>
+<li>必须entirely on topic</li>
+<li>观点和事例之间必须吻合</li>
+<li>Words Suggest 270-320</li>
+</ul>
+<p><strong>2、Coherence&amp; cohesion</strong></p>
+<ul>
+<li><p>4-5 paragraph</p>
+</li>
+<li><p>One idea one paragraph</p>
+</li>
+<li><p>善用连词</p>
+<ul>
+<li><strong>variety</strong></li>
+<li><strong>accuracy</strong></li>
+</ul>
+</li>
+<li><p>Paragraph Structure</p>
+<p><strong>Point, Elaboration, Example, Point</strong></p>
+</li>
+</ul>
+<p><strong>3、Lexical Resource</strong></p>
+<ul>
+<li>一定要用对固定搭配collocations</li>
+<li>尽量避免重复（概念词除外）</li>
+<li>不要有拼写错误</li>
+<li>不要用非正式语言<ul>
+<li><input checked="" disabled="" type="checkbox"> It is</li>
+<li><input disabled="" type="checkbox"> It’s</li>
+<li><input checked="" disabled="" type="checkbox"> I am</li>
+<li><input disabled="" type="checkbox"> I’m</li>
+<li><input checked="" disabled="" type="checkbox"> Thus</li>
+<li><input disabled="" type="checkbox"> So</li>
+</ul>
+</li>
+</ul>
+<p><strong>4、Grammatical</strong></p>
+<ul>
+<li>Precise 不同种类的时态</li>
+<li>复杂句</li>
+<li>准确用标点符号</li>
+<li>避免简单语法错误</li>
+</ul>
+<p><strong>para1 consists of three sentences</strong></p>
+<ul>
+<li>neural statement to point out the backgroup；</li>
+<li>paraphrase the topic 1~2 zoom</li>
+<li><strong>This essay will…</strong></li>
+</ul>
+<p><strong>Para 2, 3, (&amp;4)</strong></p>
+<ul>
+<li>use a paralleled topic sentence to start the paragraph</li>
+<li>follow P-E-E-P</li>
 </ul>
 ]]></content>
       <categories>
