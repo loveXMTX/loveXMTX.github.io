@@ -6319,4 +6319,119 @@ def initDB(dbPath):
         <tag>言语</tag>
       </tags>
   </entry>
+  <entry>
+    <title>乐理学习笔记</title>
+    <url>/2022/02/20/%E4%B9%90%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h1><p>这篇博客呢用来记录，学习音乐的过程。其实说起音乐，真的一直很遗憾小时候家里没💰学🎹hhh，现在呢有机会了就学一学呗，主要是很沉浸于和自己对话的过程，很享受这种时光。</p>
+<ul>
+<li><p>为什么学习乐理知识？</p>
+<p>我个人是觉得我个人虽然是不需要很专业的知识，但是至少我想知道什么音乐好听，为什么好听，或许说是我想学会去欣赏音乐。</p>
+</li>
+</ul>
+<h1 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h1><h2 id="学简谱、认识简谱"><a href="#学简谱、认识简谱" class="headerlink" title="学简谱、认识简谱"></a>学简谱、认识简谱</h2><h3 id="简谱的构造、唱名"><a href="#简谱的构造、唱名" class="headerlink" title="简谱的构造、唱名"></a>简谱的构造、唱名</h3><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/cover/20220220140223.png" alt="Sample" style="zoom:50%;" />
+
+<h3 id="唱名"><a href="#唱名" class="headerlink" title="唱名"></a>唱名</h3><table>
+<thead>
+<tr>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>do</td>
+<td>re</td>
+<td>mi</td>
+<td>fa</td>
+<td>sol</td>
+<td>la</td>
+<td>Si</td>
+</tr>
+</tbody></table>
+<h3 id="音名"><a href="#音名" class="headerlink" title="音名"></a>音名</h3><table>
+<thead>
+<tr>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+</table>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/cover/20220220141607.png" alt=""></p>
+<h3 id="如何理解调号1-？"><a href="#如何理解调号1-？" class="headerlink" title="如何理解调号1=？"></a>如何理解调号1=？</h3><p>1从？出发，比如1=C代表 1要从C出发</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220220142442.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220220142806.png" alt=""></p>
+<h3 id="认识钢琴的黑键"><a href="#认识钢琴的黑键" class="headerlink" title="认识钢琴的黑键"></a>认识钢琴的黑键</h3><p><strong>#升号</strong></p>
+<p><strong>♭ 降号</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220220143625.png" alt=""></p>
+<ul>
+<li><p><strong>为什么一个黑键可以有两个表示，比如C# D♭ ？</strong></p>
+<p>两种表示都可以，主要目的是为了<strong>方便理解</strong>。方便理解才是升降号的意义。</p>
+<p>比如葫芦娃都有两个名字，大娃=红娃，二娃=橙娃，三娃=黄娃……当我们需要用年龄的时候，明显第一种更方便；当我们需要用颜色的时候，第二种名称更方便。</p>
+</li>
+</ul>
+<h3 id="半音-amp-全音"><a href="#半音-amp-全音" class="headerlink" title="半音&amp;全音"></a>半音&amp;全音</h3><ul>
+<li><p><strong>半音</strong>：==<strong>相邻</strong>==的<strong>两</strong>个音，它们之间的==<strong>距离</strong>==就是一个半音。<strong>黑键白键一起算</strong></p>
+<p>C到C#之间就是一个半音，C#到D之间也是一个半音…，<strong>E到F之间也是一个半音</strong></p>
+</li>
+<li><p><strong>全音</strong>：两个半音就是一个全音</p>
+<p>C到D之间是一个全音，D到E之间是一个全音，…，<strong>E到F#之间才是一个全音</strong></p>
+</li>
+</ul>
+<h3 id="12345671的内在规律"><a href="#12345671的内在规律" class="headerlink" title="12345671的内在规律"></a>12345671的内在规律</h3><ul>
+<li><strong>全全==半==全全全==半==</strong></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223212909.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223213050.png" alt=""></p>
+<p>只要满足<strong>全全==半==全全全==半==</strong>就是do re mi fa suo la si</p>
+<h3 id="调式-amp-自然大调"><a href="#调式-amp-自然大调" class="headerlink" title="调式&amp;自然大调"></a>调式&amp;自然大调</h3><ul>
+<li><strong>==调式：一串音，按照一定的规则排列起来==</strong></li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223213855.png" alt=""></p>
+<ul>
+<li><p>（自然）大调：按照<strong>全全半全全全半</strong>的规则排列</p>
+<p>1=C即是C大调；1=D即是D大调</p>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223213748.png" alt=""></p>
+<h3 id="构建自然大调的音阶"><a href="#构建自然大调的音阶" class="headerlink" title="构建自然大调的音阶"></a>构建自然大调的音阶</h3><p>音阶：一个调式里面，它所使用的这些音，按照从低到高的顺序排列起来，由主音开始，主音结束。</p>
+<p>主音：C大调的主音是C，D大调的主音是D，…….</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223214544.png" alt=""></p>
+<p>D大调音阶： D E F# G A B C# D</p>
+<p><strong>音阶中：黑键的表示，不要和白键字母有重复的名字</strong></p>
+<h3 id="黑键开始的自然大调"><a href="#黑键开始的自然大调" class="headerlink" title="黑键开始的自然大调"></a>黑键开始的自然大调</h3><p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223215317.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223215406.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223215909.png" alt=""></p>
+<h3 id="1-C是从哪个C开始？"><a href="#1-C是从哪个C开始？" class="headerlink" title="1=C是从哪个C开始？"></a>1=C是从哪个C开始？</h3><p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223220356.png" alt=""></p>
+<ul>
+<li>两种不同的表示方法：</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223220750.png" style="zoom:50%;" />
+
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223220614.png" alt=""></p>
+<ul>
+<li><p>钢琴的音域与正常人的音域</p>
+<p><img src="https://cdn.jsdelivr.net/gh/loveXMTX/images/blog/yueli/20220223221035.png" alt=""></p>
+</li>
+</ul>
+<p>通常情况下，1=C是等于小字一组C，C4，中央C </p>
+<hr>
+<p>Slow Slow Update</p>
+]]></content>
+      <categories>
+        <category>音乐</category>
+      </categories>
+      <tags>
+        <tag>音乐</tag>
+        <tag>学习笔记</tag>
+      </tags>
+  </entry>
 </search>
