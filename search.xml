@@ -6614,4 +6614,74 @@ def initDB(dbPath):
         <tag>感悟</tag>
       </tags>
   </entry>
+  <entry>
+    <title>A thinking in the begining of phd period</title>
+    <url>/2022/08/19/A-thinking-in-the-begining-of-phd-period/</url>
+    <content><![CDATA[<h3 id="How-do-you-think-about-GIS-subject"><a href="#How-do-you-think-about-GIS-subject" class="headerlink" title="How do you think about GIS subject?"></a>How do you think about GIS subject?</h3><p>In my perspective, Geographic information science (GIS) is a classic interdisciplinary, which addresses the practical geographic problems by using computer technologies or methods. I consider such as math, computer, and statistic  as upstream method subjects, urban planning, human-geography, and environment as  downstream application discipline, GIS as a tool discipline.</p>
+<p>In the past time, or before I went to pursue my doctor degree, I thought GIS scholars should focus more on the innovation of methodology, since it made more sense and looked more fancy, and I took it for granted that researchers should solve more difficult problems. With regard wo application discipline, I also thought it was indispensable. However, in my opinion, researchers should apply some methods to find some interesting or meaningful insights rather than applied the same methods to distinct regions or areas to conclude some roughly same but little different rules.</p>
+<p>Recently, I change my minds, I think it is equally important whether it is upstream or downstream discipline. As for upstream, researchers devote themselves to making innovations in methodology, creating or applying  a new approach based on some powerful models in other filed, eg. proposing and continuously improving GWR model, applying Graph Convolutional Network (GCN) Algorithm into Geography. With regard to downstream, scholars concentrate on utilizing the tool properties of GIS to address scientific questions in the field of human-geography and urban. The key point is to find insights, to give support or implications to other filed. Finally, in terms of the tool properties of GIS, we can develop and improve continuously some tools to serve other subject. It focuses more on engineering and coding capabilities.</p>
+<p>In general, I hold a view that  both three directions of GIS field are neither good or bad, meaningful or worthless.</p>
+<h3 id="How-could-you-determine-the-title-of-your-phd-dissertation"><a href="#How-could-you-determine-the-title-of-your-phd-dissertation" class="headerlink" title="How could you determine the title of your phd dissertation?"></a>How could you determine the title of your phd dissertation?</h3><h4 id="Ways"><a href="#Ways" class="headerlink" title="Ways"></a>Ways</h4><ul>
+<li><p>Determined by advisor</p>
+<ul>
+<li><p>Advisor divide the project which is from his or her phd period into some small tasks (especially youth teacher)</p>
+<p>In this case, the feasibility is ok, also, you advisor can give you adequate advice.</p>
+</li>
+<li><p>Advisor give you a huge ambition</p>
+<p>In this case, the idea may not have a strong proof of feasibility with a high probability, but the idea probably product high-quality articles. Accordingly, you need to address problems by yourself.</p>
+</li>
+</ul>
+</li>
+<li><p>Determined by yourself</p>
+<ul>
+<li><p>Inspiration from life</p>
+<p>The idea is grounded</p>
+</li>
+<li><p>Form academic articles  </p>
+<p>The idea is with academic thinking</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Key-point"><a href="#Key-point" class="headerlink" title="Key point"></a>Key point</h4><ul>
+<li><p>Project time</p>
+</li>
+<li><p>Feasibility / Challenge</p>
+<p>50 percent /50 percent is an appropriate degree, which is both challenging and guaranteed to graduate.</p>
+</li>
+<li><p>Practical Value</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Thinking</category>
+      </categories>
+      <tags>
+        <tag>杂谈</tag>
+        <tag>感想</tag>
+        <tag>phd</tag>
+        <tag>thinking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Matplotlib 在论文中出图的使用笔记</title>
+    <url>/2022/06/16/Matplotlib-%E5%9C%A8%E8%AE%BA%E6%96%87%E4%B8%AD%E5%87%BA%E5%9B%BE%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="Matplotlib-Regular-Config"><a href="#Matplotlib-Regular-Config" class="headerlink" title="Matplotlib Regular Config"></a>Matplotlib Regular Config</h3><h4 id="默认字体"><a href="#默认字体" class="headerlink" title="默认字体"></a>默认字体</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"></span><br><span class="line"># alter the default font of figure</span><br><span class="line">plt.rc(&#39;font&#39;, family&#x3D;&#39;Times New Roman&#39;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="画图设置"><a href="#画图设置" class="headerlink" title="画图设置"></a>画图设置</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># alter the nums of column and row of subplot</span><br><span class="line">plt.subplots(nrows&#x3D;3, ncols&#x3D;3, figsize&#x3D;(6, 6))</span><br><span class="line"># alter the distance between closing two subplots</span><br><span class="line">plt.subplots_adjust(left&#x3D;0.2, right&#x3D;0.85, top&#x3D;0.9, bottom&#x3D;0.15, wspace&#x3D;0.01, hspace&#x3D;0.1)</span><br></pre></td></tr></table></figure>
+
+<h4 id="坐标轴"><a href="#坐标轴" class="headerlink" title="坐标轴"></a>坐标轴</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># set font size of ticks</span><br><span class="line">plt.xticks(fontsize&#x3D;16)</span><br><span class="line">plt.yticks(fontsize&#x3D;16)</span><br><span class="line">plt.tick_params(labelsize&#x3D;16)</span><br><span class="line"></span><br><span class="line"># Alter display distance of X tick to times of 0.5(ie,0.5, 1.0, 1.5, 2.0, ...)</span><br><span class="line">from matplotlib.pyplot import MultipleLocator</span><br><span class="line">plt.gca().xaxis.set_major_locator(MultipleLocator(0.5))</span><br></pre></td></tr></table></figure>
+
+<h4 id="图例"><a href="#图例" class="headerlink" title="图例"></a>图例</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Alter the size of legend, whether frameon is needed, adjust the accuracy location </span><br><span class="line">plt.legend(fontsize&#x3D;&#39;x-large&#39;, loc&#x3D;0, frameon&#x3D;False, bbox_to_anchor&#x3D;(0.575, 0.38))</span><br></pre></td></tr></table></figure>
+
+<h4 id="Cheatsheets"><a href="#Cheatsheets" class="headerlink" title="Cheatsheets"></a>Cheatsheets</h4><p><img src="https://fengweiustc.github.io/assets/images/matplotlib/1.png" alt="sample"></p>
+]]></content>
+      <categories>
+        <category>工具</category>
+      </categories>
+      <tags>
+        <tag>matplotlib</tag>
+        <tag>出图</tag>
+      </tags>
+  </entry>
 </search>

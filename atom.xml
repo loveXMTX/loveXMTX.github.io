@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2022-06-16T07:18:22.475Z</updated>
+  <updated>2022-08-19T06:06:13.841Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>A thinking in the begining of phd period</title>
+    <link href="http://blog.lovexmtx.icu/2022/08/19/A-thinking-in-the-begining-of-phd-period/"/>
+    <id>http://blog.lovexmtx.icu/2022/08/19/A-thinking-in-the-begining-of-phd-period/</id>
+    <published>2022-08-19T01:26:27.000Z</published>
+    <updated>2022-08-19T06:06:13.841Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;How-do-you-think-about-GIS-subject&quot;&gt;&lt;a href=&quot;#How-do-you-think-about-GIS-subject&quot; class=&quot;headerlink&quot; title=&quot;How do you think about
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="http://blog.lovexmtx.icu/categories/Thinking/"/>
+    
+    
+      <category term="杂谈" scheme="http://blog.lovexmtx.icu/tags/%E6%9D%82%E8%B0%88/"/>
+    
+      <category term="感想" scheme="http://blog.lovexmtx.icu/tags/%E6%84%9F%E6%83%B3/"/>
+    
+      <category term="phd" scheme="http://blog.lovexmtx.icu/tags/phd/"/>
+    
+      <category term="thinking" scheme="http://blog.lovexmtx.icu/tags/thinking/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Matplotlib 在论文中出图的使用笔记</title>
+    <link href="http://blog.lovexmtx.icu/2022/06/16/Matplotlib-%E5%9C%A8%E8%AE%BA%E6%96%87%E4%B8%AD%E5%87%BA%E5%9B%BE%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/"/>
+    <id>http://blog.lovexmtx.icu/2022/06/16/Matplotlib-%E5%9C%A8%E8%AE%BA%E6%96%87%E4%B8%AD%E5%87%BA%E5%9B%BE%E7%9A%84%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/</id>
+    <published>2022-06-16T09:34:27.000Z</published>
+    <updated>2022-06-20T06:58:52.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;Matplotlib-Regular-Config&quot;&gt;&lt;a href=&quot;#Matplotlib-Regular-Config&quot; class=&quot;headerlink&quot; title=&quot;Matplotlib Regular Config&quot;&gt;&lt;/a&gt;Matplotlib
+        
+      
+    
+    </summary>
+    
+    
+      <category term="工具" scheme="http://blog.lovexmtx.icu/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="matplotlib" scheme="http://blog.lovexmtx.icu/tags/matplotlib/"/>
+    
+      <category term="出图" scheme="http://blog.lovexmtx.icu/tags/%E5%87%BA%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>对快与慢的一丢丢感想</title>
@@ -546,69 +608,6 @@
       <category term="pandas" scheme="http://blog.lovexmtx.icu/tags/pandas/"/>
     
       <category term="文档处理" scheme="http://blog.lovexmtx.icu/tags/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2020-09-12初体验结构化面试</title>
-    <link href="http://blog.lovexmtx.icu/2020/09/14/2020-09-12%E5%88%9D%E4%BD%93%E9%AA%8C%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
-    <id>http://blog.lovexmtx.icu/2020/09/14/2020-09-12%E5%88%9D%E4%BD%93%E9%AA%8C%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</id>
-    <published>2020-09-14T03:25:33.000Z</published>
-    <updated>2020-09-15T07:37:36.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;1-体验&quot;&gt;&lt;a href=&quot;#1-体验&quot; class=&quot;headerlink&quot; title=&quot;1.体验&quot;&gt;&lt;/a&gt;1.体验&lt;/h3&gt;&lt;p&gt;记录一下我的首次结构化面试。&lt;/p&gt;
-&lt;p&gt;​       
-        
-      
-    
-    </summary>
-    
-    
-      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
-    
-    
-      <category term="面试" scheme="http://blog.lovexmtx.icu/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="结构化面试" scheme="http://blog.lovexmtx.icu/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>结构化面试</title>
-    <link href="http://blog.lovexmtx.icu/2020/08/29/%E3%80%90%E5%85%AC%E8%80%83%E3%80%91%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
-    <id>http://blog.lovexmtx.icu/2020/08/29/%E3%80%90%E5%85%AC%E8%80%83%E3%80%91%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/</id>
-    <published>2020-08-29T00:18:26.000Z</published>
-    <updated>2020-09-06T12:07:06.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;本文用来记录在公务员面试中所遇到的结构化面试，梳理面试知识点。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;常用语句&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt; 1、要&lt;strong&gt;严格执法&lt;/strong&gt;，推进决定的全面实施。担起主体责任，加强协调配合，以霹雳手段开展雷霆行动，从严、从重、从快查处违反本决定的行为。&lt;/p&gt;
-&lt;p&gt; 2、要坚守底线和原则，&lt;strong&gt;推进后续的高质量立法&lt;/strong&gt;。立法涉及不同利益的抉择与定夺，无论利益群体博弈多么剧烈，必须坚守XXX的底线，坚决维护最大多数人的根本利益，坚定构筑公共卫生安全的法律屏障。&lt;/p&gt;
-&lt;p&gt;3、&lt;strong&gt;完善公众监督和举报反馈机制&lt;/strong&gt;，防止恶意低价中标，建立排污企业黑名单制度，设立国家绿色发展基金。&lt;/p&gt;
-&lt;p&gt;4、推进环境治理体系和治理能力现代化，既要抓改革，也要抓落实。一方面，&lt;strong&gt;须加快制度创新、增加制度供给，解决体制机制不健全、法律法规不严密&lt;/strong&gt;等问题；另一方面，&lt;strong&gt;须强化制度执行、确保制度落地&lt;/strong&gt;，让制度成为不可触碰的“带电高压线”。&lt;/p&gt;
-&lt;p&gt;5、传承优秀文化和价值，绝不是简单复古，也不是盲目排外，而是根植于文化自信当中的辩证取舍、推陈出新，实现中华文化、中国价值的创造性转化和创新性发展，激励中国人民创造出新的、更大的中国奇迹。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="公考" scheme="http://blog.lovexmtx.icu/categories/%E5%85%AC%E8%80%83/"/>
-    
-    
-      <category term="面试" scheme="http://blog.lovexmtx.icu/tags/%E9%9D%A2%E8%AF%95/"/>
-    
-      <category term="结构化面试" scheme="http://blog.lovexmtx.icu/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E9%9D%A2%E8%AF%95/"/>
     
   </entry>
   
