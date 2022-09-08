@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.lovexmtx.icu/"/>
-  <updated>2022-08-19T06:06:13.841Z</updated>
+  <updated>2022-09-08T02:21:48.440Z</updated>
   <id>http://blog.lovexmtx.icu/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>一些虚头八脑的东西</title>
+    <link href="http://blog.lovexmtx.icu/2022/09/08/%E4%B8%80%E4%BA%9B%E8%99%9A%E5%A4%B4%E5%85%AB%E8%84%91%E7%9A%84%E4%B8%9C%E8%A5%BF/"/>
+    <id>http://blog.lovexmtx.icu/2022/09/08/%E4%B8%80%E4%BA%9B%E8%99%9A%E5%A4%B4%E5%85%AB%E8%84%91%E7%9A%84%E4%B8%9C%E8%A5%BF/</id>
+    <published>2022-09-08T01:04:03.000Z</published>
+    <updated>2022-09-08T02:21:48.440Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="http://blog.lovexmtx.icu/categories/Thinking/"/>
+    
+    
+      <category term="杂谈" scheme="http://blog.lovexmtx.icu/tags/%E6%9D%82%E8%B0%88/"/>
+    
+      <category term="感想" scheme="http://blog.lovexmtx.icu/tags/%E6%84%9F%E6%83%B3/"/>
+    
+      <category term="phd" scheme="http://blog.lovexmtx.icu/tags/phd/"/>
+    
+  </entry>
   
   <entry>
     <title>A thinking in the begining of phd period</title>
@@ -577,37 +608,6 @@
       <category term="数据分析" scheme="http://blog.lovexmtx.icu/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
     
       <category term="pandas" scheme="http://blog.lovexmtx.icu/tags/pandas/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>文档处理的好助手--pandas的使用</title>
-    <link href="http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
-    <id>http://blog.lovexmtx.icu/2020/09/18/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86%E7%9A%84%E5%A5%BD%E5%8A%A9%E6%89%8B-pandas%E7%9A%84%E4%BD%BF%E7%94%A8/</id>
-    <published>2020-09-18T10:32:02.000Z</published>
-    <updated>2021-05-26T11:23:03.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;h3 id=&quot;1-前言&quot;&gt;&lt;a href=&quot;#1-前言&quot; class=&quot;headerlink&quot; title=&quot;1.前言&quot;&gt;&lt;/a&gt;1.前言&lt;/h3&gt;&lt;p&gt;​       
-        
-      
-    
-    </summary>
-    
-    
-      <category term="工具" scheme="http://blog.lovexmtx.icu/categories/%E5%B7%A5%E5%85%B7/"/>
-    
-    
-      <category term="python" scheme="http://blog.lovexmtx.icu/tags/python/"/>
-    
-      <category term="pandas" scheme="http://blog.lovexmtx.icu/tags/pandas/"/>
-    
-      <category term="文档处理" scheme="http://blog.lovexmtx.icu/tags/%E6%96%87%E6%A1%A3%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
